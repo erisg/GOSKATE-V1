@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    // LOGIN
+
+    // REGISTER
+
+    <dimen name="logo_margin_top">50dp</dimen>
+
+    // PROFILE
+
+    <dimen name="margin">16dp</dimen>
+    <dimen name="profile_img_size">150dp</dimen>
+    <dimen name="img_profile_register_top">20dp</dimen>
+    <dimen name="top_space">18dp</dimen>
+    <dimen name="with_layout_r">300dp</dimen>
+    <dimen name="height_layout_r">480dp</dimen>
+</resources>
