@@ -16,4 +16,11 @@
     <dimen name="with_layout_r">300dp</dimen>
     <dimen name="height_layout_r">480dp</dimen>
 
+    // NEW SPOT
+
+    <dimen name="margin_start">16dp</dimen>
+    <dimen name="margin_top">10dp</dimen>
+    <dimen name="margin_start_title">20dp</dimen>
+    <dimen name="margin_end">16dp</dimen>
+
 </resources>
