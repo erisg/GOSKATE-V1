@@ -1,3 +1,42 @@
 <resources>
-    <string name="app_name">GoSkate</string>
+    <string name="app_name">GOSKATE</string>
+
+    // REGISTER
+
+    <string name="name">Nombre</string>
+    <string name="email">Email</string>
+    <string name="password">Contrase;a</string>
+    <string name="password_confirm">Confirmar Contrase;a</string>
+    <string name="telephone">Telefono</string>
+    <string name="age">Edad</string>
+    <string name="m">M</string>
+    <string name="f">F</string>
+    <string name="sex">SEXO</string>
+    <string name="have_account">Aun no tienes una cuenta ?</string>
+
+    // NEW_SPOT
+
+    <string name="new_spot">"NUEVO SPOT "</string>
+    <string name="information">INFORMACION</string>
+    <string name="category">CATEGORIA</string>
+    <string name="hood">BARRIO</string>
+    <string name="name_spot">Nombre del Spot</string>
+    <string name="locality">LOCALIDAD</string>
+    <string name="hour">HORARIO</string>
+    <string name="weekday">Dia de la semana</string>
+    <string name="opening">Apertura</string>
+    <string name="closing">Cierre</string>
+    <string name="added_photos_videos">AGREGAR FOTOS - VIDEOS</string>
+    <string name="score">CALIFICAR</string>
+    <string name="comments">COMENTARIOS</string>
+    <string name="create">CREAR</string>
+    <string name="name_email">Nombre o Email</string>
+
+    // MENU
+
+    <string name="news">NOVEDADES</string>
+    <string name="maps">MAPA</string>
+    <string name="profile">PERFIL</string>
+
+
 </resources>

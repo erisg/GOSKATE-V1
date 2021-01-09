@@ -9,10 +9,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -28,13 +27,13 @@
             app:srcCompat="@drawable/abc_vector_test" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/newSpotTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="5dp"
-            android:text="NUEVO SPOT"
+            android:text="@string/new_spot"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -63,20 +62,20 @@
                 app:layout_constraintGuide_percent="0.5" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/infoTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_start_title"
                 android:layout_marginLeft="@dimen/margin_start_title"
                 android:layout_marginTop="@dimen/margin_top"
-                android:text="INFORMACION"
+                android:text="@string/information"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/nameSpot"
+                android:id="@+id/nameSpotEditText"
                 style="@style/Widget.AppCompat.EditText"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
@@ -86,12 +85,12 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="@dimen/margin_end"
                 android:background="@drawable/background_blue"
-                android:hint="  Nombre del Spot"
+                android:hint="@string/name_spot"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/cardview_shadow_start_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView8" />
+                app:layout_constraintTop_toBottomOf="@id/infoTitleTextView" />
 
             <TextView
                 android:id="@+id/categoryTextView"
@@ -100,11 +99,11 @@
                 android:layout_marginStart="@dimen/margin_start_title"
                 android:layout_marginLeft="@dimen/margin_start_title"
                 android:layout_marginTop="@dimen/margin_top"
-                android:text="CATEGORIA"
+                android:text="@string/category"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nameSpot" />
+                app:layout_constraintTop_toBottomOf="@id/nameSpotEditText" />
 
             <Spinner
                 android:id="@+id/categorySpinner"
@@ -127,7 +126,7 @@
                 android:layout_marginStart="@dimen/margin_start_title"
                 android:layout_marginLeft="@dimen/margin_start_title"
                 android:layout_marginTop="@dimen/margin_top"
-                android:text="BARRIO"
+                android:text="@string/hood"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +153,7 @@
                 android:layout_marginStart="@dimen/margin_start_title"
                 android:layout_marginLeft="@dimen/margin_start_title"
                 android:layout_marginTop="@dimen/margin_top"
-                android:text="LOCALIDAD"
+                android:text="@string/locality"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/guideline4"
@@ -179,12 +178,12 @@
                 android:id="@+id/hourTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="HORARIO"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
                 android:layout_marginStart="@dimen/margin_start_title"
                 android:layout_marginLeft="@dimen/margin_start_title"
                 android:layout_marginTop="@dimen/margin_top"
+                android:text="@string/hour"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/localityEditText"
                 app:layout_constraintTop_toBottomOf="@id/localityEditText" />
 
@@ -192,16 +191,17 @@
                 android:id="@+id/dayOfWeekTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/margin_start_title"
                 android:layout_marginLeft="@dimen/margin_start_title"
                 android:layout_marginTop="@dimen/margin_top"
-                android:text="Dia de la semana"
+                android:text="@string/weekday"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/hourTextView" />
 
             <Spinner
+                android:id="@+id/dayOfWeekSpinner"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:background="@drawable/background_blue"
@@ -218,14 +218,14 @@
                 android:id="@+id/openTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Apertura"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_marginTop="@dimen/margin_top"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                app:layout_constraintTop_toBottomOf="@id/hourTextView"
-                app:layout_constraintStart_toEndOf="@+id/guideline4" />
+                android:layout_marginTop="@dimen/margin_top"
+                android:text="@string/opening"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/guideline4"
+                app:layout_constraintTop_toBottomOf="@id/hourTextView" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/dividerGuideline"
@@ -251,15 +251,15 @@
                 android:id="@+id/closedTextView"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Cierre"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
+                android:text="@string/closing"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/openTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/dividerGuideline"
-                app:layout_constraintTop_toTopOf="@+id/openTextView"
-                app:layout_constraintBottom_toBottomOf="@+id/openTextView" />
+                app:layout_constraintTop_toTopOf="@+id/openTextView" />
 
             <Spinner
                 android:id="@+id/closedSpinner"
@@ -292,14 +292,14 @@
                 android:id="@+id/addPhotosVideosTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AGREGAR FOTOS - VIDEOS"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_marginLeft="@dimen/margin_start"
                 android:layout_marginStart="@dimen/margin_start"
+                android:layout_marginLeft="@dimen/margin_start"
                 android:layout_marginTop="@dimen/margin_top"
-                app:layout_constraintTop_toBottomOf="@+id/hoursRecyclerView"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:text="@string/added_photos_videos"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hoursRecyclerView" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="30dp"
@@ -329,12 +329,12 @@
                 android:id="@+id/scoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CALIFICAR"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:layout_marginTop="@dimen/margin_top"
-                android:layout_marginLeft="@dimen/margin_start"
                 android:layout_marginStart="@dimen/margin_start"
+                android:layout_marginLeft="@dimen/margin_start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:text="@string/score"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/photosRecyclerView" />
 
@@ -355,29 +355,30 @@
                 android:id="@+id/commentsEditText"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:hint="COMENTARIOS"
-                android:background="@drawable/background_blue"
-                android:layout_marginLeft="@dimen/margin_start"
                 android:layout_marginStart="@dimen/margin_start"
+                android:layout_marginLeft="@dimen/margin_start"
+                android:layout_marginTop="@dimen/margin_top"
                 android:layout_marginEnd="@dimen/margin_end"
                 android:layout_marginRight="@dimen/margin_end"
-                android:layout_marginTop="@dimen/margin_top"
-                app:layout_constraintTop_toBottomOf="@id/scoreRatingBar"
+                android:background="@drawable/background_blue"
+                android:hint="@string/comments"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/scoreRatingBar" />
 
             <Button
+                android:id="@+id/createButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CREAR"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
-                android:background="@color/colorPrimary"
                 android:layout_marginTop="@dimen/margin_top"
-                android:layout_marginBottom="@dimen/margin_top"
+                android:layout_marginBottom="20dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/create"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/commentsEditText"
                 app:layout_constraintEnd_toEndOf="@id/commentsEditText"
+                app:layout_constraintStart_toStartOf="@id/commentsEditText"
                 app:layout_constraintTop_toBottomOf="@+id/commentsEditText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

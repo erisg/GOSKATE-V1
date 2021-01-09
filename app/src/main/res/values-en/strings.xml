@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GOSKATE</string>
+
+    // REGISTER
+
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Confirm Password</string>
+    <string name="telephone">Telephone</string>
+    <string name="age">Age</string>
+    <string name="sex">SEX</string>
+    <string name="m">M</string>
+    <string name="f">F</string>
+    <string name="have_account">Do not you have an account yet?</string>
+
+    // NEW_SPOT
+
+    <string name="new_spot">"NEW SPOT"</string>
+    <string name="information">INFORMATION</string>
+    <string name="category">CATEGORY</string>
+    <string name="hood">NEIGHBORHOOD</string>
+    <string name="name_spot">Spot Name</string>
+    <string name="locality">LOCALITY</string>
+    <string name="hour">HOUR</string>
+    <string name="weekday">WeekDay</string>
+    <string name="opening">Opening</string>
+    <string name="closing">Closing</string>
+    <string name="added_photos_videos">ADD PHOTOS - VIDEOS</string>
+    <string name="score">SCORE</string>
+    <string name="comments">COMMENTS</string>
+    <string name="create">CREATE</string>
+    <string name="name_email">Name or Email</string>
+
+    // MENU
+
+    <string name="news">NEWS</string>
+    <string name="maps">MAPA</string>
+    <string name="profile">PERFIL</string>
+
+</resources>

@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/userNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginTop="@dimen/margin"
-            android:text="GERAL"
+            tools:text="GERAL"
             android:textColor="#F8F6F6"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -32,14 +32,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/addPostFloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/userProfileImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/userProfileImageView"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:srcCompat="@android:drawable/ic_input_add" />
 
@@ -51,7 +50,7 @@
         app:layout_constraintGuide_percent="0.08"/>
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/userProfileImageView"
         android:layout_width="@dimen/profile_img_size"
         android:layout_height="@dimen/profile_img_size"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,11 +59,11 @@
         app:srcCompat="@drawable/profile" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userPostRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
