@@ -99,6 +99,8 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginTop="@dimen/img_profile_register_top"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/nameEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -150,9 +152,10 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="186dp"
-        android:layout_height="71dp"
+        android:layout_width="@dimen/register_button_width"
+        android:layout_height="@dimen/register_button_height"
         android:layout_marginTop="@dimen/img_profile_register_top"
+        android:layout_marginBottom="@dimen/margin_bottom_register"
         android:background="@drawable/regist"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
