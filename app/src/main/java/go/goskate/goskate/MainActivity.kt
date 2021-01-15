@@ -5,14 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import go.goskate.goskate.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
 
 
@@ -20,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        navController = findNavController(R.id.fragment)
+        bottomNavigationView.setupWithNavController(navController)
 
     }
 
