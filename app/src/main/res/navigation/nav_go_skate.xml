@@ -3,11 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_go_skate"
-    app:startDestination="@id/maps">
+    app:startDestination="@id/goSkateMap">
 
     <fragment
-        android:id="@+id/maps"
+        android:id="@+id/goSkateMap"
         android:name="go.goskate.goskate.ui.Maps"
         android:label="maps_fragment"
-        tools:layout="@layout/maps_fragment" />
+        tools:layout="@layout/maps_fragment">
+
+        <action
+            android:id="@+id/action_maps_to_newSpot2"
+            app:destination="@id/newSpot" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="go.goskate.goskate.ui.UserProfile"
+        android:label="UserProfile"
+        tools:layout="@layout/profile" />
+
+    <fragment
+        android:id="@+id/news"
+        android:name="go.goskate.goskate.ui.News"
+        android:label="News"
+        tools:layout="@layout/news" />
+    <fragment
+        android:id="@+id/newSpot"
+        android:name="go.goskate.goskate.ui.NewSpot"
+        android:label="NewSpot"
+        tools:layout="@layout/new_spot">
+        <action
+            android:id="@+id/action_newSpot_to_maps"
+            app:destination="@id/goSkateMap" />
+    </fragment>
+
+
 </navigation>

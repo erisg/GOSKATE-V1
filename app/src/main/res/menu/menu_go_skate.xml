@@ -8,12 +8,12 @@
         android:title="@string/maps" />
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/news"
         android:icon="@drawable/ic_action_post"
         android:title="@string/news" />
 
     <item
-        android:id="@+id/notifyFragment"
+        android:id="@+id/userProfile"
         android:icon="@drawable/ic_action_profile"
         android:title="@string/profile" />
 
