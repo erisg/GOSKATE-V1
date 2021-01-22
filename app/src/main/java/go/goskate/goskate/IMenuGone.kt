@@ -1,4 +1,4 @@
-package go.goskate.goskate.helper
+package go.goskate.goskate
 
 interface IMenuGone {
     fun menuGone()

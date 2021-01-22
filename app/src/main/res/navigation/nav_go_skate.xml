@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/goSkateMap"
-        android:name="go.goskate.goskate.ui.Maps"
+        android:name="go.goskate.goskate.ui.maps.Maps"
         android:label="maps_fragment"
         tools:layout="@layout/maps_fragment">
 
@@ -29,7 +29,7 @@
         tools:layout="@layout/news" />
     <fragment
         android:id="@+id/newSpot"
-        android:name="go.goskate.goskate.ui.NewSpot"
+        android:name="go.goskate.goskate.ui.maps.NewSpot"
         android:label="NewSpot"
         tools:layout="@layout/new_spot">
         <action

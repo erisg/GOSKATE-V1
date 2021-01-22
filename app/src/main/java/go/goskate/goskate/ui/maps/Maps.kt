@@ -1,4 +1,5 @@
-package go.goskate.goskate.ui
+package go.goskate.goskate.ui.maps
+
 
 import android.content.res.Resources
 import androidx.lifecycle.ViewModelProviders
@@ -25,9 +26,6 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private var mapView: MapView? = null
     private var navController: NavController? = null
     private lateinit var viewModel: MapsViewModel
-
-    companion object {
-    }
 
 
     override fun onCreateView(
@@ -57,17 +55,59 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
 
     override fun onMapReady(googleMap: GoogleMap?) {
-        mMap = googleMap!!
+        googleMap.let {
+            mMap = it!!
+        }
         mMap.setOnMarkerClickListener(this)
 
+        try {
+            val success = mMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(this.context, R.raw.mapstyle)
+            )
+            if (!success) {
+                Log.e("oo", "Style parsing failed.")
+            }
+        } catch (e: Resources.NotFoundException) {
+            Log.e("oo", "Can't find style. Error: ", e)
+        }
 
-        val place = LatLng(4.648671, -74.120623)
-        val zoomLevel = 11.8f
-        mMap.addMarker(MarkerOptions().position(place).title("loveu"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, zoomLevel))
+        val tercerMilenio = LatLng(4.648671, -74.120623)
+        val tunal = LatLng(4.571306, -74.136941)
+        val movistar = LatLng(4.649959, -74.077532)
+        val bowl72 = LatLng(4.663218, -74.066717)
+        val toberin = LatLng(4.743526, -74.039515)
+        val fontanar = LatLng(4.756818, -74.111592)
+        val flores = LatLng(4.753979, -74.101135)
+        val tibabuyes = LatLng(4.734838, -74.107224)
+        val margaritas = LatLng(4.734838, -74.107224)
+        val nuevoMilenio = LatLng(4.529037, -74.115449)
+        val palermo = LatLng(4.541913, -74.109892)
+        val francia = LatLng(4.622971, -74.111631)
+
+        val spots = listOf(
+            tercerMilenio,
+            tunal,
+            movistar,
+            bowl72,
+            toberin,
+            fontanar,
+            flores,
+            tibabuyes,
+            margaritas,
+            nuevoMilenio,
+            palermo,
+            francia
+        )
+        val zoomLevel = 11.7f
+        val cameraPlace = LatLng(4.622971, -74.111631)
+
+        spots.forEach { place ->
+            mMap.addMarker(MarkerOptions().position(place).title("loveu"))
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraPlace, zoomLevel))
     }
 
-    override fun onMarkerClick(p0: Marker?): Boolean {
+    override fun onMarkerClick(marker: Marker?): Boolean {
         TODO("Not yet implemented")
     }
 
