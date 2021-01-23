@@ -10,6 +10,12 @@ import go.goskate.goskate.R
 
 class SpotBottomSheetFragment : BottomSheetDialogFragment() {
 
+    companion object {
+
+        const val TAG = "CustomBottomSheetDialogFragment"
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,12 +56,4 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
         fun onItemClick(item: String)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(bundle: Bundle): SpotBottomSheetFragment {
-            val fragment = SpotBottomSheetFragment()
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
 }

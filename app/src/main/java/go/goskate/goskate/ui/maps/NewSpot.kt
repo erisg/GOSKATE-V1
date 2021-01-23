@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import go.goskate.goskate.R
 import go.goskate.goskate.IMenuGone
+import go.goskate.goskate.MainActivity
 
 class NewSpot : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,7 +25,5 @@ class NewSpot : Fragment() {
 
     }
 
-    companion object {
-        lateinit var iMenuGone: IMenuGone
-    }
+
 }
