@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_menu">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/typeCapture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <ImageView
+            android:id="@+id/openGalleryImageView"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_action_profile_new_post"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="GALERIA"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/openGalleryImageView"
+            app:layout_constraintStart_toStartOf="@id/openGalleryImageView"
+            app:layout_constraintEnd_toEndOf="@id/openGalleryImageView" />
+
+        <ImageView
+            android:id="@+id/openCameraPhotoImageView"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:background="@drawable/ic_action_post_take_picture"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintEnd_toStartOf="@id/openVideoImageView"
+            app:layout_constraintStart_toEndOf="@id/openGalleryImageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="FOTO"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/openCameraPhotoImageView"
+            app:layout_constraintStart_toStartOf="@id/openCameraPhotoImageView"
+            app:layout_constraintTop_toBottomOf="@id/openCameraPhotoImageView" />
+
+
+        <ImageView
+            android:id="@+id/openVideoImageView"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/ic_action_post_take_video"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/openCameraPhotoImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="VIDEO"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/openVideoImageView"
+            app:layout_constraintEnd_toEndOf="@id/openVideoImageView"
+            app:layout_constraintTop_toBottomOf="@id/openVideoImageView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

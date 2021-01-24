@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
 import kotlinx.android.synthetic.main.maps_fragment.*
@@ -108,7 +110,14 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {
-        TODO("Not yet implemented")
+
+        if (marker?.title == "loveu") {
+            val bottomSheet = layoutInflater.inflate(R.layout.spot, null)
+            val dialog = BottomSheetDialog(this.requireContext())
+            dialog.setContentView(bottomSheet)
+            dialog.show()
+        }
+        return true
     }
 
 }
