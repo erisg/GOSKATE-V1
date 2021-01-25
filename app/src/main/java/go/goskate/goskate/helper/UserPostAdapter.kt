@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import go.goskate.goskate.R
@@ -34,26 +33,23 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
 
     inner class ViewHolderImage(view: View) : RecyclerView.ViewHolder(view) {
 
-        val postImage: ImageView = view.postImageView
-        val postVideo: VideoView = view.postVideoView
-        val liked: ImageView = view.likedImageView
-        val likedNumber: TextView = view.likedTextView
-        val location: ImageView = view.locationImageView
+        private val postImage: ImageView = view.postImageView
+        private val liked: ImageView = view.likedImageView
+        private val likedNumber: TextView = view.likedTextView
+        private val location: ImageView = view.locationImageView
 
         fun bind(item: PostVO) {
             if (item.typeCapture == PostVO.TypeCapture.PHOTO) {
                 postImage.visibility = View.VISIBLE
-                postVideo.visibility = View.GONE
 
                 Glide.with(context)
-                    .load(item.fileCapture)
+                    .load(item.fileImageCapture)
                     .into(postImage)
 
             } else {
-                postImage.visibility = View.GONE
-                postVideo.visibility = View.VISIBLE
-
-                postVideo.setVideoPath(item.fileCapture)
+                Glide.with(context)
+                    .load(item.fileVideoCapture)
+                    .into(postImage)
             }
 
             likedNumber.text = item.likesNumbers.toString()

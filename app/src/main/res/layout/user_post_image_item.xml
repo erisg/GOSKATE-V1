@@ -5,56 +5,71 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/postImageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/ic_action_profile_new_post" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <VideoView
-        android:id="@+id/postVideoView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:visibility="gone"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/ic_action_profile_new_post" />
+        <ImageView
+            android:id="@+id/postImageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="1dp"
+            android:background="@drawable/ic_action_profile_new_post"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/likedImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_action_post"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/postImageView"
-        app:layout_constraintStart_toStartOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postImageView">
 
-    <TextView
-        android:id="@+id/likedTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FIRE"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/likedImageView"
-        app:layout_constraintTop_toBottomOf="@+id/postImageView" />
 
-    <ImageView
-        android:id="@+id/locationImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_action_maps"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/postImageView" />
+            <ImageView
+                android:id="@+id/likedImageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/ic_action_post_negative"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/likedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="FIRE"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/likedImageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/locationImageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/ic_action_maps_negative"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

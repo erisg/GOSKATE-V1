@@ -113,9 +113,8 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
         if (marker?.title == "loveu") {
             val bottomSheet = layoutInflater.inflate(R.layout.spot, null)
-            val dialog = BottomSheetDialog(this.requireContext())
-            dialog.setContentView(bottomSheet)
-            dialog.show()
+            val spotDetails = SpotBottomSheetFragment.newInstance()
+            spotDetails.show(requireActivity().supportFragmentManager, "NEW SPOT")
         }
         return true
     }
