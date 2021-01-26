@@ -112,7 +112,6 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     override fun onMarkerClick(marker: Marker?): Boolean {
 
         if (marker?.title == "loveu") {
-            val bottomSheet = layoutInflater.inflate(R.layout.spot, null)
             val spotDetails = SpotBottomSheetFragment.newInstance()
             spotDetails.show(requireActivity().supportFragmentManager, "NEW SPOT")
         }
