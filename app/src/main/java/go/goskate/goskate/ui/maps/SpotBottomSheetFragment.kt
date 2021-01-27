@@ -32,15 +32,19 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBottomSheetBehaviorCallback
+        mBottomSheetBehaviorCallback.onStateChanged(
+            this.requireView(),
+            BottomSheetBehavior.STATE_HIDDEN
+        )
     }
 
 
     private val mBottomSheetBehaviorCallback: BottomSheetCallback = object : BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                dismiss()
+                BottomSheetBehavior.STATE_HIDDEN
             }
+
         }
 
         override fun onSlide(bottomSheet: View, slideOffset: Float) {}

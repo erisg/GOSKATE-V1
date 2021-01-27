@@ -3,26 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_menu">
+    android:background="@color/cardview_dark_background">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/typeCapture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <ImageView
             android:id="@+id/openGalleryImageView"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:background="@drawable/ic_action_profile_new_post"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,17 +33,18 @@
             android:gravity="center"
             android:text="GALERIA"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/openGalleryImageView"
+            app:layout_constraintEnd_toEndOf="@id/openGalleryImageView"
             app:layout_constraintStart_toStartOf="@id/openGalleryImageView"
-            app:layout_constraintEnd_toEndOf="@id/openGalleryImageView" />
+            app:layout_constraintTop_toBottomOf="@id/openGalleryImageView" />
 
         <ImageView
             android:id="@+id/openCameraPhotoImageView"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:background="@drawable/ic_action_post_take_picture"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
+            android:background="@drawable/ic_action_post_take_picture"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/openVideoImageView"
             app:layout_constraintStart_toEndOf="@id/openGalleryImageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -63,12 +65,13 @@
             android:id="@+id/openVideoImageView"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/ic_action_post_take_video"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/openCameraPhotoImageView"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="5dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView5"
@@ -77,8 +80,8 @@
             android:gravity="center"
             android:text="VIDEO"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/openVideoImageView"
             app:layout_constraintEnd_toEndOf="@id/openVideoImageView"
+            app:layout_constraintStart_toStartOf="@id/openVideoImageView"
             app:layout_constraintTop_toBottomOf="@id/openVideoImageView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

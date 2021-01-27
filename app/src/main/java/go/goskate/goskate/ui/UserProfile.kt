@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import go.goskate.goskate.IMenuGone
+import go.goskate.goskate.MainActivity
 import go.goskate.goskate.R
 import go.goskate.goskate.helper.CustomDialogFragment
 import go.goskate.goskate.helper.UserPostAdapter

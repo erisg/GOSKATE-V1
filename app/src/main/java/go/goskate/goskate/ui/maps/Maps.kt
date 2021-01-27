@@ -2,13 +2,13 @@ package go.goskate.goskate.ui.maps
 
 
 import android.content.res.Resources
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.gms.maps.*
@@ -17,10 +17,10 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
 import kotlinx.android.synthetic.main.maps_fragment.*
+
 
 class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 

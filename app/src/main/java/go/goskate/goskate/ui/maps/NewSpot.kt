@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import go.goskate.goskate.R
 import go.goskate.goskate.IMenuGone
 import go.goskate.goskate.MainActivity
+import go.goskate.goskate.helper.CustomDialogFragment
+import kotlinx.android.synthetic.main.new_spot.*
 
 class NewSpot : Fragment() {
 
+    lateinit var menuGone: IMenuGone
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,6 +25,11 @@ class NewSpot : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        filesSpotFloatingActionButton.setOnClickListener {
+            val dialog = CustomDialogFragment()
+            dialog.show(requireActivity().supportFragmentManager, "PostDialog")
+        }
 
     }
 
