@@ -31,17 +31,17 @@ class CustomDialogFragment : DialogFragment() {
         val rootView = inflater.inflate(R.layout.custom_dialog_post, container, false)
 
 
-        rootView.openGalleryImageView.setOnClickListener {
+        rootView.openGalleryConstraintLayout.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             startActivity(intent)
         }
 
-        rootView.openCameraPhotoImageView.setOnClickListener {
+        rootView.openCameraPhotoConstraintLayout.setOnClickListener {
             takePicture()
         }
 
-        rootView.openVideoImageView.setOnClickListener {
+        rootView.openVideoConstraintLayout.setOnClickListener {
             recordVideo()
         }
         return rootView

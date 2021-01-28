@@ -1,4 +1,4 @@
-package go.goskate.goskate.helper
+package go.goskate.goskate.helper.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -17,7 +17,7 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderImage {
         val vista = LayoutInflater.from(parent.context)
-            .inflate(R.layout.user_post_image_item, parent, false)
+            .inflate(R.layout.news_item, parent, false)
         return ViewHolderImage(vista)
     }
 
