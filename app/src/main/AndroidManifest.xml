@@ -44,6 +44,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+
+        <activity
+            android:name=".ui.NewUser"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

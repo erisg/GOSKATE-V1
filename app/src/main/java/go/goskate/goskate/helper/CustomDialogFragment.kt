@@ -64,7 +64,7 @@ class CustomDialogFragment : DialogFragment() {
             userProfileViewModel.postVO.fileVideoCapture = dataUri.toString()
             userProfileViewModel.postVO.typeCapture = PostVO.TypeCapture.VIDEO
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val imageBitmap = data?.extras?.get("post") as Bitmap
+            val imageBitmap = data?.data as Bitmap
             userProfileViewModel.postVO.fileImageCapture = imageBitmap
             userProfileViewModel.postVO.typeCapture = PostVO.TypeCapture.PHOTO
         }

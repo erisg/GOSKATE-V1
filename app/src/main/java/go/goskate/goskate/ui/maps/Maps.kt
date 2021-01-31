@@ -16,7 +16,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
 import kotlinx.android.synthetic.main.maps_fragment.*

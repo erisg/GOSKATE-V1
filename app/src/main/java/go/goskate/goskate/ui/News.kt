@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.news.*
 
 class News : Fragment() {
 
-    lateinit var newsPost: MutableList<NewsVO>
+     private var newsPost: MutableList<NewsVO>? = null
     private val userProfileViewModel: NewsViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -30,13 +30,14 @@ class News : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (userProfileViewModel.newsPost.isNotEmpty()) {
-            newsPost.addAll(userProfileViewModel.newsPost)
+
+        newsPost?.addAll(userProfileViewModel.newsPost)
+
+
+        if (newsPost?.isEmpty() == true) {
+            newsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
+            newsRecyclerView.adapter = NewsAdapter(requireContext(), newsPost!!)
         }
-
-
-        newsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
-        newsRecyclerView.adapter = NewsAdapter(requireContext(), newsPost)
 
     }
 }
