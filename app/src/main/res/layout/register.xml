@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/logo_margin_top"
-        android:text="@string/app_name"
+        android:text="BIENVENIDO A GOSKATE !"
         android:textColor="@color/colorWhite"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -23,7 +23,7 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="@dimen/with_layout_r"
         android:layout_height="@dimen/height_layout_r"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
             android:background="@drawable/background_blue"
             android:ems="10"
             android:hint="@string/age"
-            android:inputType="textPersonName"
+            android:inputType="numberSigned|textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/womenRadioButton" />
@@ -50,7 +50,7 @@
             android:background="@drawable/background_blue"
             android:ems="10"
             android:hint="@string/password_confirm"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
@@ -63,7 +63,7 @@
             android:background="@drawable/background_blue"
             android:ems="10"
             android:hint="@string/telephone"
-            android:inputType="textPersonName"
+            android:inputType="numberSigned|textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/confirmEditText" />
@@ -92,19 +92,46 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/profileImageCardView" />
 
-        <ImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profileImageCardView"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:layout_marginTop="@dimen/img_profile_register_top"
             android:layout_marginBottom="18dp"
+            app:cardCornerRadius="100dp"
             app:layout_constraintBottom_toTopOf="@+id/nameEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/ic_action_profile" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_action_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addPhotoProfileFloatingActionButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/ic_action_post_take_picture"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImageCardView"
+            app:layout_constraintEnd_toEndOf="@+id/profileImageCardView"
+            app:layout_constraintStart_toEndOf="@+id/profileImageCardView"
+            app:layout_constraintTop_toTopOf="@+id/profileImageCardView" />
+
 
         <EditText
             android:id="@+id/emailEditText"

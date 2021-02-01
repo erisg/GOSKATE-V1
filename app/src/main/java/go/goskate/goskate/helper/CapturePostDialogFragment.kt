@@ -16,7 +16,7 @@ import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.custom_dialog_post.view.*
 
-class CustomDialogFragment : DialogFragment() {
+class CapturePostDialogFragment : DialogFragment() {
 
 
     private val REQUEST_VIDEO_CAPTURE = 101
@@ -64,9 +64,11 @@ class CustomDialogFragment : DialogFragment() {
             userProfileViewModel.postVO.fileVideoCapture = dataUri.toString()
             userProfileViewModel.postVO.typeCapture = PostVO.TypeCapture.VIDEO
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val imageBitmap = data?.data as Bitmap
-            userProfileViewModel.postVO.fileImageCapture = imageBitmap
-            userProfileViewModel.postVO.typeCapture = PostVO.TypeCapture.PHOTO
+            if (data?.data != null) {
+                val imageBitmap = data.data as Bitmap
+                userProfileViewModel.postVO.fileImageCapture = imageBitmap
+                userProfileViewModel.postVO.typeCapture = PostVO.TypeCapture.PHOTO
+            }
         }
         dismiss()
     }

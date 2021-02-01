@@ -1,5 +1,6 @@
 package go.goskate.goskate.vo
 
+import android.graphics.Bitmap
 import kotlinx.android.synthetic.main.register.*
 
 class UserVO {
@@ -9,6 +10,7 @@ class UserVO {
     var userTelephone: String = ""
     var userAge: String = ""
     var userGender: Boolean? = null
+    var profileImage: Bitmap? = null
 
     constructor()
 

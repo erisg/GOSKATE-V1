@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import go.goskate.goskate.R
-import go.goskate.goskate.helper.CustomDialogFragment
+import go.goskate.goskate.helper.CapturePostDialogFragment
 import go.goskate.goskate.helper.adapters.UserPostAdapter
 import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
@@ -31,12 +31,8 @@ class UserProfile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (posts.isNotEmpty()) {
-        }
-
-
         openTakeFilesImageView.setOnClickListener {
-            val dialog = CustomDialogFragment()
+            val dialog = CapturePostDialogFragment()
             dialog.show(requireActivity().supportFragmentManager, "PostDialog")
         }
 
