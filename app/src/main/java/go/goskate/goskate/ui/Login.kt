@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -23,7 +24,6 @@ class Login : AppCompatActivity() {
 
         loginButton.setOnClickListener {
             validateData()
-            startActivity(Intent(this, MainActivity::class.java))
         }
 
         haveAccountTextView.setOnClickListener {
@@ -39,7 +39,19 @@ class Login : AppCompatActivity() {
         if (email.isNotEmpty() && password.isNotEmpty()) {
             authViewModel.userVO.userEmail = email
             authViewModel.userVO.userPassword = password
-            authViewModel.dataLogin()
+            dataResponse()
+        } else {
+            Toast.makeText(this, "FALTA INFORMACION POR INGRESAR", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun dataResponse() {
+        authViewModel.dataLogin().observeForever {
+            if (it == "Successful") {
+                startActivity(Intent(this, MainActivity::class.java))
+            } else {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

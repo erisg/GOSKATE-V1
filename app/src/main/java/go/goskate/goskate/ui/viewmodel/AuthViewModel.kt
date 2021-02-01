@@ -18,7 +18,7 @@ class AuthViewModel : ViewModel() {
         return authRepository.saveUser(userVO)
     }
 
-    fun dataLogin() {
-
+    fun dataLogin(): MutableLiveData<String> {
+        return authRepository.isUserExist(userVO)
     }
 }

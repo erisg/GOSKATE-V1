@@ -38,6 +38,8 @@
             android:ems="10"
             android:hint="@string/age"
             android:inputType="numberSigned|textPersonName"
+            android:textColor="#171616"
+            android:textColorHint="@color/textHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/womenRadioButton" />
@@ -51,6 +53,8 @@
             android:ems="10"
             android:hint="@string/password_confirm"
             android:inputType="textPassword"
+            android:textColor="#2B2929"
+            android:textColorHint="@color/textHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
@@ -64,6 +68,8 @@
             android:ems="10"
             android:hint="@string/telephone"
             android:inputType="numberSigned|textPassword"
+            android:textColor="#222020"
+            android:textColorHint="@color/textHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/confirmEditText" />
@@ -77,6 +83,8 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:textColor="#292626"
+            android:textColorHint="@color/textHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
@@ -90,6 +98,8 @@
             android:ems="10"
             android:hint="@string/name"
             android:inputType="textPersonName"
+            android:textColor="#131313"
+            android:textColorHint="@color/textHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImageCardView" />
@@ -142,6 +152,8 @@
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
+            android:textColor="#292828"
+            android:textColorHint="@color/textHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameEditText" />

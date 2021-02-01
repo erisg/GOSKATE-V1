@@ -21,4 +21,18 @@ class AuthRepository() {
         return mutableDataResponse
     }
 
+    fun isUserExist(user: UserVO): MutableLiveData<String> {
+        val mutableDataLoginResponse = MutableLiveData<String>()
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(user.userEmail, user.userPassword)
+            .addOnCompleteListener { task ->
+                val message = task.exception.toString()
+                mutableDataLoginResponse.value = if (task.isSuccessful) {
+                    "Successful"
+                } else {
+                    message
+                }
+            }
+        return mutableDataLoginResponse
+    }
+
 }
