@@ -2,6 +2,7 @@ package go.goskate.goskate.helper
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
+import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.profile_photo_capture.view.*
 
 class CaptureProfilePhotoDialogFragment : DialogFragment() {
@@ -42,8 +44,12 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
 
 
     private fun takePicture() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -12,6 +12,7 @@ import go.goskate.goskate.MainActivity
 import go.goskate.goskate.R
 import go.goskate.goskate.helper.CaptureProfilePhotoDialogFragment
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
+import go.goskate.goskate.vo.UserVO
 import kotlinx.android.synthetic.main.register.*
 
 class NewUser : AppCompatActivity() {
