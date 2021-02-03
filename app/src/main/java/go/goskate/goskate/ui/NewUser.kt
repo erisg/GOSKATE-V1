@@ -1,6 +1,7 @@
 package go.goskate.goskate.ui
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -19,15 +20,17 @@ class NewUser : AppCompatActivity() {
 
 
     private val authViewModel: AuthViewModel by viewModels()
+    lateinit var profileImage: Bitmap
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register)
 
-        authViewModel.profileImage.observe(this, {
-            profileImageView.setImageURI(it)
-        })
+        authViewModel.profileImage.observeForever {
+            profileImageView.setImageBitmap(it)
+            profileImage = it
+        }
 
         /**
          * Abre la camara y se captura foto de perfil
@@ -51,7 +54,7 @@ class NewUser : AppCompatActivity() {
         val userName = nameEditText.text.toString()
         val userEmail = emailEditText.text.toString()
         val userPassword = passwordEditText.text.toString()
-        val userPasswordConfirm = confirmEditText.text.toString()
+        val userPasswordConfirm = confirmPasswordEditText.text.toString()
         val userTelephone = telephoneEditText.text.toString()
         val userAge = ageEditText.text.toString()
 
@@ -64,6 +67,7 @@ class NewUser : AppCompatActivity() {
                 authViewModel.userVO.userEmail = userEmail
                 authViewModel.userVO.userTelephone = userTelephone
                 authViewModel.userVO.userAge = userAge
+                authViewModel.userVO.profileImage = profileImage
                 authViewModel.dataNewUser().observeForever {
                     if (it == "Successful") {
                         startActivity(Intent(this, MainActivity::class.java))

@@ -19,7 +19,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="317dp"
         android:layout_height="219dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,19 +39,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:id="@+id/passwordEditTex"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTextInputLayout"
             android:layout_width="250dp"
             android:layout_height="45dp"
             android:layout_marginTop="8dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleDrawable="@drawable/icon_selector_password"
             android:background="@android:color/background_light"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="#201E1E"
-            android:textColorHint="@color/textHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+            app:layout_constraintTop_toTopOf="@+id/guideline3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditTex"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="#201E1E"
+                android:layout_gravity="center"
+                android:textColorHint="@color/textHint" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
@@ -85,11 +94,11 @@
         android:id="@+id/loginButton"
         android:layout_width="171dp"
         android:layout_height="56dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/login"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView" />
 
     <TextView
         android:id="@+id/haveAccountTextView"
@@ -101,23 +110,22 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/loginButton"
         app:layout_constraintStart_toStartOf="@+id/loginButton"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <ImageView
         android:id="@+id/authGoogleImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="Ingresa con google"
         app:layout_constraintEnd_toEndOf="@+id/authGoogleImageView"
         app:layout_constraintStart_toStartOf="@+id/authGoogleImageView"
@@ -128,5 +136,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
+        app:layout_constraintGuide_percent="0.07" />
+
+    <TextView
+        android:id="@+id/forgotPasswordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Olvidaste la contrseña?"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

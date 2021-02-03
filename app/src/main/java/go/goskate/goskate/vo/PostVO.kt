@@ -1,11 +1,12 @@
 package go.goskate.goskate.vo
 
 import android.graphics.Bitmap
+import android.net.Uri
 
 class PostVO {
 
     var typeCapture: TypeCapture? = null
-    var fileImageCapture: Bitmap? = null
+    var fileImageCapture: Uri? = null
     var fileVideoCapture: String? = null
     var likesNumbers: Int = 0
     var likes: String = ""
@@ -13,9 +14,13 @@ class PostVO {
 
     constructor()
 
+    constructor(fileImageCapture: Uri) {
+        this.fileImageCapture = fileImageCapture
+    }
+
     constructor(
         typeCapture: TypeCapture,
-        fileImageCapture: Bitmap,
+        fileImageCapture: Uri,
         fileVideoCapture: String,
         likesNumbers: Int,
         likes: String,

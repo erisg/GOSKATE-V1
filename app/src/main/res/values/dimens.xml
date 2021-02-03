@@ -14,7 +14,7 @@
     <dimen name="img_profile_register_top">20dp</dimen>
     <dimen name="top_space">18dp</dimen>
     <dimen name="with_layout_r">300dp</dimen>
-    <dimen name="height_layout_r">480dp</dimen>
+    <dimen name="height_layout_r">500dp</dimen>
     <dimen name="margin_start">16dp</dimen>
     <dimen name="margin_top">10dp</dimen>
     <dimen name="margin_start_title">20dp</dimen>

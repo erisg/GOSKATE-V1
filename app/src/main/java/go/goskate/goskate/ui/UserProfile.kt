@@ -8,6 +8,7 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import go.goskate.goskate.MainActivity
@@ -23,7 +24,6 @@ import kotlinx.android.synthetic.main.profile.*
  class UserProfile : Fragment() {
 
      var posts = mutableListOf<PostVO>()
-     private val authViewModel: AuthViewModel by activityViewModels()
      private val userProfileViewModel: UserProfileViewModel by activityViewModels()
 
 
@@ -38,6 +38,12 @@ import kotlinx.android.synthetic.main.profile.*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        userProfileViewModel.imagesPost.observe(requireActivity(), Observer {
+            posts.add(PostVO(it))
+            chargeUserPost()
+        })
+
+        chargeUserPost()
         moreOptionsImageView.setOnClickListener {
             val more = PopupMenu(requireContext(), moreOptionsImageView)
             more.menuInflater.inflate(R.menu.menu_profile, more.menu)

@@ -3,6 +3,7 @@ package go.goskate.goskate.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -25,6 +26,10 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
+
+        forgotPasswordTextView.setOnClickListener {
+            startActivity(Intent(this, ForgotPassword::class.java))
+        }
 
         authGoogleImageView.setOnClickListener {
             //  singInWhitGoogle()

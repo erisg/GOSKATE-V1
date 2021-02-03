@@ -43,7 +43,7 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
                 postImage.visibility = View.VISIBLE
 
                 Glide.with(context)
-                    .load(item.fileImageCapture)
+                    .load(item.fileImageCapture?.encodedPath)
                     .into(postImage)
 
             } else {

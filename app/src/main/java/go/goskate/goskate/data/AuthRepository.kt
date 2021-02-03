@@ -53,4 +53,19 @@ class AuthRepository() {
         return mutableDataLoginWithGoogleResponse
     }
 
+
+    fun recoverAccountWhitEmail(email: String): MutableLiveData<String> {
+        val mutableRecoverAccountWhitEmail = MutableLiveData<String>()
+        auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+            val message = task.exception.toString()
+            mutableRecoverAccountWhitEmail.value = if (task.isSuccessful) {
+                "Por favor revisa tu correo para restablecer la contrase;a"
+            } else {
+                message
+            }
+        }
+
+        return mutableRecoverAccountWhitEmail
+    }
+
 }

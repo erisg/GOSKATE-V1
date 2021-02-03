@@ -12,7 +12,7 @@ import go.goskate.goskate.vo.UserVO
 class AuthViewModel : ViewModel() {
 
     val userVO = UserVO()
-    var profileImage = MutableLiveData<Uri>()
+    var profileImage = MutableLiveData<Bitmap>()
     private val authRepository = AuthRepository()
 
     fun dataNewUser(): MutableLiveData<String> {
@@ -27,5 +27,9 @@ class AuthViewModel : ViewModel() {
 
     fun dataLoginWithCredentials(account: GoogleSignInAccount?): MutableLiveData<String> {
         return authRepository.signInWithCredential(account)
+    }
+
+    fun dataRecoverAccount(email: String): MutableLiveData<String> {
+        return authRepository.recoverAccountWhitEmail(email)
     }
 }

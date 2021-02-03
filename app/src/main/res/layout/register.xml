@@ -31,15 +31,17 @@
 
         <EditText
             android:id="@+id/ageEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
             android:layout_marginTop="@dimen/top_space"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/background_blue"
             android:ems="10"
             android:hint="@string/age"
             android:inputType="numberSigned|textPersonName"
             android:textColor="#171616"
             android:textColorHint="@color/textHint"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/womenRadioButton" />
@@ -57,12 +59,12 @@
             android:textColorHint="@color/textHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordTextInputLayout" />
 
         <EditText
             android:id="@+id/telephoneEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
             android:layout_marginTop="@dimen/top_space"
             android:background="@drawable/background_blue"
             android:ems="10"
@@ -74,25 +76,59 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/confirmEditText" />
 
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="@dimen/top_space"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTextInputLayout"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="18dp"
             android:background="@drawable/background_blue"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="#292626"
-            android:textColorHint="@color/textHint"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@+id/emailEditText"
+            app:layout_constraintStart_toStartOf="@+id/emailEditText"
+            app:layout_constraintTop_toBottomOf="@+id/emailEditText"
+            app:passwordToggleDrawable="@drawable/icon_selector_password"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="#201E1E"
+                android:textColorHint="@color/textHint" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirmPasswordTextInputLayout"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/background_blue"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordTextInputLayout"
+            app:passwordToggleDrawable="@drawable/icon_selector_password"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/confirmPasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="#201E1E"
+                android:textColorHint="@color/textHint" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <EditText
             android:id="@+id/nameEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
             android:layout_marginTop="@dimen/top_space"
             android:background="@drawable/background_blue"
             android:ems="10"
@@ -108,7 +144,7 @@
             android:id="@+id/profileImageCardView"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginTop="@dimen/img_profile_register_top"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="18dp"
             app:cardCornerRadius="100dp"
             app:layout_constraintBottom_toTopOf="@+id/nameEditText"
@@ -120,7 +156,7 @@
                 android:id="@+id/profileImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/ic_action_profile"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -145,8 +181,8 @@
 
         <EditText
             android:id="@+id/emailEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
             android:layout_marginTop="@dimen/top_space"
             android:background="@drawable/background_blue"
             android:ems="10"
@@ -182,9 +218,10 @@
             android:id="@+id/sexTypeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="@dimen/top_space"
             android:text="@string/sex"
-            app:layout_constraintEnd_toStartOf="@+id/womenRadioButton"
             app:layout_constraintStart_toStartOf="@+id/telephoneEditText"
             app:layout_constraintTop_toBottomOf="@+id/telephoneEditText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
