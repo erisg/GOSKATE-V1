@@ -6,7 +6,7 @@ import android.net.Uri
 class PostVO {
 
     var typeCapture: TypeCapture? = null
-    var fileImageCapture: Uri? = null
+    var fileImageCapture: Bitmap? = null
     var fileVideoCapture: String? = null
     var likesNumbers: Int = 0
     var likes: String = ""
@@ -14,13 +14,13 @@ class PostVO {
 
     constructor()
 
-    constructor(fileImageCapture: Uri) {
+    constructor(fileImageCapture: Bitmap) {
         this.fileImageCapture = fileImageCapture
     }
 
     constructor(
         typeCapture: TypeCapture,
-        fileImageCapture: Uri,
+        fileImageCapture: Bitmap,
         fileVideoCapture: String,
         likesNumbers: Int,
         likes: String,

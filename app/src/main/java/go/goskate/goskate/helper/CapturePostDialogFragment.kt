@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
@@ -36,20 +37,16 @@ class CapturePostDialogFragment : DialogFragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.custom_dialog_post, container, false)
 
-
-
-
-        rootView.openGalleryConstraintLayout.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
-            startActivity(intent)
+        rootView.openVideoConstraintLayout.setOnClickListener {
+            permission().observe(this, { if(it){ selectImageProfile() } })
         }
 
         rootView.openCameraPhotoConstraintLayout.setOnClickListener {
-            permission()
+            permission().observe(this, { if(it){ dispatchTakePictureIntent() } })
         }
 
         rootView.openVideoConstraintLayout.setOnClickListener {
+            permission().observe(this, { if(it){ } })
         }
         return rootView
     }
@@ -61,10 +58,19 @@ class CapturePostDialogFragment : DialogFragment() {
 
     }
 
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
-            userProfileViewModel.imagesPost.value = data.data
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
+            val imageBitmap =  data.extras?.get("data") as Bitmap
+            userProfileViewModel.imagesPost.value = imageBitmap
         }
         dismiss()
     }
@@ -79,13 +85,14 @@ class CapturePostDialogFragment : DialogFragment() {
     }
 
 
-    private fun permission() {
+    private fun permission(): MutableLiveData<Boolean> {
+        val permissionResponse = MutableLiveData<Boolean>()
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            selectImageProfile()
+            permissionResponse.value = true
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -93,6 +100,7 @@ class CapturePostDialogFragment : DialogFragment() {
                 REQUEST_IMAGE_CAPTURE
             )
         }
+        return permissionResponse
     }
 
     override fun onRequestPermissionsResult(

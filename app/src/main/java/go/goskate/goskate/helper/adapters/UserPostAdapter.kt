@@ -42,9 +42,7 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
             if (item.typeCapture == PostVO.TypeCapture.PHOTO) {
                 postImage.visibility = View.VISIBLE
 
-                Glide.with(context)
-                    .load(item.fileImageCapture?.encodedPath)
-                    .into(postImage)
+              postImage.setImageBitmap(item.fileImageCapture)
 
             } else {
                 Glide.with(context)

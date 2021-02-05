@@ -64,10 +64,10 @@ import kotlinx.android.synthetic.main.profile.*
         }
 
 
-        openTakeFilesImageView.setOnClickListener {
-            val dialog = CapturePostDialogFragment()
-            dialog.show(requireActivity().supportFragmentManager, "PostDialog")
-        }
+//        openTakeFilesImageView.setOnClickListener {
+//            val dialog = CapturePostDialogFragment()
+//            dialog.show(requireActivity().supportFragmentManager, "PostDialog")
+//        }
 
     }
 

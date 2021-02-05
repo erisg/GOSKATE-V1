@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/background_blue"
         app:layout_constraintBottom_toTopOf="@+id/userPostRecyclerView"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout3" />
+        app:layout_constraintTop_toBottomOf="@id/userProfileImageCardView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userPostRecyclerView"
@@ -73,34 +73,22 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
-        android:layout_width="95dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/background_menu"
-        app:layout_constraintEnd_toEndOf="@+id/userProfileImageCardView"
-        app:layout_constraintStart_toStartOf="@+id/userProfileImageCardView"
-        app:layout_constraintTop_toBottomOf="@+id/userProfileImageCardView">
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/userProfileImageCardView"
+        app:layout_constraintTop_toTopOf="@+id/guideline2">
 
 
         <ImageView
             android:id="@+id/moreOptionsImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:background="@drawable/ic_action_profile_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/openTakeFilesImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_action_profile_new_post"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/moreOptionsImageView"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
