@@ -63,12 +63,6 @@ import kotlinx.android.synthetic.main.profile.*
             more.show()
         }
 
-
-//        openTakeFilesImageView.setOnClickListener {
-//            val dialog = CapturePostDialogFragment()
-//            dialog.show(requireActivity().supportFragmentManager, "PostDialog")
-//        }
-
     }
 
      private fun deletePreference() {

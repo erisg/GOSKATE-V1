@@ -17,9 +17,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import go.goskate.goskate.R
+import go.goskate.goskate.ui.viewmodel.NewsViewModel
 import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
+import kotlinx.android.synthetic.main.custom_dialog_post.*
 import kotlinx.android.synthetic.main.custom_dialog_post.view.*
 
 class CapturePostDialogFragment : DialogFragment() {
@@ -28,7 +32,7 @@ class CapturePostDialogFragment : DialogFragment() {
     private val REQUEST_VIDEO_CAPTURE = 101
     val REQUEST_IMAGE_CAPTURE = 102
     val REQUEST_PERMISION_CODE = 100
-    private val userProfileViewModel: UserProfileViewModel by activityViewModels()
+    private val newsViewModel: NewsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,23 +42,36 @@ class CapturePostDialogFragment : DialogFragment() {
         val rootView = inflater.inflate(R.layout.custom_dialog_post, container, false)
 
         rootView.openVideoConstraintLayout.setOnClickListener {
-            permission().observe(this, { if(it){ selectImageProfile() } })
+            permission().observe(this, {
+                if (it) {
+                    selectImageProfile()
+                }
+            })
         }
 
         rootView.openCameraPhotoConstraintLayout.setOnClickListener {
-            permission().observe(this, { if(it){ dispatchTakePictureIntent() } })
+            permission().observe(this, {
+                if (it) {
+                    dispatchTakePictureIntent()
+                }
+            })
         }
 
         rootView.openVideoConstraintLayout.setOnClickListener {
-            permission().observe(this, { if(it){ } })
+            permission().observe(this, {
+                if (it) {
+                }
+            })
         }
+
+
         return rootView
     }
 
     private fun selectImageProfile() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, 0)
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
 
     }
 
@@ -69,12 +86,36 @@ class CapturePostDialogFragment : DialogFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
-            val imageBitmap =  data.extras?.get("data") as Bitmap
-            userProfileViewModel.imagesPost.value = imageBitmap
+            val imageBitmap = data.extras?.get("data") as Bitmap
+            showPost(imageBitmap)
         }
-        dismiss()
+
     }
 
+    private fun showPost(image: Bitmap) {
+        typeCaptureConstraintLayout.visibility = View.GONE
+        showCaptureConstraintLayout.visibility = View.VISIBLE
+        postImageImageView.setImageBitmap(image)
+        newsViewModel.postVO.fileImageCapture = image
+        getInfoPost()
+    }
+
+    private fun getInfoPost() {
+        postButton.setOnClickListener {
+            val locationSpot = locationEditText.text.toString()
+            val descriptionSpot = descriptionEditText.text.toString()
+            if (locationSpot.isNotEmpty() && descriptionSpot.isNotEmpty()) {
+                newsViewModel.postVO.typeCapture = PostVO.TypeCapture.PHOTO
+                newsViewModel.postVO.location = locationSpot
+                newsViewModel.postVO.description = descriptionSpot
+                newsViewModel.setInfoPost()
+                dismiss()
+            } else {
+                Toast.makeText(requireContext(), "faltan datos por ingresar", Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
+    }
 
     override fun onStart() {
         super.onStart()

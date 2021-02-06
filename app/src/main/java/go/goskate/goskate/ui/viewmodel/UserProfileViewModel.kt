@@ -10,7 +10,9 @@ import go.goskate.goskate.vo.PostVO
 
 class UserProfileViewModel : ViewModel() {
 
-    var postVO = PostVO()
+
     var imagesPost = MutableLiveData<Bitmap>()
     var isAdded = false
+
+
 }

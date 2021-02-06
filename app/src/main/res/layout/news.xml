@@ -25,57 +25,85 @@
         app:layout_constraintGuide_percent="0.95"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addFilesConstraintLayout"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:background="@drawable/background_menu"
-        app:layout_constraintEnd_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/newPostFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/ic_action_profile_new_post"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:focusable="true" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        app:layout_constraintEnd_toEndOf="@+id/newPostFloatingActionButton"
+        app:layout_constraintTop_toBottomOf="@+id/newPostFloatingActionButton">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addFilesFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/newPostFloatingActionButton"
+            android:cropToPadding="true"
+            android:focusable="true"
+            android:src="@drawable/ic_action_post_take_picture"
+            app:backgroundTint="@color/colorPrimary"
+            app:fabSize="normal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/ic_action_post_take_picture"
-            tools:visibility="gone"
-            android:focusable="true" />
+            tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addNewsFloatingActionButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_action_news"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/addFilesFloatingActionButton"
+            app:layout_constraintTop_toBottomOf="@id/addFilesFloatingActionButton"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Agregar Post"
+            android:textAllCaps="false"
+            android:textColor="@color/textHint"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/addFilesFloatingActionButton"
             app:layout_constraintEnd_toStartOf="@+id/addFilesFloatingActionButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/ic_action_news"
-            tools:visibility="gone"
-            android:focusable="true" />
+            app:layout_constraintTop_toTopOf="@+id/addFilesFloatingActionButton" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Agregar Noticias"
+            android:textColor="@color/textHint"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/addNewsFloatingActionButton"
+            app:layout_constraintEnd_toStartOf="@+id/addNewsFloatingActionButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/addNewsFloatingActionButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newPostFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/ic_action_profile_new_post"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

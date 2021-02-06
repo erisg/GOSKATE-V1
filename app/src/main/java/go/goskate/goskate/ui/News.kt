@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import go.goskate.goskate.R
+import go.goskate.goskate.helper.CapturePostDialogFragment
 import go.goskate.goskate.helper.adapters.NewsAdapter
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
 import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
@@ -20,12 +21,13 @@ class News : Fragment() {
 
     private var newsPost: MutableList<NewsVO>? = null
     private val userProfileViewModel: NewsViewModel by activityViewModels()
-    private var clicked = false
 
-    // Animaciones del floatingButton
-   // private val rotateOpen : Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.news, container, false)
     }
 
@@ -33,12 +35,17 @@ class News : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        addFilesFloatingActionButton.visibility = View.GONE
-        addNewsFloatingActionButton.visibility = View.GONE
+        addFilesConstraintLayout.visibility = View.GONE
+
+        setOnClickFiles()
 
         newPostFloatingActionButton.setOnClickListener {
-            addFilesFloatingActionButton.visibility = View.VISIBLE
-            addNewsFloatingActionButton.visibility = View.VISIBLE
+            if (addFilesConstraintLayout.visibility == View.VISIBLE) {
+                addFilesConstraintLayout.visibility = View.GONE
+            } else {
+
+                addFilesConstraintLayout.visibility = View.VISIBLE
+            }
         }
 
         newsPost?.addAll(userProfileViewModel.newsPost)
@@ -52,23 +59,13 @@ class News : Fragment() {
     }
 
 
-    private fun onAddButtonClicked(){
-        setVisibility(clicked)
-        setAnimation(clicked)
-        clicked = !clicked
+    private fun setOnClickFiles() {
+        addFilesFloatingActionButton.setOnClickListener {
+            val dialog = CapturePostDialogFragment()
+            dialog.show(requireActivity().supportFragmentManager, "PostDialog")
+
+        }
     }
 
-    private fun setAnimation(clicked:Boolean) {
-        TODO("Not yet implemented")
-    }
 
-    private fun setVisibility(clicked:Boolean) {
-       if(!clicked){
-           addFilesFloatingActionButton.visibility = View.VISIBLE
-           addNewsFloatingActionButton.visibility = View.VISIBLE
-       }else{
-           addFilesFloatingActionButton.visibility = View.GONE
-           addNewsFloatingActionButton.visibility = View.GONE
-       }
-    }
 }

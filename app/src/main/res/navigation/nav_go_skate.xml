@@ -26,7 +26,11 @@
         android:id="@+id/news"
         android:name="go.goskate.goskate.ui.News"
         android:label="News"
-        tools:layout="@layout/news" />
+        tools:layout="@layout/news">
+        <action
+            android:id="@+id/action_news_to_postComplete"
+            app:destination="@id/postComplete" />
+    </fragment>
     <fragment
         android:id="@+id/newSpot"
         android:name="go.goskate.goskate.ui.maps.NewSpot"
@@ -36,6 +40,10 @@
             android:id="@+id/action_newSpot_to_maps"
             app:destination="@id/goSkateMap" />
     </fragment>
+    <fragment
+        android:id="@+id/postComplete"
+        android:name="go.goskate.goskate.ui.PostComplete"
+        android:label="PostComplete" />
 
 
 </navigation>

@@ -10,6 +10,7 @@ class PostVO {
     var fileVideoCapture: String? = null
     var likesNumbers: Int = 0
     var likes: String = ""
+    var description: String = ""
     var location: String = ""
 
     constructor()
@@ -21,7 +22,19 @@ class PostVO {
     constructor(
         typeCapture: TypeCapture,
         fileImageCapture: Bitmap,
-        fileVideoCapture: String,
+        location: String,
+        description: String
+    ) {
+        this.typeCapture = typeCapture
+        this.fileImageCapture = fileImageCapture
+        this.location = location
+        this.description = description
+    }
+
+    constructor(
+        typeCapture: TypeCapture,
+        fileImageCapture: Bitmap,
+        fileVideoCapture: String?,
         likesNumbers: Int,
         likes: String,
         location: String

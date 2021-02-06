@@ -1,16 +1,18 @@
 package go.goskate.goskate.vo
 
 import android.graphics.Bitmap
+import android.net.Uri
 import kotlinx.android.synthetic.main.register.*
 
 class UserVO {
+    var userId: String = ""
     var userName: String = ""
     var userEmail: String = ""
     var userPassword: String = ""
     var userTelephone: String = ""
     var userAge: String = ""
     var userGender: Boolean? = null
-    var profileImage: Bitmap? = null
+    var profileImage: Uri? = null
 
     constructor()
 
