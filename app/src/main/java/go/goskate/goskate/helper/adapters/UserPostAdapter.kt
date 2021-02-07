@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import go.goskate.goskate.R
 import go.goskate.goskate.vo.PostVO
+import kotlinx.android.synthetic.main.profile.*
 import kotlinx.android.synthetic.main.user_post_image_item.view.*
 
 class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
@@ -42,7 +43,9 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
             if (item.typeCapture == PostVO.TypeCapture.PHOTO) {
                 postImage.visibility = View.VISIBLE
 
-              postImage.setImageBitmap(item.fileImageCapture)
+                Glide.with(context)
+                    .load(item.fileImageCapture)
+                    .into(postImage)
 
             } else {
                 Glide.with(context)

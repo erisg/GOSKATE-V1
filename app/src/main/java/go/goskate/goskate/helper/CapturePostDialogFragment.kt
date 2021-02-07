@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import go.goskate.goskate.R
@@ -25,6 +26,8 @@ import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.custom_dialog_post.*
 import kotlinx.android.synthetic.main.custom_dialog_post.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CapturePostDialogFragment : DialogFragment() {
 
@@ -33,6 +36,7 @@ class CapturePostDialogFragment : DialogFragment() {
     val REQUEST_IMAGE_CAPTURE = 102
     val REQUEST_PERMISION_CODE = 100
     private val newsViewModel: NewsViewModel by activityViewModels()
+    private lateinit var newsImage: Bitmap
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,20 +100,37 @@ class CapturePostDialogFragment : DialogFragment() {
         typeCaptureConstraintLayout.visibility = View.GONE
         showCaptureConstraintLayout.visibility = View.VISIBLE
         postImageImageView.setImageBitmap(image)
-        newsViewModel.postVO.fileImageCapture = image
+        newsImage = image
         getInfoPost()
     }
 
     private fun getInfoPost() {
+        val myCalendar = Calendar.getInstance()
+        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
+        val nameFile = formatter.format(myCalendar.time)
+
         postButton.setOnClickListener {
             val locationSpot = locationEditText.text.toString()
             val descriptionSpot = descriptionEditText.text.toString()
+            val path: String = MediaStore.Images.Media.insertImage(
+                requireActivity().contentResolver,
+                newsImage,
+                nameFile,
+                "newsPost"
+            )
             if (locationSpot.isNotEmpty() && descriptionSpot.isNotEmpty()) {
                 newsViewModel.postVO.typeCapture = PostVO.TypeCapture.PHOTO
                 newsViewModel.postVO.location = locationSpot
                 newsViewModel.postVO.description = descriptionSpot
-                newsViewModel.setInfoPost()
-                dismiss()
+                newsViewModel.postVO.fileImageCapture = path
+                newsViewModel.setInfoPost().observe(viewLifecycleOwner, {
+                    if (it == "Successful") {
+                        dismiss()
+                    } else {
+                        Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                    }
+                })
+
             } else {
                 Toast.makeText(requireContext(), "faltan datos por ingresar", Toast.LENGTH_LONG)
                     .show()

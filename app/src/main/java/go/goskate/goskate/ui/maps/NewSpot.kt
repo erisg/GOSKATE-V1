@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import go.goskate.goskate.R
 import go.goskate.goskate.IMenuGone
+import go.goskate.goskate.MainActivity
 import go.goskate.goskate.helper.CapturePostDialogFragment
 import kotlinx.android.synthetic.main.new_spot.*
 
@@ -31,6 +32,5 @@ class NewSpot : Fragment() {
         }
 
     }
-
 
 }

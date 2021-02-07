@@ -1,5 +1,6 @@
 package go.goskate.goskate.data
 
+import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.AuthCredential
@@ -27,29 +28,31 @@ class AuthRepository() {
                         FirebaseDatabase.getInstance().reference.child("Users")
                     val refStorage =
                         storage.getReference("imagesProfile/" + UUID.randomUUID().toString())
-                    refStorage.putFile(newUser.profileImage!!).addOnSuccessListener {
-                        refStorage.downloadUrl.addOnSuccessListener {
-                            newUser.profileImage = it
-                        }
-                        val userMap = HashMap<String, Any>()
-                        userMap["uid"] = newUser.userId
-                        userMap["imageProfile"] = newUser.profileImage!!
-                        userMap["userName"] = newUser.userName
-                        userMap["userEmail"] = newUser.userEmail
-                        userMap["userPassword"] = newUser.userPassword
-                        userMap["userTelephone"] = newUser.userTelephone
-                        userMap["ageUser"] = newUser.userAge
-                        userMap["sexUser"] = newUser.userGender!!
+                    refStorage.putFile(newUser.profileImage!!.toUri()).addOnSuccessListener {
+                        if (it.task.isSuccessful) {
+                            newUser.profileImage = it.task.result.toString()
+                            val userMap = HashMap<String, Any>()
+                            userMap["uid"] = newUser.userId
+                            userMap["imageProfile"] = newUser.profileImage!!
+                            userMap["userName"] = newUser.userName
+                            userMap["userEmail"] = newUser.userEmail
+                            userMap["userPassword"] = newUser.userPassword
+                            userMap["userTelephone"] = newUser.userTelephone
+                            userMap["ageUser"] = newUser.userAge
+                            userMap["sexUser"] = newUser.userGender!!
 
-                        userRef.child(newUser.userId).setValue(userMap)
-                            .addOnCompleteListener { task ->
-                                message = task.exception?.toString()
-                                mutableDataResponse.value = if (task.isSuccessful) {
-                                    "Successful"
-                                } else {
-                                    "$message"
+                            userRef.child(newUser.userId).setValue(userMap)
+                                .addOnCompleteListener { task ->
+                                    message = task.exception?.toString()
+                                    mutableDataResponse.value = if (task.isSuccessful) {
+                                        "Successful"
+                                    } else {
+                                        "$message"
+                                    }
                                 }
-                            }
+                        } else {
+                            message = it.task.exception?.toString()
+                        }
                     }
 
                 } else {

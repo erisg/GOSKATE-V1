@@ -83,7 +83,7 @@ class NewUser : AppCompatActivity() {
                 authViewModel.userVO.userAge = userAge
                 val path: String =
                     Images.Media.insertImage(this.contentResolver, profileImage, nameFile, userName)
-                authViewModel.userVO.profileImage = Uri.parse(path)
+                authViewModel.userVO.profileImage = path
                 authViewModel.dataNewUser().observe(this, {
                     if (it == "Successful") {
                         startActivity(Intent(this, MainActivity::class.java))
@@ -104,4 +104,6 @@ class NewUser : AppCompatActivity() {
         dialog.show(this.supportFragmentManager, "PostDialog")
 
     }
+
+
 }

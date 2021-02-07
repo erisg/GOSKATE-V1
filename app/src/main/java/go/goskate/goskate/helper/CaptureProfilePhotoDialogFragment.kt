@@ -37,11 +37,11 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
 
 
         rootView.openGalleryImageView.setOnClickListener {
-            permission()
+            permissionGallery()
         }
 
         rootView.openCameraPhotoImageView.setOnClickListener {
-            dispatchTakePictureIntent()
+            permission()
         }
 
 
@@ -71,7 +71,7 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
         dismiss()
     }
 
-    private fun permission() {
+    private fun permissionGallery() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.CAMERA
@@ -87,6 +87,21 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
         }
     }
 
+    private fun permission() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            dispatchTakePictureIntent()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.CAMERA),
+                REQUEST_IMAGE_CAPTURE
+            )
+        }
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray

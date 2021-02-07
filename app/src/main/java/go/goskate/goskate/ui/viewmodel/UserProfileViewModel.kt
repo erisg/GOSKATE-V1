@@ -1,18 +1,21 @@
 package go.goskate.goskate.ui.viewmodel
 
 import android.graphics.Bitmap
-import android.net.Uri
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import go.goskate.goskate.vo.PostVO
+import com.google.firebase.auth.FirebaseAuth
+import go.goskate.goskate.data.UserRepository
+import go.goskate.goskate.vo.UserVO
 
 class UserProfileViewModel : ViewModel() {
 
 
-    var imagesPost = MutableLiveData<Bitmap>()
-    var isAdded = false
+    var imagesPost = MutableLiveData<String>()
+    private val userRepository = UserRepository()
+    var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    fun getInfoUserProfile(): UserVO {
+        return userRepository.getUserInfo(auth.currentUser!!)
+    }
 
 }

@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,7 +11,6 @@ import go.goskate.goskate.R
 import go.goskate.goskate.helper.CapturePostDialogFragment
 import go.goskate.goskate.helper.adapters.NewsAdapter
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
-import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.NewsVO
 import kotlinx.android.synthetic.main.news.*
 
@@ -34,6 +31,10 @@ class News : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        userProfileViewModel.getAllPost().observe(requireActivity(),{
+//            newsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
+//            newsRecyclerView.adapter = NewsAdapter(requireContext(), it)
+//        })
 
         addFilesConstraintLayout.visibility = View.GONE
 
@@ -48,13 +49,6 @@ class News : Fragment() {
             }
         }
 
-        newsPost?.addAll(userProfileViewModel.newsPost)
-
-
-        if (newsPost?.isEmpty() == true) {
-            newsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
-            newsRecyclerView.adapter = NewsAdapter(requireContext(), newsPost!!)
-        }
 
     }
 

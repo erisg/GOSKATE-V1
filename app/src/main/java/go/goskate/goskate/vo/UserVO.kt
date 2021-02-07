@@ -12,7 +12,7 @@ class UserVO {
     var userTelephone: String = ""
     var userAge: String = ""
     var userGender: Boolean? = null
-    var profileImage: Uri? = null
+    var profileImage: String? = null
 
     constructor()
 

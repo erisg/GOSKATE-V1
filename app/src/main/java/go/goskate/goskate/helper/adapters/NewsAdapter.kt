@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import go.goskate.goskate.R
-import go.goskate.goskate.vo.NewsVO
+import go.goskate.goskate.vo.PostVO
+import kotlinx.android.synthetic.main.news_item.view.*
 
-class NewsAdapter(context: Context, news: MutableList<NewsVO>) :
+class NewsAdapter(val context: Context, val news: List<PostVO>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,15 +20,25 @@ class NewsAdapter(context: Context, news: MutableList<NewsVO>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(news[position])
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return this.news.size
     }
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val imagePost = view.newsImageView
+        val location = view.titleNewsTextView.text.toString()
+        val description = view.moreInfoTextView.text.toString()
+
+        fun bind(item: PostVO) {
+            Picasso.with(context)
+                .load(item.fileImageCapture)
+                .into(imagePost)
+        }
+
 
     }
 }
