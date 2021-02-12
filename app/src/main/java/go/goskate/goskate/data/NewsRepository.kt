@@ -47,10 +47,10 @@ class NewsRepository {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val list = snapshot.children.map {
-                        it.getValue(PostVO::class.java)!!
+                        //  it.getValue(PostVO::class.java)!!
                     }
                     list.let {
-                        resultPost.value = it
+                        //  resultPost.value = it
                     }
                 }
             }

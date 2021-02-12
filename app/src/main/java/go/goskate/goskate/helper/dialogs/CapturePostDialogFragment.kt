@@ -1,4 +1,4 @@
-package go.goskate.goskate.helper
+package go.goskate.goskate.helper.dialogs
 
 import android.Manifest
 import android.app.Activity
@@ -13,16 +13,12 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
-import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.custom_dialog_post.*
 import kotlinx.android.synthetic.main.custom_dialog_post.view.*

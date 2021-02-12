@@ -22,23 +22,23 @@
             android:layout_width="70dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/logoskatepark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/logoskatepark" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/nameSpotTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:text="SKATEPARK TUNAL"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/logoCategoryImageView"
             app:layout_constraintStart_toStartOf="@id/logoCategoryImageView"
-            app:layout_constraintTop_toBottomOf="@id/logoCategoryImageView"
-            android:text="SKATEPARK TUNAL" />
+            app:layout_constraintTop_toBottomOf="@id/logoCategoryImageView" />
 
         <TextView
             android:id="@+id/textView2"
@@ -101,17 +101,15 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-        <fragment
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/InfoPostFragmentContainer"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:defaultNavHost="true"
             android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="350dp"
+            android:layout_height="500dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout5"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout5"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
-            app:navGraph="@navigation/nav_spot" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

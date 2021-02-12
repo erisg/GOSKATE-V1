@@ -1,18 +1,24 @@
 package go.goskate.goskate.ui.maps
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import go.goskate.goskate.R
+import kotlinx.android.synthetic.main.spot.*
 
 
 class SpotBottomSheetFragment : BottomSheetDialogFragment() {
 
+
+    private var navController: NavController? = null
 
     companion object {
         fun newInstance(): SpotBottomSheetFragment = SpotBottomSheetFragment()
@@ -25,29 +31,36 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.spot, container, false)
-
+        val view = inflater.inflate(R.layout.spot, container, false)
+        view.setBackgroundColor(Color.TRANSPARENT)
+        return view
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBottomSheetBehaviorCallback.onStateChanged(
-            this.requireView(),
-            BottomSheetBehavior.STATE_HIDDEN
-        )
+
+        // navController = Navigation.findNavController(view)
+
+//        infoSpot.setOnClickListener {
+//            navController!!.navigate(R.id.action_spotBottomSheetFragment_to_infoSpot)
+//        }
+//
+//        filesSpot.setOnClickListener {
+//            navController!!.navigate(R.id.action_spotBottomSheetFragment_to_filesSpot)
+//        }
+//
+//        commentSpots.setOnClickListener {
+//            navController!!.navigate(R.id.action_spotBottomSheetFragment_to_commentSpots)
+//        }
+
     }
 
+    override fun onStart() {
+        super.onStart()
+        val behavior = BottomSheetBehavior.from(requireView().parent as View)
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
 
-    private val mBottomSheetBehaviorCallback: BottomSheetCallback = object : BottomSheetCallback() {
-        override fun onStateChanged(bottomSheet: View, newState: Int) {
-            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                BottomSheetBehavior.STATE_HIDDEN
-            }
-
-        }
-
-        override fun onSlide(bottomSheet: View, slideOffset: Float) {}
     }
 
     private var mListener: ItemClickListener? = null

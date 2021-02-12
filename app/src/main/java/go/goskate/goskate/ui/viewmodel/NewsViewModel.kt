@@ -10,7 +10,6 @@ import go.goskate.goskate.vo.PostVO
 
 class NewsViewModel : ViewModel() {
 
-    var newsPost = mutableListOf<NewsVO>()
     var postVO = PostVO()
     var newsRepository = NewsRepository()
 

@@ -1,7 +1,6 @@
-package go.goskate.goskate.helper
+package go.goskate.goskate.helper.dialogs
 
 import android.Manifest
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,11 +14,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
-import go.goskate.goskate.vo.PostVO
-import kotlinx.android.synthetic.main.profile_photo_capture.*
 import kotlinx.android.synthetic.main.profile_photo_capture.view.*
 
 class CaptureProfilePhotoDialogFragment : DialogFragment() {

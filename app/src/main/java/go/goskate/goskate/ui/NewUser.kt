@@ -2,7 +2,6 @@ package go.goskate.goskate.ui
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore.Images
 import android.widget.Toast
@@ -10,7 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import go.goskate.goskate.MainActivity
 import go.goskate.goskate.R
-import go.goskate.goskate.helper.CaptureProfilePhotoDialogFragment
+import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoDialogFragment
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
 import kotlinx.android.synthetic.main.register.*
 import java.text.SimpleDateFormat
