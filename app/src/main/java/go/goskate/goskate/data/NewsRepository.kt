@@ -7,6 +7,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import go.goskate.goskate.vo.PostVO
 import java.util.*
+import kotlin.collections.HashMap
 
 class NewsRepository {
 
@@ -42,16 +43,18 @@ class NewsRepository {
 
     fun getAllPost(): MutableLiveData<List<PostVO>> {
         val resultPost = MutableLiveData<List<PostVO>>()
+        val postVO = PostVO()
+        val data = HashMap<String, PostVO>()
         val userRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("News")
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val list = snapshot.children.map {
-                        //  it.getValue(PostVO::class.java)!!
-                    }
-                    list.let {
-                        //  resultPost.value = it
-                    }
+                    val mutable = mutableListOf<PostVO>()
+                    val userMap = HashMap<String, Any>()
+                    userMap["typeCapture"] to postVO.typeCapture!!
+                    userMap["location"] to postVO.location
+                    userMap["description"] to postVO.description
+                    mutable.add(PostVO(snapshot.value.toString()))
                 }
             }
 

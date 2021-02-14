@@ -13,13 +13,12 @@ class UserRepository {
 
     fun getUserInfo(userId: FirebaseUser): UserVO {
         val userVO = UserVO()
+        val list = mutableListOf<UserVO>()
         val userInfo = firebaseDataBase.reference.orderByChild("userEmail").equalTo(userId.email)
         userInfo.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val idFromDB = snapshot.child(userId.uid).child("uid").value.toString()
-                if (snapshot.exists()) {
-                    userVO.profileImage = snapshot.child(idFromDB).child("uid").value.toString()
-                    userVO.userName = snapshot.child(idFromDB).child("userName").value.toString()
+                for (data in snapshot.children) {
+
                 }
             }
 
