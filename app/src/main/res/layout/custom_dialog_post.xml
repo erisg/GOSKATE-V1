@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondosiluetas">
 
@@ -18,8 +18,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/openVideoConstraintLayout"
-            android:layout_width="136dp"
-            android:layout_height="143dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/video_post"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,14 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/openGalleryConstraintLayout">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,8 +54,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/openCameraPhotoConstraintLayout"
-            android:layout_width="136dp"
-            android:layout_height="148dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/photos"
             app:layout_constraintBottom_toTopOf="@+id/guideline7"
@@ -70,15 +63,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.675" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.Guideline

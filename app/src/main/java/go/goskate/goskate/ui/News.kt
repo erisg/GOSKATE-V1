@@ -31,10 +31,10 @@ class News : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userProfileViewModel.getAllPost().observe(requireActivity(), {
-            newsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
-            newsRecyclerView.adapter = NewsAdapter(requireContext(), it)
-        })
+//        userProfileViewModel.getAllPost().observe(requireActivity(), {
+//            newsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
+//            newsRecyclerView.adapter = NewsAdapter(requireContext(), it)
+//        })
 
         addFilesConstraintLayout.visibility = View.GONE
 

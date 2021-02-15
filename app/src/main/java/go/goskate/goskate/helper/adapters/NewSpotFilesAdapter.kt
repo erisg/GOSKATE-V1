@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import go.goskate.goskate.R
-import kotlinx.android.synthetic.main.new_spot_file_item.view.*
-import kotlinx.android.synthetic.main.news_item.view.*
+import kotlinx.android.synthetic.main.spot_file_item.view.*
 
-class NewSpotAdapter(val context: Context, val newSpot: List<Bitmap>) :
-    RecyclerView.Adapter<NewSpotAdapter.ViewHolder>() {
+class NewSpotFilesAdapter(val context: Context, val newSpot: List<Bitmap>) :
+    RecyclerView.Adapter<NewSpotFilesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val vista = LayoutInflater.from(parent.context)
-            .inflate(R.layout.news_item, parent, false)
+            .inflate(R.layout.spot_file_item, parent, false)
         return ViewHolder(vista)
     }
 
@@ -30,7 +28,7 @@ class NewSpotAdapter(val context: Context, val newSpot: List<Bitmap>) :
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imagePost = view.newSpotImageView
+        val imagePost = view.fileSpotImageView
 
         fun bind(item: Bitmap) {
             imagePost.setImageBitmap(item)

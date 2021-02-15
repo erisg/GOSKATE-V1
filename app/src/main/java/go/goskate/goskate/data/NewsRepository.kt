@@ -49,12 +49,7 @@ class NewsRepository {
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val mutable = mutableListOf<PostVO>()
-                    val userMap = HashMap<String, Any>()
-                    userMap["typeCapture"] to postVO.typeCapture!!
-                    userMap["location"] to postVO.location
-                    userMap["description"] to postVO.description
-                    mutable.add(PostVO(snapshot.value.toString()))
+
                 }
             }
 
