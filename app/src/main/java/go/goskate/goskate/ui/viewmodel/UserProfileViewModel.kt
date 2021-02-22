@@ -14,8 +14,8 @@ class UserProfileViewModel : ViewModel() {
     private val userRepository = UserRepository()
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    fun getInfoUserProfile(): UserVO {
-        return userRepository.getUserInfo(auth.currentUser!!)
+    fun getInfoUserProfile(): MutableLiveData<UserVO> {
+        return userRepository.getUserInfo(auth.currentUser!!.uid)
     }
 
 }

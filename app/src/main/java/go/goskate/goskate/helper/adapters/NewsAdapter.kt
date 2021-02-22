@@ -9,6 +9,8 @@ import com.squareup.picasso.Picasso
 import go.goskate.goskate.R
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.news_item.view.*
+import kotlinx.android.synthetic.main.profile.*
+import java.lang.reflect.Array.get
 
 class NewsAdapter(val context: Context, val news: List<PostVO>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -30,13 +32,17 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imagePost = view.newsImageView
-        val location = view.titleNewsTextView.text.toString()
-        val description = view.moreInfoTextView.text.toString()
+        val location = view.titleNewsTextView
+        val description = view.moreInfoTextView
 
         fun bind(item: PostVO) {
             Picasso.with(context)
                 .load(item.fileImageCapture)
                 .into(imagePost)
+            location.text = item.location
+            description.text = item.description
+
+
         }
 
 

@@ -21,6 +21,13 @@ class UserVO {
         this.userPassword = userPassword
     }
 
+    constructor(userName: String, userEmail: String, userTelephone: String, profileImage: String) {
+        this.userName = userName
+        this.userEmail = userEmail
+        this.userTelephone = userTelephone
+        this.profileImage = profileImage
+    }
+
 
     constructor(
         userName: String,

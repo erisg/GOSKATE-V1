@@ -9,6 +9,7 @@ import go.goskate.goskate.vo.PostVO
 import java.util.*
 import kotlin.collections.HashMap
 
+
 class NewsRepository {
 
 
@@ -17,10 +18,11 @@ class NewsRepository {
     fun savePost(postVO: PostVO): MutableLiveData<String> {
         val result = MutableLiveData<String>()
         val userRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("News")
-        val refStorage = storage.getReference("imagesNews/" + UUID.randomUUID().toString())
-        refStorage.putFile(postVO.fileImageCapture!!.toUri()).addOnSuccessListener {
-            if (it.task.isSuccessful) {
-                postVO.fileImageCapture = it.task.result.toString()
+        val refStorage = storage.reference.child("imagesNews/" + UUID.randomUUID().toString())
+        val fileName = refStorage.child("img" + postVO.fileImageCapture)
+        fileName.putFile(postVO.fileImageCapture!!.toUri()).addOnSuccessListener {
+            fileName.downloadUrl.addOnSuccessListener {
+                postVO.fileImageCapture = it.toString()
                 val userMap = HashMap<String, Any>()
                 userMap["fileImageCapture"] = postVO.fileImageCapture!!
                 userMap["typeCapture"] = postVO.typeCapture!!
@@ -36,6 +38,7 @@ class NewsRepository {
                         }
                     }
             }
+
         }
 
         return result
@@ -48,9 +51,10 @@ class NewsRepository {
         val userRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("News")
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
+                val t: GenericTypeIndicator<PostVO?> = object : GenericTypeIndicator<PostVO?>() {}
+                val estudiante: PostVO = snapshot.getValue(t)!!
+                resultPost.value = mutableListOf(estudiante)
 
-                }
             }
 
             override fun onCancelled(error: DatabaseError) {

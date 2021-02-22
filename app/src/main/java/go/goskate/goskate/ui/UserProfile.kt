@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.profile.*
  class UserProfile : Fragment() {
 
      var posts = mutableListOf<PostVO>()
-     lateinit var userInfo: UserVO
+     var userInfo = UserVO()
      private val userProfileViewModel: UserProfileViewModel by activityViewModels()
 
 
@@ -37,11 +37,14 @@ import kotlinx.android.synthetic.main.profile.*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userInfo = userProfileViewModel.getInfoUserProfile()
+        userProfileViewModel.getInfoUserProfile().observe(requireActivity(), { user ->
+            userNameTextView.text = user.userName
 
-        Glide.with(this)
-            .load(userInfo.profileImage)
-            .into(userProfileImageView)
+            Glide.with(this)
+                .load(userInfo.profileImage)
+                .into(userProfileImageView)
+        })
+
 
         userProfileViewModel.imagesPost.observe(requireActivity(), Observer {
             posts.add(PostVO(it))

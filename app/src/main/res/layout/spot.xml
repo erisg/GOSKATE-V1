@@ -68,7 +68,7 @@
             app:layout_constraintTop_toBottomOf="@id/nameSpotTextView" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/constraintLayout5"
+            android:id="@+id/titleInfoTabLayout"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -81,23 +81,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/infoSpot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="INFORMACION" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/filesSpot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="FOTOS-VIDEOS" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/commentSpots"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="COMENTARIOS" />
 
         </com.google.android.material.tabs.TabLayout>
 

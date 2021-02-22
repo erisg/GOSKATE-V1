@@ -119,7 +119,7 @@ class CapturePostDialogFragment : DialogFragment() {
                 newsViewModel.postVO.location = locationSpot
                 newsViewModel.postVO.description = descriptionSpot
                 newsViewModel.postVO.fileImageCapture = path
-                newsViewModel.setInfoPost().observe(viewLifecycleOwner, {
+                newsViewModel.setInfoPost().observe(requireActivity(), {
                     if (it == "Successful") {
                         dismiss()
                     } else {

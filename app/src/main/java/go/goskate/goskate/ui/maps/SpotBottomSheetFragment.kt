@@ -40,19 +40,6 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // navController = Navigation.findNavController(view)
-
-//        infoSpot.setOnClickListener {
-//            navController!!.navigate(R.id.action_spotBottomSheetFragment_to_infoSpot)
-//        }
-//
-//        filesSpot.setOnClickListener {
-//            navController!!.navigate(R.id.action_spotBottomSheetFragment_to_filesSpot)
-//        }
-//
-//        commentSpots.setOnClickListener {
-//            navController!!.navigate(R.id.action_spotBottomSheetFragment_to_commentSpots)
-//        }
 
     }
 
