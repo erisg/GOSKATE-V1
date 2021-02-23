@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import go.goskate.goskate.R
 import go.goskate.goskate.vo.PostVO
+import kotlinx.android.synthetic.main.news_item.view.*
 import kotlinx.android.synthetic.main.profile.*
 import kotlinx.android.synthetic.main.user_post_image_item.view.*
 
@@ -18,7 +19,7 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderImage {
         val vista = LayoutInflater.from(parent.context)
-            .inflate(R.layout.news_item, parent, false)
+            .inflate(R.layout.post_item_profile, parent, false)
         return ViewHolderImage(vista)
     }
 
@@ -33,35 +34,23 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
 
 
     inner class ViewHolderImage(view: View) : RecyclerView.ViewHolder(view) {
+        val imagePost = view.newsImageView
+        val location = view.titleNewsTextView
+        val description = view.moreInfoTextView
 
-        private val postImage: ImageView = view.postImageView
-        private val liked: ImageView = view.likedImageView
-        private val likedNumber: TextView = view.likedTextView
-        private val location: ImageView = view.locationImageView
 
         fun bind(item: PostVO) {
             if (item.typeCapture == PostVO.TypeCapture.PHOTO) {
-                postImage.visibility = View.VISIBLE
+                imagePost.visibility = View.VISIBLE
 
                 Glide.with(context)
                     .load(item.fileImageCapture)
-                    .into(postImage)
-
-            } else {
-                Glide.with(context)
-                    .load(item.fileVideoCapture)
-                    .into(postImage)
-            }
-
-            likedNumber.text = item.likesNumbers.toString()
-
-            liked.setOnClickListener {
+                    .into(imagePost)
 
             }
 
-            location.setOnClickListener {
-
-            }
+            description.text = item.description
+            location.text = item.location
 
         }
     }

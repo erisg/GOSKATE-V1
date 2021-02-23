@@ -11,8 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
 import go.goskate.goskate.R
 import go.goskate.goskate.helper.adapters.UserPostAdapter
+import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoDialogFragment
 import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
 import go.goskate.goskate.vo.UserVO
@@ -40,15 +42,16 @@ import kotlinx.android.synthetic.main.profile.*
         userProfileViewModel.getInfoUserProfile().observe(requireActivity(), { user ->
             userNameTextView.text = user.userName
 
-            Glide.with(this)
-                .load(userInfo.profileImage)
+            Picasso.with(context)
+                .load(user.imageProfile)
                 .into(userProfileImageView)
         })
 
 
-        userProfileViewModel.imagesPost.observe(requireActivity(), Observer {
-            posts.add(PostVO(it))
-            chargeUserPost()
+        userProfileViewModel.getAllPostForUser().observe(requireActivity(), { list ->
+            userPostRecyclerView.layoutManager =
+                StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+            userPostRecyclerView.adapter = UserPostAdapter(requireContext(), list)
         })
 
         chargeUserPost()
@@ -65,6 +68,9 @@ import kotlinx.android.synthetic.main.profile.*
                         deletePreference()
                         startActivity(Intent(requireContext(), Login::class.java))
                     }
+                    R.id.change_profile_image -> {
+                        captureImageProfile()
+                    }
                 }
                 true
             }
@@ -73,6 +79,12 @@ import kotlinx.android.synthetic.main.profile.*
 
     }
 
+     private fun captureImageProfile() {
+         val dialog = CaptureProfilePhotoDialogFragment()
+         dialog.show(requireActivity().supportFragmentManager, "PostDialog")
+
+     }
+
      private fun deletePreference() {
          val prefs = activity?.getSharedPreferences("preference", Context.MODE_PRIVATE)?.edit()
          prefs?.clear()
@@ -80,9 +92,7 @@ import kotlinx.android.synthetic.main.profile.*
      }
 
      private fun chargeUserPost() {
-         userPostRecyclerView.layoutManager =
-             StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-         userPostRecyclerView.adapter = UserPostAdapter(requireContext(), posts)
+
 
      }
 

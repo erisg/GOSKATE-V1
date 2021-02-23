@@ -16,21 +16,21 @@
         android:id="@+id/openCameraPhotoImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/photos"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:srcCompat="@drawable/ic_action_post_take_picture" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <ImageView
         android:id="@+id/openGalleryImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/video_post"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/openGalleryTextView"
-        app:srcCompat="@drawable/ic_action_profile_new_post" />
+        app:layout_constraintTop_toBottomOf="@+id/openGalleryTextView" />
 
     <TextView
         android:id="@+id/openGalleryTextView"

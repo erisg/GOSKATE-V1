@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginLeft="35dp"
-        android:text="GERALDIN"
+        tools:text="GERALDIN"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
@@ -39,7 +39,8 @@
             android:id="@+id/userProfileImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/ic_action_profile"
+            android:scaleType="centerCrop"
+            tools:background="@drawable/ic_action_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

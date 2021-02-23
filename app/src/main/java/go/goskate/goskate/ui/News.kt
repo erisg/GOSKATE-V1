@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.news.*
 
 class News : Fragment() {
 
-    private var newsPost: MutableList<NewsVO>? = null
+
     private val userProfileViewModel: NewsViewModel by activityViewModels()
 
 
@@ -31,6 +31,7 @@ class News : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         userProfileViewModel.getAllPost().observe(requireActivity(), {
             newsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
             newsRecyclerView.adapter = NewsAdapter(requireContext(), it)
@@ -44,12 +45,9 @@ class News : Fragment() {
             if (addFilesConstraintLayout.visibility == View.VISIBLE) {
                 addFilesConstraintLayout.visibility = View.GONE
             } else {
-
                 addFilesConstraintLayout.visibility = View.VISIBLE
             }
         }
-
-
     }
 
 

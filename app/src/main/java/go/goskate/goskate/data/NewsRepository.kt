@@ -3,6 +3,7 @@ package go.goskate.goskate.data
 
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import go.goskate.goskate.vo.PostVO
@@ -14,8 +15,10 @@ class NewsRepository {
 
 
     var storage: FirebaseStorage = FirebaseStorage.getInstance()
+    var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun savePost(postVO: PostVO): MutableLiveData<String> {
+        postVO.userId = auth.currentUser!!.uid
         val result = MutableLiveData<String>()
         val userRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("News")
         val refStorage = storage.reference.child("imagesNews/" + UUID.randomUUID().toString())
@@ -27,16 +30,20 @@ class NewsRepository {
                 userMap["fileImageCapture"] = postVO.fileImageCapture!!
                 userMap["typeCapture"] = postVO.typeCapture!!
                 userMap["location"] = postVO.location
+                userMap["userId"] = postVO.userId
                 userMap["description"] = postVO.description
 
-                userRef.setValue(userMap)
-                    .addOnCompleteListener { task ->
-                        result.value = if (task.isSuccessful) {
-                            "Successful"
-                        } else {
-                            task.exception?.toString()!!
+                val id = userRef.push().key
+                id?.let { it1 ->
+                    userRef.child(it1).setValue(userMap)
+                        .addOnCompleteListener { task ->
+                            result.value = if (task.isSuccessful) {
+                                "Successful"
+                            } else {
+                                task.exception?.toString()!!
+                            }
                         }
-                    }
+                }
             }
 
         }
@@ -46,15 +53,19 @@ class NewsRepository {
 
     fun getAllPost(): MutableLiveData<List<PostVO>> {
         val resultPost = MutableLiveData<List<PostVO>>()
-        val postVO = PostVO()
-        val data = HashMap<String, PostVO>()
-        val userRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("News")
+        val dataResult = mutableListOf<PostVO>()
+        val userRef = FirebaseDatabase.getInstance().reference.child("News")
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val t: GenericTypeIndicator<PostVO?> = object : GenericTypeIndicator<PostVO?>() {}
-                val estudiante: PostVO = snapshot.getValue(t)!!
-                resultPost.value = mutableListOf(estudiante)
-
+                if (snapshot.exists()) {
+                    for (ds in snapshot.children) {
+                        val data: GenericTypeIndicator<PostVO> =
+                            object : GenericTypeIndicator<PostVO>() {}
+                        val posts: PostVO = ds.getValue(data)!!
+                        dataResult.add(posts)
+                    }
+                    resultPost.value = dataResult
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

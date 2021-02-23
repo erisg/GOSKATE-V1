@@ -3,7 +3,6 @@ package go.goskate.goskate.data
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseReference
@@ -28,20 +27,20 @@ class AuthRepository() {
                         FirebaseDatabase.getInstance().reference.child("Users")
                     val refStorage =
                         storage.getReference("imagesProfile/" + UUID.randomUUID().toString())
-                    val fileName = refStorage.child("img" + newUser.profileImage)
-                    fileName.putFile(newUser.profileImage!!.toUri()).addOnSuccessListener {
+                    val fileName = refStorage.child("img" + newUser.imageProfile)
+                    fileName.putFile(newUser.imageProfile!!.toUri()).addOnSuccessListener {
                         if (it.task.isSuccessful) {
                             fileName.downloadUrl.addOnSuccessListener { uri ->
-                                newUser.profileImage = uri.toString()
+                                newUser.imageProfile = uri.toString()
                                 val userMap = HashMap<String, Any>()
                                 userMap["uid"] = newUser.userId
-                                userMap["imageProfile"] = newUser.profileImage!!
+                                userMap["imageProfile"] = newUser.imageProfile!!
                                 userMap["userName"] = newUser.userName
                                 userMap["userEmail"] = newUser.userEmail
                                 userMap["userPassword"] = newUser.userPassword
                                 userMap["userTelephone"] = newUser.userTelephone
-                                userMap["ageUser"] = newUser.userAge
-                                userMap["sexUser"] = newUser.userGender!!
+                                userMap["ageUser"] = newUser.ageUser
+                                userMap["userGender"] = newUser.userGender!!
 
                                 userRef.child(newUser.userId).setValue(userMap)
                                     .addOnCompleteListener { task ->

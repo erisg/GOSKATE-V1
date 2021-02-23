@@ -8,6 +8,7 @@ class PostVO {
     var typeCapture: TypeCapture? = null
     var fileImageCapture: String? = null
     var fileVideoCapture: String? = null
+    var userId: String = ""
     var likesNumbers: Int = 0
     var likes: String = ""
     var description: String = ""
@@ -23,11 +24,13 @@ class PostVO {
         typeCapture: TypeCapture,
         fileImageCapture: String,
         location: String,
+        userId: String,
         description: String
     ) {
         this.typeCapture = typeCapture
         this.fileImageCapture = fileImageCapture
         this.location = location
+        this.userId = userId
         this.description = description
     }
 

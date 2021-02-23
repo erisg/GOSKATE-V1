@@ -79,10 +79,10 @@ class NewUser : AppCompatActivity() {
                 authViewModel.userVO.userName = userName
                 authViewModel.userVO.userEmail = userEmail
                 authViewModel.userVO.userTelephone = userTelephone
-                authViewModel.userVO.userAge = userAge
+                authViewModel.userVO.ageUser = userAge
                 val path: String =
                     Images.Media.insertImage(this.contentResolver, profileImage, nameFile, userName)
-                authViewModel.userVO.profileImage = path
+                authViewModel.userVO.imageProfile = path
                 authViewModel.dataNewUser().observe(this, {
                     if (it == "Successful") {
                         startActivity(Intent(this, MainActivity::class.java))

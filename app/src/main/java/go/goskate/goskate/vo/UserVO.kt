@@ -1,18 +1,14 @@
 package go.goskate.goskate.vo
 
-import android.graphics.Bitmap
-import android.net.Uri
-import kotlinx.android.synthetic.main.register.*
-
 class UserVO {
     var userId: String = ""
     var userName: String = ""
     var userEmail: String = ""
     var userPassword: String = ""
     var userTelephone: String = ""
-    var userAge: String = ""
+    var ageUser: String = ""
     var userGender: Boolean? = null
-    var profileImage: String? = null
+    var imageProfile: String? = null
 
     constructor()
 
@@ -25,7 +21,7 @@ class UserVO {
         this.userName = userName
         this.userEmail = userEmail
         this.userTelephone = userTelephone
-        this.profileImage = profileImage
+        this.imageProfile = profileImage
     }
 
 
@@ -41,7 +37,7 @@ class UserVO {
         this.userEmail = userEmail
         this.userPassword = userPassword
         this.userTelephone = userTelephone
-        this.userAge = userAge
+        this.ageUser = userAge
         this.userGender = userGender
     }
 }

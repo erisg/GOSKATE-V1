@@ -18,10 +18,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
 import go.goskate.goskate.R
+import go.goskate.goskate.helper.adapters.NewsAdapter
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.custom_dialog_post.*
 import kotlinx.android.synthetic.main.custom_dialog_post.view.*
+import kotlinx.android.synthetic.main.news.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -122,6 +124,7 @@ class CapturePostDialogFragment : DialogFragment() {
                 newsViewModel.setInfoPost().observe(requireActivity(), {
                     if (it == "Successful") {
                         dismiss()
+
                     } else {
                         Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
                     }
