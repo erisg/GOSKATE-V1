@@ -31,6 +31,7 @@ class NewSpotFilesAdapter(val context: Context, val newSpot: List<Bitmap>) :
         val imagePost = view.fileSpotImageView
 
         fun bind(item: Bitmap) {
+
             imagePost.setImageBitmap(item)
         }
 

@@ -35,8 +35,6 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
 
     inner class ViewHolderImage(view: View) : RecyclerView.ViewHolder(view) {
         val imagePost = view.newsImageView
-        val location = view.titleNewsTextView
-        val description = view.moreInfoTextView
 
 
         fun bind(item: PostVO) {
@@ -49,8 +47,6 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
 
             }
 
-            description.text = item.description
-            location.text = item.location
 
         }
     }

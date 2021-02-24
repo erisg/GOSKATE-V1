@@ -2,9 +2,11 @@ package go.goskate.goskate.helper.dialogs
 
 import android.Manifest
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -18,7 +20,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
 import go.goskate.goskate.R
-import go.goskate.goskate.helper.adapters.NewsAdapter
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.custom_dialog_post.*
@@ -62,6 +63,7 @@ class CapturePostDialogFragment : DialogFragment() {
         rootView.openVideoConstraintLayout.setOnClickListener {
             permission().observe(this, {
                 if (it) {
+                    dispatchTakeVideoIntent()
                 }
             })
         }
@@ -69,6 +71,16 @@ class CapturePostDialogFragment : DialogFragment() {
 
         return rootView
     }
+
+
+    private fun dispatchTakeVideoIntent() {
+        Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takeVideoIntent ->
+            takeVideoIntent.resolveActivity(requireActivity().packageManager)?.also {
+                startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE)
+            }
+        }
+    }
+
 
     private fun selectImageProfile() {
         val intent = Intent(Intent.ACTION_PICK)
@@ -90,15 +102,27 @@ class CapturePostDialogFragment : DialogFragment() {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
             val imageBitmap = data.extras?.get("data") as Bitmap
             showPost(imageBitmap)
+        } else if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+            val videoUri: Uri? = data?.data
+            showPostVideo(videoUri!!)
         }
 
     }
 
     private fun showPost(image: Bitmap) {
         typeCaptureConstraintLayout.visibility = View.GONE
-        showCaptureConstraintLayout.visibility = View.VISIBLE
+        showCaptureImageConstraintLayout.visibility = View.VISIBLE
         postImageImageView.setImageBitmap(image)
         newsImage = image
+        getInfoPost()
+    }
+
+    private fun showPostVideo(video: Uri) {
+        typeCaptureConstraintLayout.visibility = View.GONE
+        showCaptureImageConstraintLayout.visibility = View.VISIBLE
+        postImageImageView.visibility = View.GONE
+        postVideoView.visibility = View.VISIBLE
+        postVideoView.setVideoURI(video)
         getInfoPost()
     }
 

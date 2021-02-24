@@ -31,15 +31,10 @@ class News : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        userProfileViewModel.getAllPost().observe(requireActivity(), {
-            newsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
-            newsRecyclerView.adapter = NewsAdapter(requireContext(), it)
-        })
-
         addFilesConstraintLayout.visibility = View.GONE
 
         setOnClickFiles()
+        getAllPost()
 
         newPostFloatingActionButton.setOnClickListener {
             if (addFilesConstraintLayout.visibility == View.VISIBLE) {
@@ -50,6 +45,12 @@ class News : Fragment() {
         }
     }
 
+    private fun getAllPost() {
+        userProfileViewModel.getAllPost().observe(requireActivity(), {
+            newsRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 1)
+            newsRecyclerView?.adapter = NewsAdapter(requireContext(), it)
+        })
+    }
 
     private fun setOnClickFiles() {
         addFilesFloatingActionButton.setOnClickListener {

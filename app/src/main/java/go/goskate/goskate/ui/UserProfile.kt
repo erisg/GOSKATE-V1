@@ -47,14 +47,6 @@ import kotlinx.android.synthetic.main.profile.*
                 .into(userProfileImageView)
         })
 
-
-        userProfileViewModel.getAllPostForUser().observe(requireActivity(), { list ->
-            userPostRecyclerView.layoutManager =
-                StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-            userPostRecyclerView.adapter = UserPostAdapter(requireContext(), list)
-        })
-
-        chargeUserPost()
         moreOptionsImageView.setOnClickListener {
             val more = PopupMenu(requireContext(), moreOptionsImageView)
             more.menuInflater.inflate(R.menu.menu_profile, more.menu)
@@ -77,7 +69,17 @@ import kotlinx.android.synthetic.main.profile.*
             more.show()
         }
 
+        allPostUser()
+
     }
+
+     private fun allPostUser() {
+         userProfileViewModel.getAllPostForUser().observe(requireActivity(), { list ->
+             userPostRecyclerView.layoutManager =
+                 StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+             userPostRecyclerView.adapter = UserPostAdapter(requireContext(), list)
+         })
+     }
 
      private fun captureImageProfile() {
          val dialog = CaptureProfilePhotoDialogFragment()
@@ -91,10 +93,7 @@ import kotlinx.android.synthetic.main.profile.*
          prefs?.apply()
      }
 
-     private fun chargeUserPost() {
 
-
-     }
 
 
  }
