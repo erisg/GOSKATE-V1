@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
 import go.goskate.goskate.R
@@ -36,6 +38,7 @@ class CapturePostDialogFragment : DialogFragment() {
     val REQUEST_PERMISION_CODE = 100
     private val newsViewModel: NewsViewModel by activityViewModels()
     private lateinit var newsImage: Bitmap
+    private lateinit var newsVideo: Uri
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +48,7 @@ class CapturePostDialogFragment : DialogFragment() {
         val rootView = inflater.inflate(R.layout.custom_dialog_post, container, false)
 
         rootView.openVideoConstraintLayout.setOnClickListener {
-            permission().observe(this, {
+            permission().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 if (it) {
                     selectImageProfile()
                 }
@@ -53,7 +56,7 @@ class CapturePostDialogFragment : DialogFragment() {
         }
 
         rootView.openCameraPhotoConstraintLayout.setOnClickListener {
-            permission().observe(this, {
+            permission().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 if (it) {
                     dispatchTakePictureIntent()
                 }
@@ -61,7 +64,7 @@ class CapturePostDialogFragment : DialogFragment() {
         }
 
         rootView.openVideoConstraintLayout.setOnClickListener {
-            permission().observe(this, {
+            permission().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 if (it) {
                     dispatchTakeVideoIntent()
                 }
@@ -114,6 +117,7 @@ class CapturePostDialogFragment : DialogFragment() {
         showCaptureImageConstraintLayout.visibility = View.VISIBLE
         postImageImageView.setImageBitmap(image)
         newsImage = image
+        newsViewModel.postVO.typeCapture = PostVO.TypeCapture.PHOTO
         getInfoPost()
     }
 
@@ -122,7 +126,9 @@ class CapturePostDialogFragment : DialogFragment() {
         showCaptureImageConstraintLayout.visibility = View.VISIBLE
         postImageImageView.visibility = View.GONE
         postVideoView.visibility = View.VISIBLE
+        newsVideo = video
         postVideoView.setVideoURI(video)
+        newsViewModel.postVO.typeCapture = PostVO.TypeCapture.VIDEO
         getInfoPost()
     }
 
@@ -134,17 +140,23 @@ class CapturePostDialogFragment : DialogFragment() {
         postButton.setOnClickListener {
             val locationSpot = locationEditText.text.toString()
             val descriptionSpot = descriptionEditText.text.toString()
-            val path: String = MediaStore.Images.Media.insertImage(
-                requireActivity().contentResolver,
-                newsImage,
-                nameFile,
-                "newsPost"
-            )
+
+            if (newsViewModel.postVO.typeCapture == PostVO.TypeCapture.PHOTO) {
+                val path: String = MediaStore.Images.Media.insertImage(
+                    requireActivity().contentResolver,
+                    newsImage,
+                    nameFile,
+                    "newsPost"
+                )
+                newsViewModel.postVO.fileCapture = path
+            } else {
+                newsViewModel.postVO.fileCapture = newsVideo.toString()
+            }
+
+
             if (locationSpot.isNotEmpty() && descriptionSpot.isNotEmpty()) {
-                newsViewModel.postVO.typeCapture = PostVO.TypeCapture.PHOTO
                 newsViewModel.postVO.location = locationSpot
                 newsViewModel.postVO.description = descriptionSpot
-                newsViewModel.postVO.fileImageCapture = path
                 newsViewModel.setInfoPost().observe(requireActivity(), {
                     if (it == "Successful") {
                         dismiss()

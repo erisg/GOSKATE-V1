@@ -21,32 +21,61 @@ class NewsRepository {
         postVO.userId = auth.currentUser!!.uid
         val result = MutableLiveData<String>()
         val userRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("News")
-        val refStorage = storage.reference.child("imagesNews/" + UUID.randomUUID().toString())
-        val fileName = refStorage.child("img" + postVO.fileImageCapture)
-        fileName.putFile(postVO.fileImageCapture!!.toUri()).addOnSuccessListener {
-            fileName.downloadUrl.addOnSuccessListener {
-                postVO.fileImageCapture = it.toString()
-                val userMap = HashMap<String, Any>()
-                userMap["fileImageCapture"] = postVO.fileImageCapture!!
-                userMap["typeCapture"] = postVO.typeCapture!!
-                userMap["location"] = postVO.location
-                userMap["userId"] = postVO.userId
-                userMap["description"] = postVO.description
+        val refStorage = storage.reference.child("filesNews/" + UUID.randomUUID().toString())
+        if (postVO.typeCapture == PostVO.TypeCapture.PHOTO) {
+            val fileName = refStorage.child("img" + postVO.fileCapture)
+            fileName.putFile(postVO.fileCapture!!.toUri()).addOnSuccessListener {
+                fileName.downloadUrl.addOnSuccessListener {
+                    postVO.fileCapture = it.toString()
+                    val userMap = HashMap<String, Any>()
+                    userMap["fileCapture"] = postVO.fileCapture!!
+                    userMap["typeCapture"] = postVO.typeCapture!!
+                    userMap["location"] = postVO.location
+                    userMap["userId"] = postVO.userId
+                    userMap["description"] = postVO.description
 
-                val id = userRef.push().key
-                id?.let { it1 ->
-                    userRef.child(it1).setValue(userMap)
-                        .addOnCompleteListener { task ->
-                            result.value = if (task.isSuccessful) {
-                                "Successful"
-                            } else {
-                                task.exception?.toString()!!
+                    val id = userRef.push().key
+                    id?.let { it1 ->
+                        userRef.child(it1).setValue(userMap)
+                            .addOnCompleteListener { task ->
+                                result.value = if (task.isSuccessful) {
+                                    "Successful"
+                                } else {
+                                    task.exception?.toString()!!
+                                }
                             }
-                        }
+                    }
                 }
-            }
 
+            }
+        } else {
+            val fileName = refStorage.child("video" + postVO.fileCapture)
+            fileName.putFile(postVO.fileCapture!!.toUri()).addOnSuccessListener {
+                fileName.downloadUrl.addOnSuccessListener {
+                    postVO.fileCapture = it.toString()
+                    val userMap = HashMap<String, Any>()
+                    userMap["fileCapture"] = postVO.fileCapture!!
+                    userMap["typeCapture"] = postVO.typeCapture!!
+                    userMap["location"] = postVO.location
+                    userMap["userId"] = postVO.userId
+                    userMap["description"] = postVO.description
+
+                    val id = userRef.push().key
+                    id?.let { it1 ->
+                        userRef.child(it1).setValue(userMap)
+                            .addOnCompleteListener { task ->
+                                result.value = if (task.isSuccessful) {
+                                    "Successful"
+                                } else {
+                                    task.exception?.toString()!!
+                                }
+                            }
+                    }
+                }
+
+            }
         }
+
 
         return result
     }

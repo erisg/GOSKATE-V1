@@ -51,9 +51,8 @@ class UserRepository {
                             if (userGetValue.userId == userId) {
                                 userVO.add(userGetValue)
                             }
-                            resultPost.value = userVO
                         }
-
+                        resultPost.value = userVO
                     }
 
                 }

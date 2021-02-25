@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import go.goskate.goskate.R
@@ -35,6 +36,7 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
 
     inner class ViewHolderImage(view: View) : RecyclerView.ViewHolder(view) {
         val imagePost = view.newsImageView
+        val videoPost = view.newsVideoView
 
 
         fun bind(item: PostVO) {
@@ -42,9 +44,12 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
                 imagePost.visibility = View.VISIBLE
 
                 Glide.with(context)
-                    .load(item.fileImageCapture)
+                    .load(item.fileCapture)
                     .into(imagePost)
 
+            } else {
+                imagePost.visibility = View.GONE
+                videoPost.setVideoURI(item.fileCapture!!.toUri())
             }
 
 
