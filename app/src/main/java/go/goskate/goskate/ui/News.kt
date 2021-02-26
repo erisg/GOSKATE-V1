@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import go.goskate.goskate.R
+import go.goskate.goskate.customizedviews.PostCapturePopUp
 import go.goskate.goskate.helper.adapters.NewsAdapter
 import go.goskate.goskate.helper.dialogs.CapturePostDialogFragment
+import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoDialogFragment
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
 import go.goskate.goskate.vo.NewsVO
 import kotlinx.android.synthetic.main.news.*
@@ -54,7 +56,7 @@ class News : Fragment() {
 
     private fun setOnClickFiles() {
         addFilesFloatingActionButton.setOnClickListener {
-            val dialog = CapturePostDialogFragment()
+            val dialog = PostCapturePopUp()
             dialog.show(requireActivity().supportFragmentManager, "PostDialog")
 
         }

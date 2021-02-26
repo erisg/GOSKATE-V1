@@ -61,8 +61,7 @@
             android:background="@drawable/photos"
             app:layout_constraintBottom_toTopOf="@+id/guideline7"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
+            app:layout_constraintStart_toStartOf="parent">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -80,17 +79,7 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.7" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="AGREGAR NUEVA PUBLICACION"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/showCaptureImageConstraintLayout"
@@ -167,5 +156,7 @@
             app:layout_constraintTop_toBottomOf="@+id/descriptionEditText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

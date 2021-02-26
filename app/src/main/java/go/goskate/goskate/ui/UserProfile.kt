@@ -23,8 +23,7 @@ import kotlinx.android.synthetic.main.profile.*
 
  class UserProfile : Fragment() {
 
-     var posts = mutableListOf<PostVO>()
-     var userInfo = UserVO()
+
      private val userProfileViewModel: UserProfileViewModel by activityViewModels()
 
 

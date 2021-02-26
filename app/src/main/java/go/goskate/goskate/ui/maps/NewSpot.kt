@@ -59,7 +59,11 @@ class NewSpot : Fragment() {
         if (spotName.isEmpty() && spotHood.isEmpty() && spotLocality.isEmpty() && commentSpot.isEmpty() && spotScore == 0) {
             Toast.makeText(context, "FALTA INFORMACION POR INGRESAR", Toast.LENGTH_LONG).show()
         } else {
-            mapsViewModel.setInfoSpot()
+            mapsViewModel.spotVO.nameSpot = spotName
+            mapsViewModel.spotVO.nameHood = spotHood
+            mapsViewModel.spotVO.comments = commentSpot
+            mapsViewModel.spotVO.score = spotScore
+            // mapsViewModel.setInfoSpot()
         }
     }
 
