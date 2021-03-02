@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
@@ -35,7 +36,7 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
         val rootView = inflater.inflate(R.layout.custom_dialog_post, container, false)
 
         rootView.openVideoConstraintLayout.setOnClickListener {
-            permission().observe(this, {
+            permission().observe(viewLifecycleOwner, Observer {
                 if (it) {
                     selectImageProfile()
                 }
@@ -43,7 +44,7 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
         }
 
         rootView.openCameraPhotoConstraintLayout.setOnClickListener {
-            permission().observe(this, {
+            permission().observe(viewLifecycleOwner, Observer {
                 if (it) {
                     dispatchTakePictureIntent()
                 }
@@ -51,7 +52,7 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
         }
 
         rootView.openVideoConstraintLayout.setOnClickListener {
-            permission().observe(this, {
+            permission().observe(viewLifecycleOwner, Observer {
                 if (it) {
                 }
             })
@@ -105,7 +106,9 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         if (REQUEST_PERMISION_CODE == requestCode) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

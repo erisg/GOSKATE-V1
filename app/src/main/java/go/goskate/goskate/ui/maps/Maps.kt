@@ -1,7 +1,11 @@
 package go.goskate.goskate.ui.maps
 
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.location.Location
+import android.location.LocationListener
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,19 +19,50 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
+import android.location.Geocoder
+import android.widget.SearchView
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
 import kotlinx.android.synthetic.main.maps_fragment.*
 
 
-class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
+    LocationListener {
 
     private lateinit var mMap: GoogleMap
     private var mapView: MapView? = null
     private var navController: NavController? = null
     private lateinit var viewModel: MapsViewModel
+
+    val tercerMilenio = LatLng(4.648671, -74.120623)
+    val tunal = LatLng(4.571306, -74.136941)
+    val movistar = LatLng(4.649959, -74.077532)
+    val bowl72 = LatLng(4.663218, -74.066717)
+    val toberin = LatLng(4.743526, -74.039515)
+    val fontanar = LatLng(4.756818, -74.111592)
+    val flores = LatLng(4.753979, -74.101135)
+    val tibabuyes = LatLng(4.734838, -74.107224)
+    val margaritas = LatLng(4.734838, -74.107224)
+    val nuevoMilenio = LatLng(4.529037, -74.115449)
+    val palermo = LatLng(4.541913, -74.109892)
+    val francia = LatLng(4.622971, -74.111631)
+
+    val spots = listOf(
+        tercerMilenio,
+        tunal,
+        movistar,
+        bowl72,
+        toberin,
+        fontanar,
+        flores,
+        tibabuyes,
+        margaritas,
+        nuevoMilenio,
+        palermo,
+        francia
+    )
 
 
     override fun onCreateView(
@@ -53,6 +88,20 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
             navController!!.navigate(R.id.action_maps_to_newSpot2)
         }
 
+        spotSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // task HERE
+                return false
+            }
+
+        })
+
     }
 
 
@@ -61,6 +110,24 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
             mMap = it!!
         }
         mMap.setOnMarkerClickListener(this)
+        if (ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        mMap.isMyLocationEnabled = true
 
         try {
             val success = mMap.setMapStyle(
@@ -73,34 +140,8 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
             Log.e("oo", "Can't find style. Error: ", e)
         }
 
-        val tercerMilenio = LatLng(4.648671, -74.120623)
-        val tunal = LatLng(4.571306, -74.136941)
-        val movistar = LatLng(4.649959, -74.077532)
-        val bowl72 = LatLng(4.663218, -74.066717)
-        val toberin = LatLng(4.743526, -74.039515)
-        val fontanar = LatLng(4.756818, -74.111592)
-        val flores = LatLng(4.753979, -74.101135)
-        val tibabuyes = LatLng(4.734838, -74.107224)
-        val margaritas = LatLng(4.734838, -74.107224)
-        val nuevoMilenio = LatLng(4.529037, -74.115449)
-        val palermo = LatLng(4.541913, -74.109892)
-        val francia = LatLng(4.622971, -74.111631)
 
-        val spots = listOf(
-            tercerMilenio,
-            tunal,
-            movistar,
-            bowl72,
-            toberin,
-            fontanar,
-            flores,
-            tibabuyes,
-            margaritas,
-            nuevoMilenio,
-            palermo,
-            francia
-        )
-        val zoomLevel = 11.7f
+        val zoomLevel = 12f
         val cameraPlace = LatLng(4.622971, -74.111631)
 
         spots.forEach { place ->
@@ -116,6 +157,10 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
             spotDetails.show(requireActivity().supportFragmentManager, "NEW SPOT")
         }
         return true
+    }
+
+    override fun onLocationChanged(p0: Location) {
+        TODO("Not yet implemented")
     }
 
 }

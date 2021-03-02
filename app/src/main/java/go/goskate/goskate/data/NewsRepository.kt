@@ -1,6 +1,8 @@
 package go.goskate.goskate.data
 
 
+import android.util.Log
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -76,7 +78,6 @@ class NewsRepository {
             }
         }
 
-
         return result
     }
 
@@ -98,9 +99,10 @@ class NewsRepository {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("data", error.message)
             }
         })
+        userRef.keepSynced(true)
         return resultPost
     }
 
