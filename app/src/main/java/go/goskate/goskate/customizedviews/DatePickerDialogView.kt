@@ -55,21 +55,17 @@ class DatePickerDialogView : DialogFragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun initView() {
 
-        yearPicker.minValue = minYear
-        yearPicker.maxValue = maxYear
-        monthPicker.maxValue = 11
-        monthPicker.minValue = 0
+        yearPicker.minValue = 0
+        yearPicker.maxValue = 59
         dayPicker.minValue = 1
-        dayPicker.maxValue = 31
+        dayPicker.maxValue = 24
         val months = DateFormatSymbols(context?.resources?.configuration?.locales?.get(0)).months
         for (monthNumber in 0 until 12) {
             monthsArray[monthNumber] = months[monthNumber].toUpperCase(Locale.getDefault())
         }
         setListeners()
-        monthPicker.displayedValues = monthsArray
         yearPicker.value =
             if (maxYear < actualDate.get(Calendar.YEAR)) maxYear else actualDate.get(Calendar.YEAR)
-        monthPicker.value = actualDate.get(Calendar.MONTH)
         dayPicker.value = actualDate.get(Calendar.DAY_OF_MONTH)
         yearPicker.wrapSelectorWheel = false
         titleTextView.text = this.windowTitle
@@ -81,14 +77,10 @@ class DatePickerDialogView : DialogFragment() {
     private fun setListeners() {
         yearPicker.setOnValueChangedListener { _, _, i2 ->
             daysByMont[1] = if (i2.rem(4) == 0 && i2.rem(100) != 0) 29 else 28
-            updateMonth(monthPicker.value)
         }
 
-        monthPicker.setOnValueChangedListener { _, _, i2 ->
-            updateMonth(i2)
-        }
+
         datepicker_ok.setOnClickListener {
-            listener.onDateSet(null, yearPicker.value, monthPicker.value, dayPicker.value)
             dismiss()
         }
         datepicker_cancel.setOnClickListener {

@@ -9,6 +9,10 @@ import go.goskate.goskate.R
 
 class CommentSpots : Fragment() {
 
+    companion object {
+        fun newInstance(): CommentSpots = CommentSpots()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

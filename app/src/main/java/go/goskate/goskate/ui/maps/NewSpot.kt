@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -54,15 +55,44 @@ class NewSpot : Fragment() {
             validateInfoComplete()
         }
 
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
 
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                when (p2) {
+                    0 -> {
+                        mapsViewModel.spotVO.category = getString(R.string.street)
+                        hourConstraintLayout.visibility = View.GONE
+                    }
+                    1 -> {
+                        mapsViewModel.spotVO.category = getString(R.string.skate_park)
+                        hourConstraintLayout.visibility = View.VISIBLE
+                    }
+                    2 -> {
+                        mapsViewModel.spotVO.category = getString(R.string.slides)
+                        hourConstraintLayout.visibility = View.GONE
+                    }
+                    3 -> {
+                        mapsViewModel.spotVO.category = getString(R.string.flights)
+                        hourConstraintLayout.visibility = View.GONE
+                    }
+                    4 -> {
+                        mapsViewModel.spotVO.category = getString(R.string.vertical)
+                        hourConstraintLayout.visibility = View.GONE
+                    }
+                }
+            }
+        }
     }
 
     private fun validateInfoComplete() {
         val spotName = nameSpotEditText.text.toString()
         val spotHood = hoodEditText.text.toString()
-        val spotLocality = localityEditText.text.toString()
         val commentSpot = commentsEditText.text.toString()
         val spotScore = scoreRatingBar.numStars
+
 
         val dialog = NewPostPopUp()
         dialog.show(requireActivity().supportFragmentManager, "PostDialog")

@@ -33,12 +33,72 @@
     <string name="create">CREATE</string>
     <string name="name_email">Name or Email</string>
 
+    <string name="skate_park">SKATE PARK</string>
+    <string name="street">STREET</string>
+    <string name="slides">SLIDES</string>
+    <string name="flights">VUELOS</string>
+    <string name="vertical">VERTICAL</string>
+
+    <string-array name="categories">
+        <item>@string/street</item>
+        <item>@string/skate_park</item>
+        <item>@string/slides</item>
+        <item>@string/flights</item>
+        <item>@string/vertical</item>
+    </string-array>
+
+    <string name="usaquen">USAQUÉN</string>
+    <string name="chapinero">CHAPINERO</string>
+    <string name="santa_fe">SANTA FE</string>
+    <string name="san_cristobal">SAN CRISTOBAL</string>
+    <string name="usme">USME</string>
+    <string name="bosa">BOSA</string>
+    <string name="kennedy">KENNEDY</string>
+    <string name="fontibon">FONTIBON</string>
+    <string name="engativa">ENGATIVA</string>
+    <string name="suba">SUBA</string>
+    <string name="barrios_unidos">BARRIOS UNIDOS</string>
+    <string name="teusaquillo">TEUSAQUILLO</string>
+    <string name="los_martires">LOS MARTIRESL</string>
+    <string name="antonio_narino">ANTONIO NARIÑO</string>
+    <string name="puente_aranda">PUENTE ARANDA</string>
+    <string name="candelaria">LA CANDELARIA</string>
+    <string name="rafael_uribe">RAFAEL URIBE URIBE</string>
+    <string name="ciudad_bolivar">CIUDAD BOLIVAR</string>
+    <string name="sumapaz">SUMAPAZ</string>
+    <string name="soacha">OTRA(SOACHA)</string>
+
+
+    <string-array name="localities">
+        <item>@string/rafael_uribe</item>
+        <item>@string/usaquen</item>
+        <item>@string/chapinero</item>
+        <item>@string/santa_fe</item>
+        <item>@string/san_cristobal</item>
+        <item>@string/usme</item>
+        <item>@string/bosa</item>
+        <item>@string/kennedy</item>
+        <item>@string/fontibon</item>
+        <item>@string/engativa</item>
+        <item>@string/suba</item>
+        <item>@string/barrios_unidos</item>
+        <item>@string/teusaquillo</item>
+        <item>@string/los_martires</item>
+        <item>@string/antonio_narino</item>
+        <item>@string/puente_aranda</item>
+        <item>@string/candelaria</item>
+        <item>@string/ciudad_bolivar</item>
+        <item>@string/sumapaz</item>
+        <item>@string/soacha</item>
+    </string-array>
+
     // MENU
 
     <string name="news">NEWS</string>
     <string name="maps">MAPA</string>
     <string name="profile">PERFIL</string>
 
+    //LOGIN
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -50,5 +110,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_maps">Map</string>
+
 
 </resources>
