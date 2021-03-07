@@ -31,7 +31,6 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.profile_photo_capture, container, false)
 
-
         rootView.openGalleryConstraintLayout.setOnClickListener {
             permissionGallery()
         }

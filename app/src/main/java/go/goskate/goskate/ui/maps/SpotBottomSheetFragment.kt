@@ -1,5 +1,7 @@
 package go.goskate.goskate.ui.maps
 
+import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,17 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.viewpager.widget.ViewPager
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import go.goskate.goskate.R
 import go.goskate.goskate.helper.adapters.ViewPagerAdapter
+import kotlinx.android.synthetic.main.spot.*
 
 
 class SpotBottomSheetFragment : BottomSheetDialogFragment() {
 
-
-    private var navController: NavController? = null
     private lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
 
@@ -27,30 +30,22 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val viewSpot = inflater.inflate(R.layout.spot, container, false)
-        tabLayout = viewSpot.findViewById(R.id.titleInfoTabLayout)
+    @SuppressLint("RestrictedApi")
+    override fun setupDialog(dialog: Dialog, style: Int) {
+        super.setupDialog(dialog, style)
+
+        val viewSpot = View.inflate(context, R.layout.spot, null)
+        dialog.setContentView(viewSpot)
         viewPager = viewSpot.findViewById(R.id.InfoPostViewPager)
-        val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager)
-        adapter.addFragment(InfoSpot.newInstance(), "Info")
-        adapter.addFragment(FilesSpot.newInstance(), "FOTOS-VIDEOS")
-        adapter.addFragment(CommentSpots.newInstance(), "COMENTARIOS")
-        viewPager.adapter = adapter
-        return viewSpot
+        tabLayout = viewSpot.findViewById(R.id.titleInfoTabLayout)
+        chargeData()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val behavior = BottomSheetBehavior.from(requireView().parent as View)
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-
-    }
-
-    private fun chargeSpot(viewpager: ViewPager) {
+    private fun chargeData() {
+        tabLayout.addTab(tabLayout.newTab().setText("INFORMACION"))
+        tabLayout.addTab(tabLayout.newTab().setText("FOTOS-VIDEOS"))
+        tabLayout.addTab(tabLayout.newTab().setText("COMENTARIOS"))
+        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
     }
 

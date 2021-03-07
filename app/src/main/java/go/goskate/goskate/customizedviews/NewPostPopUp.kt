@@ -15,6 +15,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -23,16 +24,24 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import go.goskate.goskate.R
+import go.goskate.goskate.ui.viewmodel.MapsViewModel
+import kotlinx.android.synthetic.main.new_spot_map.*
 import java.net.CacheRequest
 
 
-class NewPostPopUp : DialogFragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
+class NewPostPopUp : DialogFragment(), OnMapReadyCallback, GoogleMap.OnCameraIdleListener,
+    GoogleMap.OnCameraMoveStartedListener,
     LocationListener {
+
+
+    private val mapsViewModel: MapsViewModel by activityViewModels()
 
     private lateinit var mMap: GoogleMap
     private var mapView: MapView? = null
     private lateinit var currentPositionMarker: Marker
     val REQUEST_PERMISION_CODE = 100
+    var userMoveMap = false
+
 
     // Location
 
@@ -58,28 +67,7 @@ class NewPostPopUp : DialogFragment(), OnMapReadyCallback, GoogleMap.OnMarkerCli
         return rootView
     }
 
-    private fun intiLocation() {
-        locationRequest = LocationRequest()
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest.fastestInterval = 300
-        locationRequest.interval = 5000
-        locationRequest.smallestDisplacement = 10f
 
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(location: LocationResult) {
-                super.onLocationResult(location)
-
-                val myLocation =
-                    LatLng(location.lastLocation.latitude, location.lastLocation.longitude)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18f))
-            }
-        }
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
-        // fusedLocationProviderClient.removeLocationUpdates(locationRequest,locationCallback, Looper.myLooper())
-
-
-    }
 
     override fun onStart() {
         super.onStart()
@@ -92,12 +80,11 @@ class NewPostPopUp : DialogFragment(), OnMapReadyCallback, GoogleMap.OnMarkerCli
     override fun onMapReady(googleMap: GoogleMap?) {
         googleMap.let {
             mMap = it!!
+            mMap.isMyLocationEnabled = true
         }
-        mMap.uiSettings.isZoomControlsEnabled = true
-        mMap.setOnMarkerClickListener(this)
-        mMap.isMyLocationEnabled = true
-
-
+        mMap.setOnCameraIdleListener(this)
+        mMap.setOnCameraMoveStartedListener(this)
+        mMap.uiSettings.isMyLocationButtonEnabled = false
 
         try {
             val success = mMap.setMapStyle(
@@ -115,10 +102,6 @@ class NewPostPopUp : DialogFragment(), OnMapReadyCallback, GoogleMap.OnMarkerCli
     }
 
 
-    override fun onMarkerClick(marker: Marker?): Boolean {
-        TODO("Not yet implemented")
-    }
-
     override fun onLocationChanged(location: Location) {
 
         val latLng = LatLng(location.latitude, location.longitude)
@@ -127,12 +110,7 @@ class NewPostPopUp : DialogFragment(), OnMapReadyCallback, GoogleMap.OnMarkerCli
         // mMap.clear(); // Call if You need To Clear Map
 
         // mMap.clear(); // Call if You need To Clear Map
-        if (currentPositionMarker == null) currentPositionMarker = mMap.addMarker(
-            MarkerOptions()
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
-                .position(latLng)
-                .zIndex(20f)
-        ) else currentPositionMarker.position = latLng
+        currentPositionMarker.position = latLng
 
 
         mMap.animateCamera(
@@ -177,6 +155,18 @@ class NewPostPopUp : DialogFragment(), OnMapReadyCallback, GoogleMap.OnMarkerCli
     override fun onDestroy() {
         //   fusedLocationProviderClient.removeLocationUpdates(locationCallback)
         super.onDestroy()
+    }
+
+    override fun onCameraIdle() {
+        mapsViewModel.spotVO.latitude = mMap.cameraPosition.target.latitude
+        mapsViewModel.spotVO.longitude = mMap.cameraPosition.target.longitude
+
+    }
+
+    override fun onCameraMoveStarted(reason: Int) {
+        if (reason == GoogleMap.OnCameraMoveStartedListener.REASON_GESTURE) {
+            locationImageView.animate().translationY(-((locationImageView.height / 2)).toFloat())
+        }
     }
 
 }

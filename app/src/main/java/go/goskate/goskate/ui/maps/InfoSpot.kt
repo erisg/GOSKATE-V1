@@ -11,7 +11,10 @@ import kotlinx.android.synthetic.main.info_spot.*
 class InfoSpot : Fragment() {
 
     companion object {
-        fun newInstance(): InfoSpot = InfoSpot()
+        fun newInstance(): InfoSpot {
+            return InfoSpot()
+
+        }
     }
 
     override fun onCreateView(

@@ -42,8 +42,6 @@ class NewSpot : Fragment() {
                 photosRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
                 photosRecyclerView.adapter = NewSpotFilesAdapter(requireContext(), imageViewNewPost)
             }
-
-
         })
 
         filesSpotFloatingActionButton.setOnClickListener {

@@ -12,8 +12,8 @@ class SpotVO {
     var hour = ""
     var files: List<File>? = null
     var score = 0
-    var latitude = 0F
-    var longitude = 0F
+    var latitude = 0.0
+    var longitude = 0.0
     var comments = ""
 
     constructor()
@@ -27,8 +27,8 @@ class SpotVO {
         hour: String,
         files: List<File>,
         score: Int,
-        latitude: Float,
-        longitude: Float,
+        latitude: Double,
+        longitude: Double,
         comments: String
     ) {
         this.nameSpot = nameSpot

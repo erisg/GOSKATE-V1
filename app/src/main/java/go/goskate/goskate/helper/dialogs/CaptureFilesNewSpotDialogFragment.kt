@@ -1,17 +1,22 @@
 package go.goskate.goskate.helper.dialogs
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +25,10 @@ import androidx.lifecycle.observe
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
 import kotlinx.android.synthetic.main.custom_dialog_post.view.*
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CaptureFilesNewSpotDialogFragment : DialogFragment() {
 
@@ -27,6 +36,7 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
     val REQUEST_IMAGE_CAPTURE = 102
     val REQUEST_PERMISION_CODE = 100
     private val mapsViewModel: MapsViewModel by activityViewModels()
+    lateinit var currentPhotoPath: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,13 +78,6 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
 
     }
 
-    private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-            }
-        }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -84,6 +87,38 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
             dismiss()
         }
 
+    }
+
+    private fun dispatchTakePictureIntent() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        // Ensure that there's a camera activity to handle the intent
+        // Create the File where the photo should go
+        val photoFile: File = createImageFile()
+        val photoURI: Uri = FileProvider.getUriForFile(
+            requireContext(),
+            "go.goskate.goskate.contentprovider",
+            photoFile
+        )
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+
+    }
+
+
+    @SuppressLint("SimpleDateFormat")
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
     }
 
 
