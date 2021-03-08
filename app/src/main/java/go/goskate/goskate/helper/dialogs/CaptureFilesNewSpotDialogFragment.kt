@@ -82,25 +82,37 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
-            val imageBitmap = data.extras?.get("data") as Bitmap
-            mapsViewModel.imagesNewSpot.value = imageBitmap
+          data
             dismiss()
         }
 
     }
 
+
     private fun dispatchTakePictureIntent() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        // Ensure that there's a camera activity to handle the intent
-        // Create the File where the photo should go
-        val photoFile: File = createImageFile()
-        val photoURI: Uri = FileProvider.getUriForFile(
-            requireContext(),
-            "go.goskate.goskate.contentprovider",
-            photoFile
-        )
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            // Ensure that there's a camera activity to handle the intent
+            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
+                // Create the File where the photo should go
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    Toast.makeText(context, ex.message, Toast.LENGTH_LONG).show()
+                    null
+                }
+                // Continue only if the File was successfully created
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        requireContext(),
+                        "go.goskate.goskate.contentprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                }
+            }
+        }
 
     }
 
