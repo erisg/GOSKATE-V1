@@ -38,13 +38,12 @@ import kotlinx.android.synthetic.main.profile.*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userProfileViewModel.getInfoUserProfile().observe(requireActivity(), { user ->
-            userNameTextView.text = user.userName
 
-            Picasso.with(context)
-                .load(user.imageProfile)
+            userNameTextView.text = userProfileViewModel.getInfoUserProfile().userName
+        Picasso.with(context)
+            .load(userProfileViewModel.getInfoUserProfile().imageProfile)
                 .into(userProfileImageView)
-        })
+
 
         moreOptionsImageView.setOnClickListener {
             val more = PopupMenu(requireContext(), moreOptionsImageView)

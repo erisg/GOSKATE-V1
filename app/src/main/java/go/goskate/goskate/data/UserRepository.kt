@@ -13,8 +13,8 @@ class UserRepository {
     var firebaseDataBase: FirebaseDatabase = FirebaseDatabase.getInstance()
     var userId = FirebaseAuth.getInstance().currentUser!!.uid
 
-    fun getUserInfo(): MutableLiveData<UserVO> {
-        val userVO = MutableLiveData<UserVO>()
+    fun getUserInfo(): UserVO {
+        var userVO = UserVO()
         firebaseDataBase.reference.child("Users").child(userId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -23,7 +23,7 @@ class UserRepository {
                         val t: GenericTypeIndicator<UserVO?> =
                             object : GenericTypeIndicator<UserVO?>() {}
                         val userGetValue: UserVO = snapshot.getValue(t)!!
-                        userVO.value = userGetValue
+                        userVO = userGetValue
                     }
 
                 }

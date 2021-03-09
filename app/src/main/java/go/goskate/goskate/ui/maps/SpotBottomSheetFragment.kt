@@ -45,25 +45,10 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
         tabLayout.addTab(tabLayout.newTab().setText("INFORMACION"))
         tabLayout.addTab(tabLayout.newTab().setText("FOTOS-VIDEOS"))
         tabLayout.addTab(tabLayout.newTab().setText("COMENTARIOS"))
+        viewPager.adapter = ViewPagerAdapter(activity!!.supportFragmentManager, tabLayout.tabCount)
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-    }
 
-
-    private var mListener: ItemClickListener? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        mListener = null
-    }
-
-    interface ItemClickListener {
-        fun onItemClick(item: String)
     }
 
 }

@@ -14,7 +14,7 @@ class UserProfileViewModel : ViewModel() {
     var imagesPost = MutableLiveData<String>()
     private val userRepository = UserRepository()
 
-    fun getInfoUserProfile(): MutableLiveData<UserVO> {
+    fun getInfoUserProfile(): UserVO {
         return userRepository.getUserInfo()
     }
 

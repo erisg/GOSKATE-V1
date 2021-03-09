@@ -32,7 +32,6 @@ import java.util.*
 
 class CaptureFilesNewSpotDialogFragment : DialogFragment() {
 
-    private val REQUEST_VIDEO_CAPTURE = 101
     val REQUEST_IMAGE_CAPTURE = 102
     val REQUEST_PERMISION_CODE = 100
     private val mapsViewModel: MapsViewModel by activityViewModels()
@@ -81,38 +80,23 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
-          data
-            dismiss()
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
         }
 
     }
 
 
     private fun dispatchTakePictureIntent() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val file: File = createImageFile()
 
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
-                // Create the File where the photo should go
-                val photoFile: File? = try {
-                    createImageFile()
-                } catch (ex: IOException) {
-                    Toast.makeText(context, ex.message, Toast.LENGTH_LONG).show()
-                    null
-                }
-                // Continue only if the File was successfully created
-                photoFile?.also {
-                    val photoURI: Uri = FileProvider.getUriForFile(
-                        requireContext(),
-                        "go.goskate.goskate.contentprovider",
-                        it
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-                }
-            }
-        }
+        val uri: Uri = FileProvider.getUriForFile(
+            requireContext(),
+            "go.goskate.goskate.contentprovider",
+            file
+        )
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+        (context as Activity).startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
 
     }
 
