@@ -38,11 +38,13 @@ import kotlinx.android.synthetic.main.profile.*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-            userNameTextView.text = userProfileViewModel.getInfoUserProfile().userName
-        Picasso.with(context)
-            .load(userProfileViewModel.getInfoUserProfile().imageProfile)
+        userProfileViewModel.getInfoUserProfile().observe(viewLifecycleOwner, {
+            userNameTextView.text = it?.userName
+            Picasso.with(context)
+                .load(it?.imageProfile)
                 .into(userProfileImageView)
+        })
+
 
 
         moreOptionsImageView.setOnClickListener {
