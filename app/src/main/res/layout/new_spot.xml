@@ -162,7 +162,7 @@
 
 
             <Spinner
-                android:id="@+id/localityEditText"
+                android:id="@+id/localitySpinner"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:entries="@array/localities"
@@ -183,7 +183,7 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/localityEditText">
+                app:layout_constraintTop_toBottomOf="@+id/localitySpinner">
 
 
                 <TextView

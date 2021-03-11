@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import android.location.Geocoder
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.model.MarkerOptions
 import go.goskate.goskate.R
@@ -28,8 +29,7 @@ import go.goskate.goskate.ui.viewmodel.MapsViewModel
 import kotlinx.android.synthetic.main.maps_fragment.*
 
 
-class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
-    LocationListener {
+class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mMap: GoogleMap
     private var mapView: MapView? = null
@@ -78,7 +78,6 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
         viewModel = ViewModelProviders.of(this).get(MapsViewModel::class.java)
         navController = Navigation.findNavController(view)
 
-
         mapView = view.findViewById(R.id.mapFrameLayout) as MapView
         mapView!!.onCreate(savedInstanceState)
         mapView!!.onResume()
@@ -118,13 +117,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            Toast.makeText(requireContext(), "permiso Denegado", Toast.LENGTH_LONG).show()
             return
         }
         mMap.isMyLocationEnabled = true
@@ -159,8 +152,5 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
         return true
     }
 
-    override fun onLocationChanged(p0: Location) {
-        TODO("Not yet implemented")
-    }
 
 }
