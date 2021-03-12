@@ -1,6 +1,7 @@
 package go.goskate.goskate.helper.adapters
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,6 @@ import com.squareup.picasso.Picasso
 import go.goskate.goskate.R
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.news_item.view.*
-import kotlinx.android.synthetic.main.profile.*
-import java.lang.reflect.Array.get
 
 class NewsAdapter(val context: Context, val news: List<PostVO>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -54,16 +53,19 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
                 imagePost.visibility = View.GONE
                 videoPost.visibility = View.VISIBLE
                 videoPost.setVideoURI(item.fileCapture!!.toUri())
-                videoPost.setMediaController(mediaController)
-                videoPost.start()
+                videoPost.setOnPreparedListener(MediaPlayer.OnPreparedListener {
+                    it.start()
+                })
+                videoPost.setOnCompletionListener(MediaPlayer.OnCompletionListener {
+                    it.start()
+                })
             }
 
             location.text = item.location
             description.text = item.description
 
-
         }
 
-
     }
+
 }

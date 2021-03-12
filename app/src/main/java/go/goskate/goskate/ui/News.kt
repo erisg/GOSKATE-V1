@@ -45,6 +45,10 @@ class News : Fragment() {
                 addFilesConstraintLayout.visibility = View.VISIBLE
             }
         }
+
+        addNewsFloatingActionButton.setOnClickListener {
+
+        }
     }
 
     private fun getAllPost() {
@@ -56,6 +60,7 @@ class News : Fragment() {
 
     private fun setOnClickFiles() {
         addFilesFloatingActionButton.setOnClickListener {
+            addFilesConstraintLayout.visibility = View.GONE
             val dialog = PostCapturePopUp()
             dialog.show(requireActivity().supportFragmentManager, "PostDialog")
 
