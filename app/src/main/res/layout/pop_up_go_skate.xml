@@ -6,15 +6,6 @@
     android:layout_height="wrap_content"
     android:background="@color/transparent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/transparent">
-
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,7 +47,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/fondosiluetas"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -119,93 +110,98 @@
                             app:layout_constraintStart_toStartOf="parent">
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/showCaptureImageConstraintLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/showCaptureImageConstraintLayout"
+                            android:id="@+id/fileConstraintLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_height="wrap_content"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:id="@+id/fileConstraintLayout"
+
+                            <ImageView
+                                android:id="@+id/postImageImageView"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-
-                                <ImageView
-                                    android:id="@+id/postImageImageView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="20dp"
-                                    android:background="@drawable/logolin"
-                                    android:visibility="visible"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <VideoView
-                                    android:id="@+id/postVideoView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="200dp"
-                                    android:visibility="gone"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                            <EditText
-                                android:id="@+id/locationEditText"
-                                android:layout_width="200dp"
-                                android:layout_height="40dp"
-                                android:ems="10"
-                                android:hint="UBICACION"
-                                android:inputType="textPersonName"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/fileConstraintLayout" />
-
-                            <EditText
-                                android:id="@+id/descriptionEditText"
-                                android:layout_width="200dp"
-                                android:layout_height="40dp"
-                                android:layout_marginTop="16dp"
-                                android:ems="10"
-                                android:hint="DESCRIPCION"
-                                android:inputType="textPersonName"
-                                app:layout_constraintEnd_toEndOf="@+id/locationEditText"
-                                app:layout_constraintStart_toStartOf="@+id/locationEditText"
-                                app:layout_constraintTop_toBottomOf="@+id/locationEditText" />
-
-                            <Button
-                                android:id="@+id/postButton"
-                                android:layout_width="125dp"
-                                android:layout_height="50dp"
-                                android:layout_marginBottom="25dp"
-                                android:background="@drawable/background_menu"
-                                android:text="PUBLICAR"
+                                android:layout_height="250dp"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="@+id/descriptionEditText"
-                                app:layout_constraintStart_toStartOf="@+id/descriptionEditText"
-                                app:layout_constraintTop_toBottomOf="@+id/descriptionEditText" />
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <VideoView
+                                android:id="@+id/postVideoView"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+                        <EditText
+                            android:id="@+id/locationEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:ems="10"
+                            android:hint="UBICACION"
+                            android:inputType="textPersonName"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/fileConstraintLayout" />
+
+                        <EditText
+                            android:id="@+id/descriptionEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:ems="10"
+                            android:hint="DESCRIPCION"
+                            android:inputType="textPersonName"
+                            app:layout_constraintBottom_toTopOf="@+id/postButton"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/locationEditText" />
+
+                        <Button
+                            android:id="@+id/postButton"
+                            android:layout_width="125dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="25dp"
+                            android:background="@drawable/background_menu"
+                            android:text="PUBLICAR"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/descriptionEditText"
+                            app:layout_constraintStart_toStartOf="@+id/descriptionEditText"
+                            app:layout_constraintTop_toBottomOf="@+id/descriptionEditText" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,178 +1,110 @@
 package go.goskate.goskate.customizedviews
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.observe
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
 import go.goskate.goskate.vo.PostVO
-import kotlinx.android.synthetic.main.custom_dialog_post.*
-import kotlinx.android.synthetic.main.custom_dialog_post.view.*
+import kotlinx.android.synthetic.main.news_capture_dialog.*
+import kotlinx.android.synthetic.main.news_capture_dialog.newsImageView
 import kotlinx.android.synthetic.main.pop_up_go_skate.*
-import kotlinx.android.synthetic.main.pop_up_go_skate.descriptionEditText
-import kotlinx.android.synthetic.main.pop_up_go_skate.locationEditText
-import kotlinx.android.synthetic.main.pop_up_go_skate.postButton
-import kotlinx.android.synthetic.main.pop_up_go_skate.postImageImageView
-import kotlinx.android.synthetic.main.pop_up_go_skate.postVideoView
-import kotlinx.android.synthetic.main.pop_up_go_skate.showCaptureImageConstraintLayout
-import kotlinx.android.synthetic.main.pop_up_go_skate.typeCaptureConstraintLayout
-import java.text.SimpleDateFormat
-import java.util.*
+import kotlinx.android.synthetic.main.pop_up_go_skate.view.*
+import java.io.File
+import java.io.IOException
 
-class PostCapturePopUp : DialogFragment() {
+class PostCapturePopUp() : DialogFragment() {
+
 
     private val REQUEST_VIDEO_CAPTURE = 101
-    val REQUEST_IMAGE_CAPTURE = 102
-    val REQUEST_PERMISION_CODE = 100
+    val REQUEST_IMAGE_CAPTURE = 1
     private val newsViewModel: NewsViewModel by activityViewModels()
-    private lateinit var newsImage: Bitmap
-    private lateinit var newsVideo: Uri
+    lateinit var imageLocation: String
+    lateinit var image: Bitmap
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.pop_up_go_skate, container)
+        val rootView = inflater.inflate(R.layout.pop_up_go_skate, container, false)
+        val postLocation = rootView.locationEditText.text.toString()
+        val postDescription = rootView.descriptionEditText.text.toString()
+        rootView.postButton.setOnClickListener {
+            newsViewModel.postVO.fileCapture = image.toString()
+            newsViewModel.postVO.title = postLocation
+            newsViewModel.postVO.description = postDescription
+            newsViewModel.setInfoPost()
+        }
 
-        rootView.openVideoConstraintLayout.setOnClickListener {
-            permission().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                if (it) {
-                    selectImageProfile()
-                }
-            })
+        rootView.openGalleryConstraintLayout.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            startActivity(intent)
         }
 
         rootView.openCameraPhotoConstraintLayout.setOnClickListener {
-            permission().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                if (it) {
-                    dispatchTakePictureIntent()
-                }
-            })
+            takePicture()
         }
 
         rootView.openVideoConstraintLayout.setOnClickListener {
-            permission().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                if (it) {
-                    dispatchTakeVideoIntent()
-                }
-            })
+            recordVideo()
         }
-
         return rootView
     }
 
-    private fun dispatchTakeVideoIntent() {
-        Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takeVideoIntent ->
-            takeVideoIntent.resolveActivity(requireActivity().packageManager)?.also {
-                startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE)
+    private fun takePicture() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            var imageLocation: File? = null
+            try {
+                imageLocation = createImageFile()
+            } catch (ex: IOException) {
+                Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_LONG).show()
             }
+            if (imageLocation != null) {
+                val imageUri = FileProvider.getUriForFile(
+                    requireContext(),
+                    "go.goskate.goskate.contentprovider",
+                    imageLocation
+                )
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+            }
+
         }
     }
 
-
-    private fun selectImageProfile() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
-
+    private fun recordVideo() {
+        val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
     }
 
-    private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-            }
-        }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
-            val imageBitmap = data.extras?.get("data") as Bitmap
-            showPost(imageBitmap)
-        } else if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val videoUri: Uri? = data?.data
-            showPostVideo(videoUri!!)
-        }
+        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
 
-    }
-
-    private fun showPost(image: Bitmap) {
-        typeCaptureConstraintLayout.visibility = View.GONE
-        showCaptureImageConstraintLayout.visibility = View.VISIBLE
-        postImageImageView.setImageBitmap(image)
-        newsImage = image
-        newsViewModel.postVO.typeCapture = PostVO.TypeCapture.PHOTO
-        getInfoPost()
-    }
-
-    private fun showPostVideo(video: Uri) {
-        typeCaptureConstraintLayout.visibility = View.GONE
-        showCaptureImageConstraintLayout.visibility = View.VISIBLE
-        postImageImageView.visibility = View.GONE
-        postVideoView.visibility = View.VISIBLE
-        newsVideo = video
-        postVideoView.setVideoURI(video)
-        newsViewModel.postVO.typeCapture = PostVO.TypeCapture.VIDEO
-        getInfoPost()
-    }
-
-    private fun getInfoPost() {
-        val myCalendar = Calendar.getInstance()
-        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
-        val nameFile = formatter.format(myCalendar.time)
-
-        postButton.setOnClickListener {
-            val locationSpot = locationEditText.text.toString()
-            val descriptionSpot = descriptionEditText.text.toString()
-
-            if (newsViewModel.postVO.typeCapture == PostVO.TypeCapture.PHOTO) {
-                val path: String = MediaStore.Images.Media.insertImage(
-                    requireActivity().contentResolver,
-                    newsImage,
-                    nameFile,
-                    "newsPost"
-                )
-                newsViewModel.postVO.fileCapture = path
-            } else {
-                newsViewModel.postVO.fileCapture = newsVideo.toString()
-            }
-
-
-            if (locationSpot.isNotEmpty() && descriptionSpot.isNotEmpty()) {
-                newsViewModel.postVO.location = locationSpot
-                newsViewModel.postVO.description = descriptionSpot
-                newsViewModel.setInfoPost().observe(requireActivity(), {
-                    if (it == "Successful") {
-                        dismiss()
-
-                    } else {
-                        Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-                    }
-                })
-
-            } else {
-                Toast.makeText(requireContext(), "faltan datos por ingresar", Toast.LENGTH_LONG)
-                    .show()
-            }
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            val imageBitmap: Bitmap = BitmapFactory.decodeFile(imageLocation)
+            image = imageBitmap
+            showCapture(imageBitmap)
         }
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -182,34 +114,20 @@ class PostCapturePopUp : DialogFragment() {
         )
     }
 
+    private fun createImageFile(): File {
+        // Create an image file name
+        val imageName = "news_"
+        val storageDir: File = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
+        val image = File.createTempFile(imageName, ".jpg", storageDir)
+        imageLocation = image.absolutePath
 
-    private fun permission(): MutableLiveData<Boolean> {
-        val permissionResponse = MutableLiveData<Boolean>()
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            permissionResponse.value = true
-        } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.CAMERA),
-                REQUEST_IMAGE_CAPTURE
-            )
-        }
-        return permissionResponse
+        return image
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        if (REQUEST_PERMISION_CODE == requestCode) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(requireContext(), "permiso concedido", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(requireContext(), "permiso denegado", Toast.LENGTH_LONG).show()
-            }
-        }
+
+    fun showCapture(imageBitmap: Bitmap) {
+        typeCaptureConstraintLayout.visibility = View.GONE
+        showCaptureImageConstraintLayout.visibility = View.VISIBLE
+        postImageImageView.setImageBitmap(imageBitmap)
     }
 }

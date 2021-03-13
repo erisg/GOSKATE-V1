@@ -1,4 +1,4 @@
-package go.goskate.goskate.customizedviews
+package go.goskate.goskate.helper.dialogs
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -25,7 +25,8 @@ import kotlinx.android.synthetic.main.new_spot_map.*
 import kotlinx.android.synthetic.main.new_spot_map.view.*
 
 
-class NewSpotPopUp : DialogFragment(), OnMapReadyCallback, GoogleMap.OnCameraIdleListener,
+class NewSpotMapDialogFragment : DialogFragment(), OnMapReadyCallback,
+    GoogleMap.OnCameraIdleListener,
     GoogleMap.OnCameraMoveStartedListener {
 
 

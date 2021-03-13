@@ -11,8 +11,9 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import go.goskate.goskate.R
-import go.goskate.goskate.customizedviews.NewSpotPopUp
+import go.goskate.goskate.helper.dialogs.NewSpotMapDialogFragment
 import go.goskate.goskate.helper.adapters.NewSpotFilesAdapter
 import go.goskate.goskate.helper.dialogs.CaptureFilesNewSpotDialogFragment
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
@@ -106,7 +107,7 @@ class NewSpot : Fragment() {
             mapsViewModel.spotVO.nameHood = spotHood
             mapsViewModel.spotVO.comments = commentSpot
             mapsViewModel.spotVO.score = spotScore
-            val dialog = NewSpotPopUp()
+            val dialog = NewSpotMapDialogFragment()
             dialog.show(requireActivity().supportFragmentManager, "PostDialog")
         } else {
             Toast.makeText(context, "FALTA INFORMACION POR INGRESAR", Toast.LENGTH_LONG).show()

@@ -1,4 +1,4 @@
-package go.goskate.goskate.customizedviews
+package go.goskate.goskate.helper.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater

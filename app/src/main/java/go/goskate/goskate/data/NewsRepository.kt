@@ -32,7 +32,7 @@ class NewsRepository {
                     val userMap = HashMap<String, Any>()
                     userMap["fileCapture"] = postVO.fileCapture!!
                     userMap["typeCapture"] = postVO.typeCapture!!
-                    userMap["location"] = postVO.location
+                    userMap["title"] = postVO.title
                     userMap["userId"] = postVO.userId
                     userMap["description"] = postVO.description
 
@@ -58,7 +58,7 @@ class NewsRepository {
                     val userMap = HashMap<String, Any>()
                     userMap["fileCapture"] = postVO.fileCapture!!
                     userMap["typeCapture"] = postVO.typeCapture!!
-                    userMap["location"] = postVO.location
+                    userMap["title"] = postVO.title
                     userMap["userId"] = postVO.userId
                     userMap["description"] = postVO.description
 

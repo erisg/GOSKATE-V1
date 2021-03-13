@@ -8,18 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import go.goskate.goskate.R
+import go.goskate.goskate.helper.dialogs.NewsCaptureDialogFragment
 import go.goskate.goskate.customizedviews.PostCapturePopUp
 import go.goskate.goskate.helper.adapters.NewsAdapter
-import go.goskate.goskate.helper.dialogs.CapturePostDialogFragment
-import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoDialogFragment
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
-import go.goskate.goskate.vo.NewsVO
 import kotlinx.android.synthetic.main.news.*
 
 class News : Fragment() {
 
 
-    private val userProfileViewModel: NewsViewModel by activityViewModels()
+    private val newsViewModel: NewsViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -35,7 +33,6 @@ class News : Fragment() {
 
         addFilesConstraintLayout.visibility = View.GONE
 
-        setOnClickFiles()
         getAllPost()
 
         newPostFloatingActionButton.setOnClickListener {
@@ -46,26 +43,28 @@ class News : Fragment() {
             }
         }
 
-        addNewsFloatingActionButton.setOnClickListener {
-
-        }
-    }
-
-    private fun getAllPost() {
-        userProfileViewModel.getAllPost().observe(requireActivity(), {
-            newsRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 1)
-            newsRecyclerView?.adapter = NewsAdapter(requireContext(), it)
-        })
-    }
-
-    private fun setOnClickFiles() {
         addFilesFloatingActionButton.setOnClickListener {
             addFilesConstraintLayout.visibility = View.GONE
             val dialog = PostCapturePopUp()
             dialog.show(requireActivity().supportFragmentManager, "PostDialog")
 
         }
+
+        addNewsFloatingActionButton.setOnClickListener {
+            addFilesConstraintLayout.visibility = View.GONE
+            val dialog = NewsCaptureDialogFragment()
+            dialog.show(requireActivity().supportFragmentManager, "NewsDialog")
+        }
     }
+
+    private fun getAllPost() {
+        newsViewModel.getAllPost().observe(requireActivity(), {
+            newsRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 1)
+            newsRecyclerView?.adapter = NewsAdapter(requireContext(), it)
+        })
+    }
+
+
 
 
 }

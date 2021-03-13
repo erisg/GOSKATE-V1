@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -24,6 +25,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
+import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.custom_dialog_post.view.*
 import java.io.File
 import java.io.IOException
@@ -34,8 +36,10 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
 
     val REQUEST_IMAGE_CAPTURE = 102
     val REQUEST_PERMISION_CODE = 100
+    val REQUEST_VIDEO_CAPTURE = 101
     private val mapsViewModel: MapsViewModel by activityViewModels()
-    lateinit var currentPhotoPath: String
+    lateinit var imageLocation: String
+    lateinit var image: Bitmap
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +59,7 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
         rootView.openCameraPhotoConstraintLayout.setOnClickListener {
             permission().observe(viewLifecycleOwner, Observer {
                 if (it) {
-                    dispatchTakePictureIntent()
+                    takePicture()
                 }
             })
         }
@@ -79,42 +83,45 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
+
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            val imageBitmap: Bitmap = BitmapFactory.decodeFile(imageLocation)
+            mapsViewModel.imagesNewSpot.value = imageBitmap
+            dismiss()
         }
-
     }
 
-
-    private fun dispatchTakePictureIntent() {
+    private fun takePicture() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val file: File = createImageFile()
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            var imageLocation: File? = null
+            try {
+                imageLocation = createImageFile()
+            } catch (ex: IOException) {
+                Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_LONG).show()
+            }
+            if (imageLocation != null) {
+                val imageUri = FileProvider.getUriForFile(
+                    requireContext(),
+                    "go.goskate.goskate.contentprovider",
+                    imageLocation
+                )
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+            }
 
-        val uri: Uri = FileProvider.getUriForFile(
-            requireContext(),
-            "go.goskate.goskate.contentprovider",
-            file
-        )
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-        (context as Activity).startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
-
+        }
     }
 
-
-    @SuppressLint("SimpleDateFormat")
-    @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val imageName = "news_"
         val storageDir: File = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
-        return File.createTempFile(
-            "JPEG_${timeStamp}_", /* prefix */
-            ".jpg", /* suffix */
-            storageDir /* directory */
-        ).apply {
-            // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
-        }
+        val image = File.createTempFile(imageName, ".jpg", storageDir)
+        imageLocation = image.absolutePath
+
+        return image
     }
 
 

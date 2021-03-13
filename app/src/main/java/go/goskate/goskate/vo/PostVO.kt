@@ -11,7 +11,7 @@ class PostVO {
     var likesNumbers: Int = 0
     var likes: String = ""
     var description: String = ""
-    var location: String = ""
+    var title: String = ""
 
     constructor()
 
@@ -22,13 +22,13 @@ class PostVO {
     constructor(
         typeCapture: TypeCapture,
         fileImageCapture: String,
-        location: String,
+        title: String,
         userId: String,
         description: String
     ) {
         this.typeCapture = typeCapture
         this.fileCapture = fileCapture
-        this.location = location
+        this.title = title
         this.userId = userId
         this.description = description
     }
@@ -39,13 +39,13 @@ class PostVO {
         fileVideoCapture: String?,
         likesNumbers: Int,
         likes: String,
-        location: String
+        title: String
     ) {
         this.typeCapture = typeCapture
         this.fileCapture = fileCapture
         this.likesNumbers = likesNumbers
         this.likes = likes
-        this.location = location
+        this.title = title
     }
 
 
