@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -76,9 +78,8 @@ import kotlinx.android.synthetic.main.profile.*
 
      private fun allPostUser() {
          userProfileViewModel.getAllPostForUser().observe(requireActivity(), { list ->
-             userPostRecyclerView.layoutManager =
-                 StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-             userPostRecyclerView.adapter = UserPostAdapter(requireContext(), list)
+             userPostRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 3)
+             userPostRecyclerView?.adapter = UserPostAdapter(requireContext(), list)
          })
      }
 

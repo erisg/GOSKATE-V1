@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore.Images
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -82,6 +83,7 @@ class NewUser : AppCompatActivity() {
                 authViewModel.userVO.userTelephone = userTelephone
                 authViewModel.userVO.ageUser = userAge
                 authViewModel.userVO.imageProfile = profileImage.toString()
+                progressBar.visibility = View.VISIBLE
                 authViewModel.dataNewUser().observe(this, {
                     if (it == "Successful") {
                         startActivity(Intent(this, MainActivity::class.java))
