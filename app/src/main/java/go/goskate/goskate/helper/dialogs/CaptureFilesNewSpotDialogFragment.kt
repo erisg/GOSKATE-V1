@@ -27,6 +27,7 @@ import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.custom_dialog_post.view.*
+import kotlinx.android.synthetic.main.news_capture_dialog.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -86,8 +87,8 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
 
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val imageBitmap: Bitmap = BitmapFactory.decodeFile(imageLocation)
-            mapsViewModel.imagesNewSpot.value = imageBitmap
+            val uri = Uri.fromFile(File(imageLocation))
+            mapsViewModel.imagesNewSpot.value = uri
             dismiss()
         }
     }
@@ -116,7 +117,7 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
 
     private fun createImageFile(): File {
         // Create an image file name
-        val imageName = "news_"
+        val imageName = "post_"
         val storageDir: File = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
         val image = File.createTempFile(imageName, ".jpg", storageDir)
         imageLocation = image.absolutePath

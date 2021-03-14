@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.MediaController
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import go.goskate.goskate.R
 import go.goskate.goskate.vo.PostVO
@@ -40,16 +41,17 @@ class UserPostAdapter(val context: Context, val news: MutableList<PostVO>) :
 
 
         fun bind(item: PostVO) {
-            if (item.typeCapture == PostVO.TypeCapture.PHOTO) {
+            if (item.captureType == PostVO.TypeCapture.PHOTO) {
                 videoPost.visibility = View.GONE
                 imagePost.visibility = View.VISIBLE
-                Picasso.with(context)
-                    .load(item.fileCapture)
+
+                Glide.with(context)
+                    .load(item.captureFile)
                     .into(imagePost)
             } else {
                 imagePost.visibility = View.GONE
                 videoPost.visibility = View.VISIBLE
-                videoPost.setVideoURI(item.fileCapture!!.toUri())
+                videoPost.setVideoURI(item.captureFile?.toUri())
                 videoPost.setMediaController(mediaController)
                 videoPost.start()
             }

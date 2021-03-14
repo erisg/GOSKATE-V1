@@ -2,8 +2,6 @@ package go.goskate.goskate.customizedviews
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -14,14 +12,11 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
 import go.goskate.goskate.vo.PostVO
-import kotlinx.android.synthetic.main.news_capture_dialog.*
-import kotlinx.android.synthetic.main.news_capture_dialog.newsImageView
 import kotlinx.android.synthetic.main.pop_up_go_skate.*
 import kotlinx.android.synthetic.main.pop_up_go_skate.view.*
 import java.io.File
@@ -34,7 +29,7 @@ class PostCapturePopUp() : DialogFragment() {
     val REQUEST_IMAGE_CAPTURE = 1
     private val newsViewModel: NewsViewModel by activityViewModels()
     lateinit var imageLocation: String
-    lateinit var image: Bitmap
+    lateinit var image: Uri
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,13 +37,8 @@ class PostCapturePopUp() : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.pop_up_go_skate, container, false)
-        val postLocation = rootView.locationEditText.text.toString()
-        val postDescription = rootView.descriptionEditText.text.toString()
         rootView.postButton.setOnClickListener {
-            newsViewModel.postVO.fileCapture = image.toString()
-            newsViewModel.postVO.title = postLocation
-            newsViewModel.postVO.description = postDescription
-            newsViewModel.setInfoPost()
+            savePost()
         }
 
         rootView.openGalleryConstraintLayout.setOnClickListener {
@@ -89,6 +79,25 @@ class PostCapturePopUp() : DialogFragment() {
         }
     }
 
+    fun savePost() {
+        val title = locationEditText.text.toString()
+        val description = descriptionEditText.text.toString()
+        newsViewModel.postVO.title = title
+        newsViewModel.postVO.description = description
+        newsViewModel.postVO.captureType = PostVO.TypeCapture.PHOTO
+        newsViewModel.postVO.captureFile = image.toString()
+        newsViewModel.postVO.typePost = PostVO.TypePost.POST
+        newsViewModel.setInfoPost().observe(viewLifecycleOwner, { result ->
+            if (result == "Successful") {
+                dismiss()
+            } else {
+                Toast.makeText(requireContext(), result, Toast.LENGTH_LONG).show()
+            }
+        })
+
+
+    }
+
     private fun recordVideo() {
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
         startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
@@ -99,9 +108,9 @@ class PostCapturePopUp() : DialogFragment() {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
 
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val imageBitmap: Bitmap = BitmapFactory.decodeFile(imageLocation)
-            image = imageBitmap
-            showCapture(imageBitmap)
+            val imageUri = Uri.fromFile(File(imageLocation))
+            image = imageUri
+            showCapture(imageUri)
         }
     }
 
@@ -125,9 +134,9 @@ class PostCapturePopUp() : DialogFragment() {
     }
 
 
-    fun showCapture(imageBitmap: Bitmap) {
+    fun showCapture(imageUri: Uri) {
         typeCaptureConstraintLayout.visibility = View.GONE
         showCaptureImageConstraintLayout.visibility = View.VISIBLE
-        postImageImageView.setImageBitmap(imageBitmap)
+        postImageImageView.setImageURI(imageUri)
     }
 }

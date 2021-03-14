@@ -1,6 +1,7 @@
 package go.goskate.goskate.ui.maps
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,7 @@ class NewSpot : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val imageViewNewPost = mutableListOf<Bitmap>()
+        val imageViewNewPost = mutableListOf<Uri>()
         mapsViewModel.imagesNewSpot.observe(requireActivity(), {
             imageViewNewPost.add(it)
             if (it != null) {

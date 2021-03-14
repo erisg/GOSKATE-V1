@@ -2,7 +2,6 @@ package go.goskate.goskate.data
 
 
 import android.util.Log
-import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -23,18 +22,18 @@ class NewsRepository {
         postVO.userId = auth.currentUser!!.uid
         val result = MutableLiveData<String>()
         val userRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("News")
-        val refStorage = storage.reference.child("filesNews/" + UUID.randomUUID().toString())
-        if (postVO.typeCapture == PostVO.TypeCapture.PHOTO) {
-            val fileName = refStorage.child("img" + postVO.fileCapture)
-            fileName.putFile(postVO.fileCapture!!.toUri()).addOnSuccessListener {
-                fileName.downloadUrl.addOnSuccessListener {
-                    postVO.fileCapture = it.toString()
+        val refStorage = storage.reference.child("newsFiles/" + UUID.randomUUID().toString())
+        if (postVO.captureType == PostVO.TypeCapture.PHOTO) {
+            refStorage.putFile(postVO.captureFile!!.toUri()).addOnSuccessListener {
+                refStorage.downloadUrl.addOnSuccessListener {
+                    postVO.captureFile = it.toString()
                     val userMap = HashMap<String, Any>()
-                    userMap["fileCapture"] = postVO.fileCapture!!
-                    userMap["typeCapture"] = postVO.typeCapture!!
+                    userMap["captureFile"] = postVO.captureFile!!
+                    userMap["captureType"] = postVO.captureType!!
                     userMap["title"] = postVO.title
                     userMap["userId"] = postVO.userId
                     userMap["description"] = postVO.description
+                    userMap["typePost"] = postVO.typePost!!
 
                     val id = userRef.push().key
                     id?.let { it1 ->
@@ -51,13 +50,13 @@ class NewsRepository {
 
             }
         } else {
-            val fileName = refStorage.child("video" + postVO.fileCapture)
-            fileName.putFile(postVO.fileCapture!!.toUri()).addOnSuccessListener {
+            val fileName = refStorage.child("video" + postVO.captureFile)
+            fileName.putFile(postVO.captureFile!!.toUri()).addOnSuccessListener {
                 fileName.downloadUrl.addOnSuccessListener {
-                    postVO.fileCapture = it.toString()
+                    postVO.captureFile = it.toString()
                     val userMap = HashMap<String, Any>()
-                    userMap["fileCapture"] = postVO.fileCapture!!
-                    userMap["typeCapture"] = postVO.typeCapture!!
+                    userMap["fileCapture"] = postVO.captureFile!!
+                    userMap["typeCapture"] = postVO.captureType!!
                     userMap["title"] = postVO.title
                     userMap["userId"] = postVO.userId
                     userMap["description"] = postVO.description

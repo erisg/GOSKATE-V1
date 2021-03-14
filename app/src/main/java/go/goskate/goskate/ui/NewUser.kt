@@ -2,6 +2,7 @@ package go.goskate.goskate.ui
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore.Images
 import android.widget.Toast
@@ -20,7 +21,7 @@ class NewUser : AppCompatActivity() {
 
 
     private val authViewModel: AuthViewModel by viewModels()
-    lateinit var profileImage: Bitmap
+    lateinit var profileImage: Uri
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +29,7 @@ class NewUser : AppCompatActivity() {
         setContentView(R.layout.register)
 
         authViewModel.profileImage.observeForever {
-            profileImageView.setImageBitmap(it)
+            profileImageView.setImageURI(it)
             profileImage = it
         }
 
@@ -80,9 +81,7 @@ class NewUser : AppCompatActivity() {
                 authViewModel.userVO.userEmail = userEmail
                 authViewModel.userVO.userTelephone = userTelephone
                 authViewModel.userVO.ageUser = userAge
-                val path: String =
-                    Images.Media.insertImage(this.contentResolver, profileImage, nameFile, userName)
-                authViewModel.userVO.imageProfile = path
+                authViewModel.userVO.imageProfile = profileImage.toString()
                 authViewModel.dataNewUser().observe(this, {
                     if (it == "Successful") {
                         startActivity(Intent(this, MainActivity::class.java))

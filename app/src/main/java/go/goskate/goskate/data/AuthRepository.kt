@@ -26,11 +26,10 @@ class AuthRepository() {
                     val userRef: DatabaseReference =
                         FirebaseDatabase.getInstance().reference.child("Users")
                     val refStorage =
-                        storage.getReference("imagesProfile/" + UUID.randomUUID().toString())
-                    val fileName = refStorage.child("img" + newUser.imageProfile)
-                    fileName.putFile(newUser.imageProfile!!.toUri()).addOnSuccessListener {
+                        storage.reference.child("userFiles/" + UUID.randomUUID().toString())
+                    refStorage.putFile(newUser.imageProfile!!.toUri()).addOnSuccessListener {
                         if (it.task.isSuccessful) {
-                            fileName.downloadUrl.addOnSuccessListener { uri ->
+                            refStorage.downloadUrl.addOnSuccessListener { uri ->
                                 newUser.imageProfile = uri.toString()
                                 val userMap = HashMap<String, Any>()
                                 userMap["uid"] = newUser.userId
@@ -59,7 +58,7 @@ class AuthRepository() {
                     }
 
                 } else {
-                    mutableDataResponse.value = message
+                    mutableDataResponse.value = "$message"
                 }
 
             }

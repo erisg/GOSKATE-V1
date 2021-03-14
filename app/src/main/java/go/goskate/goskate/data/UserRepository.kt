@@ -48,7 +48,7 @@ class UserRepository {
                             val t: GenericTypeIndicator<PostVO?> =
                                 object : GenericTypeIndicator<PostVO?>() {}
                             val userGetValue: PostVO = ds.getValue(t)!!
-                            if (userGetValue.userId == userId) {
+                            if (userGetValue.userId == userId && userGetValue.typePost == PostVO.TypePost.POST) {
                                 userVO.add(userGetValue)
                             }
                         }

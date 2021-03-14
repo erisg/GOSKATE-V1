@@ -12,7 +12,7 @@ import go.goskate.goskate.vo.UserVO
 class AuthViewModel : ViewModel() {
 
     val userVO = UserVO()
-    var profileImage = MutableLiveData<Bitmap>()
+    var profileImage = MutableLiveData<Uri>()
     private val authRepository = AuthRepository()
 
     fun dataNewUser(): MutableLiveData<String> {

@@ -2,6 +2,7 @@ package go.goskate.goskate.helper.adapters
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import go.goskate.goskate.R
 import kotlinx.android.synthetic.main.spot_file_item.view.*
 
-class NewSpotFilesAdapter(val context: Context, val newSpot: List<Bitmap>) :
+class NewSpotFilesAdapter(val context: Context, val newSpot: List<Uri>) :
     RecyclerView.Adapter<NewSpotFilesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,9 +31,8 @@ class NewSpotFilesAdapter(val context: Context, val newSpot: List<Bitmap>) :
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imagePost = view.fileSpotImageView
 
-        fun bind(item: Bitmap) {
-
-            imagePost.setImageBitmap(item)
+        fun bind(item: Uri) {
+            imagePost.setImageURI(item)
         }
 
 

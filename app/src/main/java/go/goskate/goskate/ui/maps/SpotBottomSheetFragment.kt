@@ -26,7 +26,6 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
 
     companion object {
         fun newInstance(): SpotBottomSheetFragment = SpotBottomSheetFragment()
-        const val TAG = "CustomBottomSheetDialogFragment"
 
     }
 
@@ -45,7 +44,7 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
         tabLayout.addTab(tabLayout.newTab().setText("INFORMACION"))
         tabLayout.addTab(tabLayout.newTab().setText("FOTOS-VIDEOS"))
         tabLayout.addTab(tabLayout.newTab().setText("COMENTARIOS"))
-        viewPager.adapter = ViewPagerAdapter(activity!!.supportFragmentManager, tabLayout.tabCount)
+     //   viewPager.adapter = ViewPagerAdapter(activity!!.supportFragmentManager, tabLayout.tabCount)
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
 

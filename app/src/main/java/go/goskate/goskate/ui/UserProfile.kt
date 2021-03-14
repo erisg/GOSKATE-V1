@@ -40,9 +40,10 @@ import kotlinx.android.synthetic.main.profile.*
 
         userProfileViewModel.getInfoUserProfile().observe(viewLifecycleOwner, {
             userNameTextView.text = it?.userName
-            Picasso.with(context)
+            Glide.with(requireContext())
                 .load(it?.imageProfile)
                 .into(userProfileImageView)
+
         })
 
 

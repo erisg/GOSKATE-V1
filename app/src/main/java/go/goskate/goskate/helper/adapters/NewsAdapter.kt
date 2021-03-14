@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.MediaController
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import go.goskate.goskate.R
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.news_item.view.*
@@ -43,16 +43,16 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
         val description = view.moreInfoTextView
 
         fun bind(item: PostVO) {
-            if (item.typeCapture == PostVO.TypeCapture.PHOTO) {
+            if (item.captureType == PostVO.TypeCapture.PHOTO) {
                 videoPost.visibility = View.GONE
                 imagePost.visibility = View.VISIBLE
-                Picasso.with(context)
-                    .load(item.fileCapture)
+                Glide.with(context)
+                    .load(item.captureFile)
                     .into(imagePost)
             } else {
                 imagePost.visibility = View.GONE
                 videoPost.visibility = View.VISIBLE
-                videoPost.setVideoURI(item.fileCapture!!.toUri())
+                videoPost.setVideoURI(item.captureFile?.toUri())
                 videoPost.setOnPreparedListener(MediaPlayer.OnPreparedListener {
                     it.start()
                 })
