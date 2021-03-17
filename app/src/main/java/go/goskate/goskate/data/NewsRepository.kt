@@ -34,6 +34,8 @@ class NewsRepository {
                     userMap["userId"] = postVO.userId
                     userMap["description"] = postVO.description
                     userMap["typePost"] = postVO.typePost!!
+                    userMap["profileImageUser"] = postVO.profileImageUser
+                    userMap["nameUser"] = postVO.nameUser
 
                     val id = userRef.push().key
                     id?.let { it1 ->
@@ -60,6 +62,9 @@ class NewsRepository {
                     userMap["title"] = postVO.title
                     userMap["userId"] = postVO.userId
                     userMap["description"] = postVO.description
+                    userMap["typePost"] = postVO.typePost!!
+                    userMap["profileImageUser"] = postVO.profileImageUser
+                    userMap["nameUser"] = postVO.nameUser
 
                     val id = userRef.push().key
                     id?.let { it1 ->

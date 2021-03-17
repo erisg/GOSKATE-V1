@@ -41,8 +41,14 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
         val videoPost = view.newsVideoView
         val location = view.titleNewsTextView
         val description = view.moreInfoTextView
+        val imageProfile = view.imageProfileImageView
+        val userName = view.userTextView
 
         fun bind(item: PostVO) {
+            userName.text = item.nameUser
+            Glide.with(context)
+                .load(item.profileImageUser)
+                .into(imageProfile)
             if (item.captureType == PostVO.TypeCapture.PHOTO) {
                 videoPost.visibility = View.GONE
                 imagePost.visibility = View.VISIBLE
@@ -53,12 +59,12 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
                 imagePost.visibility = View.GONE
                 videoPost.visibility = View.VISIBLE
                 videoPost.setVideoURI(item.captureFile?.toUri())
-                videoPost.setOnPreparedListener(MediaPlayer.OnPreparedListener {
+                videoPost.setOnPreparedListener {
                     it.start()
-                })
-                videoPost.setOnCompletionListener(MediaPlayer.OnCompletionListener {
+                }
+                videoPost.setOnCompletionListener {
                     it.start()
-                })
+                }
             }
 
             location.text = item.title

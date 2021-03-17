@@ -14,11 +14,14 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
+import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.pop_up_go_skate.*
 import kotlinx.android.synthetic.main.pop_up_go_skate.view.*
+import kotlinx.android.synthetic.main.profile.*
 import java.io.File
 import java.io.IOException
 
@@ -87,6 +90,10 @@ class PostCapturePopUp() : DialogFragment() {
         newsViewModel.postVO.captureType = PostVO.TypeCapture.PHOTO
         newsViewModel.postVO.captureFile = image.toString()
         newsViewModel.postVO.typePost = PostVO.TypePost.POST
+        newsViewModel.getInfoUserProfile().observe(viewLifecycleOwner, {
+            newsViewModel.postVO.profileImageUser = it.imageProfile!!
+            newsViewModel.postVO.nameUser = it.userName
+        })
         newsViewModel.setInfoPost().observe(viewLifecycleOwner, { result ->
             if (result == "Successful") {
                 dismiss()

@@ -83,6 +83,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         mapView!!.onResume()
         mapView!!.getMapAsync(this)
 
+        permission()
         floatingActionButton.setOnClickListener {
             navController!!.navigate(R.id.action_maps_to_newSpot2)
         }
@@ -110,14 +111,14 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
         }
         mMap.setOnMarkerClickListener(this)
         if (ActivityCompat.checkSelfPermission(
-                this.requireContext(),
+                requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this.requireContext(),
+                requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            Toast.makeText(requireContext(), "permiso Denegado", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "", Toast.LENGTH_LONG).show()
             return
         }
         mMap.isMyLocationEnabled = true
@@ -150,6 +151,15 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
             spotDetails.show(requireActivity().supportFragmentManager, "NEW SPOT")
         }
         return true
+    }
+
+    private fun permission() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+        }
     }
 
 

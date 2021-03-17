@@ -8,12 +8,14 @@ import android.widget.Adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import go.goskate.goskate.R
 import go.goskate.goskate.helper.dialogs.NewsCaptureDialogFragment
 import go.goskate.goskate.customizedviews.PostCapturePopUp
 import go.goskate.goskate.helper.adapters.NewsAdapter
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.news.*
+import kotlinx.android.synthetic.main.profile.*
 
 class News : Fragment() {
 
@@ -65,8 +67,6 @@ class News : Fragment() {
 
         })
     }
-
-
 
 
 }

@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
+import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.news_capture_dialog.*
 import kotlinx.android.synthetic.main.news_capture_dialog.view.*
@@ -78,6 +79,10 @@ class NewsCaptureDialogFragment : DialogFragment() {
             newsViewModel.postVO.title = titleNews
             newsViewModel.postVO.description = descriptionNews
             newsViewModel.postVO.typePost = PostVO.TypePost.NEWS
+            newsViewModel.getInfoUserProfile().observe(viewLifecycleOwner, {
+                newsViewModel.postVO.profileImageUser = it.imageProfile!!
+                newsViewModel.postVO.nameUser = it.userName
+            })
             newsViewModel.setInfoPost().observe(viewLifecycleOwner, { result ->
                 if (result == "Successful") {
                     dismiss()

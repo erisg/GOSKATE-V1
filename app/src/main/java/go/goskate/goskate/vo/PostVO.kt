@@ -10,6 +10,8 @@ class PostVO {
     var likes: String = ""
     var description: String = ""
     var title: String = ""
+    var profileImageUser: String = ""
+    var nameUser: String = ""
 
     constructor()
 
@@ -38,7 +40,10 @@ class PostVO {
         likesNumbers: Int,
         likes: String,
         title: String,
-        typePost: TypePost
+        typePost: TypePost,
+        profileImageUser: String,
+        nameUser: String
+
     ) {
         this.captureType = typeCapture
         this.captureFile = captureFile
@@ -46,6 +51,8 @@ class PostVO {
         this.likes = likes
         this.title = title
         this.typePost = typePost
+        this.profileImageUser = profileImageUser
+        this.nameUser = nameUser
     }
 
 
