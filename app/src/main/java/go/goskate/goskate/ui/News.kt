@@ -63,7 +63,9 @@ class News : Fragment() {
     private fun getAllPost() {
         newsViewModel.getAllPost().observe(requireActivity(), {
             newsRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 1)
-            newsRecyclerView?.adapter = NewsAdapter(requireContext(), it)
+            val adapter = NewsAdapter(requireContext(), it)
+            newsRecyclerView?.adapter = adapter
+
 
         })
     }

@@ -1,15 +1,13 @@
 package go.goskate.goskate.ui
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import go.goskate.goskate.MainActivity
@@ -17,14 +15,18 @@ import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
 import kotlinx.android.synthetic.main.login.*
 
+
 class Login : AppCompatActivity() {
 
     private val GOOGLE_SIGN_IN = 100
     private val authViewModel: AuthViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
+
+        permision()
 
 
         forgotPasswordTextView.setOnClickListener {
@@ -45,6 +47,17 @@ class Login : AppCompatActivity() {
 
     }
 
+
+    private fun permision() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),  /* Este codigo es para identificar tu request */
+            1
+        )
+    }
 
     //TODO corregir bug
     private fun singInWhitGoogle() {
@@ -95,18 +108,17 @@ class Login : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GOOGLE_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val account = task.result
-            if (account != null) {
-                authViewModel.dataLoginWithCredentials(account).observeForever {
-                    if (it == "Successful") {
-                        startActivity(Intent(this, MainActivity::class.java))
-                    } else {
-                        Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
-        }
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissions.indexOf(Manifest.permission.READ_PHONE_STATE)
+        permissions.indexOf(Manifest.permission.ACCESS_FINE_LOCATION)
+
     }
 }

@@ -1,5 +1,6 @@
 package go.goskate.goskate.ui
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import go.goskate.goskate.MainActivity
 import go.goskate.goskate.R
 import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoDialogFragment
@@ -62,6 +64,11 @@ class NewUser : AppCompatActivity() {
 
     private fun validateDataComplete() {
 
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Registrando")
+        progressDialog.setMessage("Porfavor espere")
+        progressDialog.show()
+
         val myCalendar = Calendar.getInstance()
         val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
         val nameFile = formatter.format(myCalendar.time)
@@ -87,14 +94,18 @@ class NewUser : AppCompatActivity() {
                 authViewModel.dataNewUser().observe(this, {
                     if (it == "Successful") {
                         startActivity(Intent(this, MainActivity::class.java))
+                        progressDialog.dismiss()
                     } else {
                         Toast.makeText(this, it, Toast.LENGTH_LONG).show()
                     }
                 })
             } else {
+
+                progressDialog.dismiss()
                 Toast.makeText(this, "LAS CONTRASENAS NO COINCIDEN", Toast.LENGTH_LONG).show()
             }
         } else {
+            progressDialog.dismiss()
             Toast.makeText(this, "FALTA INFORMACION POR INGRESAR", Toast.LENGTH_LONG).show()
         }
     }
