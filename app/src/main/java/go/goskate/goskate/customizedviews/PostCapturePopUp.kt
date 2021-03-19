@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.MediaController
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
@@ -88,8 +89,6 @@ class PostCapturePopUp() : DialogFragment() {
         val description = descriptionEditText.text.toString()
         newsViewModel.postVO.title = title
         newsViewModel.postVO.description = description
-        newsViewModel.postVO.captureType = PostVO.TypeCapture.PHOTO
-        newsViewModel.postVO.captureFile = image.toString()
         newsViewModel.postVO.typePost = PostVO.TypePost.POST
         newsViewModel.getInfoUserProfile().observe(viewLifecycleOwner, {
             newsViewModel.postVO.profileImageUser = it.imageProfile!!
@@ -114,11 +113,12 @@ class PostCapturePopUp() : DialogFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
-
+            val videoUri = data!!.data!!
+            showCapture(videoUri, "VIDEO")
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val imageUri = Uri.fromFile(File(imageLocation))
             image = imageUri
-            showCapture(imageUri)
+            showCapture(imageUri, "IMAGE")
         }
     }
 
@@ -142,9 +142,31 @@ class PostCapturePopUp() : DialogFragment() {
     }
 
 
-    fun showCapture(imageUri: Uri) {
+    fun showCapture(captureUri: Uri, typeCapture: String) {
         typeCaptureConstraintLayout.visibility = View.GONE
         showCaptureImageConstraintLayout.visibility = View.VISIBLE
-        postImageImageView.setImageURI(imageUri)
+        if (typeCapture == "IMAGE") {
+            postVideoView.visibility = View.GONE
+            postImageImageView.visibility = View.VISIBLE
+            postImageImageView.setImageURI(captureUri)
+            newsViewModel.postVO.captureFile = image.toString()
+            newsViewModel.postVO.captureType = PostVO.TypeCapture.PHOTO
+        } else {
+            newsViewModel.postVO.captureFile = captureUri.toString()
+            newsViewModel.postVO.captureType = PostVO.TypeCapture.VIDEO
+            val mediaController = MediaController(requireContext())
+            mediaController.setAnchorView(postVideoView)
+            postImageImageView.visibility = View.GONE
+            postVideoView.visibility = View.VISIBLE
+            postVideoView.setMediaController(mediaController)
+            postVideoView.setVideoURI(captureUri)
+            postVideoView.requestFocus()
+            postVideoView.setOnPreparedListener {
+                postVideoView.start()
+            }
+
+
+        }
+
     }
 }

@@ -52,13 +52,12 @@ class NewsRepository {
 
             }
         } else {
-            val fileName = refStorage.child("video" + postVO.captureFile)
-            fileName.putFile(postVO.captureFile!!.toUri()).addOnSuccessListener {
-                fileName.downloadUrl.addOnSuccessListener {
+            refStorage.putFile(postVO.captureFile!!.toUri()).addOnSuccessListener {
+                refStorage.downloadUrl.addOnSuccessListener {
                     postVO.captureFile = it.toString()
                     val userMap = HashMap<String, Any>()
-                    userMap["fileCapture"] = postVO.captureFile!!
-                    userMap["typeCapture"] = postVO.captureType!!
+                    userMap["captureFile"] = postVO.captureFile!!
+                    userMap["captureType"] = postVO.captureType!!
                     userMap["title"] = postVO.title
                     userMap["userId"] = postVO.userId
                     userMap["description"] = postVO.description

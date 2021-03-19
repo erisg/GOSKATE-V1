@@ -101,7 +101,7 @@
         android:background="@drawable/ic_action_profile_new_post"
         android:clickable="true"
         android:focusable="true"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@android:drawable/ic_menu_camera"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="parent" />

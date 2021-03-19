@@ -18,10 +18,6 @@ class ForgotPassword : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.forgot_password)
 
-        backImageButton.setOnClickListener {
-            startActivity(Intent(this, Login::class.java))
-        }
-
         recoverButton.setOnClickListener {
             validateDataComplete()
         }
@@ -39,6 +35,7 @@ class ForgotPassword : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                     email = ""
+                    startActivity(Intent(this, Login::class.java))
                 } else {
                     Toast.makeText(this, it, Toast.LENGTH_LONG).show()
                 }
