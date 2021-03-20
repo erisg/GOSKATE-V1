@@ -6,11 +6,16 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import go.goskate.goskate.R
+import go.goskate.goskate.helper.dialogs.CaptureFilesNewSpotDialogFragment
+import go.goskate.goskate.helper.dialogs.ShowFileForSpot
+import go.goskate.goskate.vo.FileCaptureVO
 import kotlinx.android.synthetic.main.spot_file_item.view.*
 
-class NewSpotFilesAdapter(val context: Context, val newSpot: List<Uri>) :
+class NewSpotFilesAdapter(val context: Context, val newSpot: List<FileCaptureVO>) :
     RecyclerView.Adapter<NewSpotFilesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,10 +34,22 @@ class NewSpotFilesAdapter(val context: Context, val newSpot: List<Uri>) :
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imagePost = view.fileSpotImageView
+        val imagePost: ImageView = view.fileSpotImageView
+        val videoPost: ImageView = view.fileSpotVideo
 
-        fun bind(item: Uri) {
-            imagePost.setImageURI(item)
+        fun bind(item: FileCaptureVO) {
+            if (item.typePost == "IMAGE") {
+                videoPost.visibility = View.GONE
+                imagePost.visibility = View.VISIBLE
+                imagePost.setImageURI(item.fileSpot)
+            } else {
+                imagePost.visibility = View.GONE
+                videoPost.visibility = View.VISIBLE
+            }
+
+            itemView.setOnClickListener {
+
+            }
         }
 
 

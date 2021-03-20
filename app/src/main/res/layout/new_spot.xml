@@ -311,33 +311,40 @@
                 android:text="@string/added_photos_videos"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/filesSpotFloatingActionButton"
                 app:layout_constraintTop_toBottomOf="@+id/hourConstraintLayout"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/filesSpotFloatingActionButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/margin_end"
                 android:layout_marginRight="@dimen/margin_end"
-                android:background="@color/colorPrimary"
+                android:layout_marginBottom="8dp"
                 app:backgroundTint="@color/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_action_profile_new_post"
+                app:backgroundTintMode="add"
+                app:layout_constraintBottom_toTopOf="@+id/photosRecyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/addPhotosVideosTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/localitySpinner" />
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/photosRecyclerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_end"
-                android:layout_marginRight="@dimen/margin_end"
                 android:layout_marginStart="@dimen/margin_start"
                 android:layout_marginLeft="@dimen/margin_start"
-                android:layout_marginTop="@dimen/margin_top"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="@dimen/margin_end"
+                android:layout_marginRight="@dimen/margin_end"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addPhotosVideosTextView" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filesSpotFloatingActionButton" />
 
             <TextView
                 android:id="@+id/scoreTextView"
@@ -356,13 +363,14 @@
                 android:id="@+id/scoreRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start"
+                android:layout_marginLeft="@dimen/margin_start"
                 android:layout_marginTop="@dimen/margin_top"
                 android:layout_marginEnd="@dimen/margin_end"
                 android:layout_marginRight="@dimen/margin_end"
-                android:layout_marginLeft="@dimen/margin_start"
-                android:layout_marginStart="@dimen/margin_start"
-                app:layout_constraintStart_toStartOf="parent"
+                android:numStars="5"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/scoreTextView" />
 
             <EditText
@@ -386,7 +394,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/background_menu"
                 android:text="@string/create"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"

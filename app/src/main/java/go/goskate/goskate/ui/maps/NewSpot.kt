@@ -18,6 +18,7 @@ import go.goskate.goskate.helper.dialogs.NewSpotMapDialogFragment
 import go.goskate.goskate.helper.adapters.NewSpotFilesAdapter
 import go.goskate.goskate.helper.dialogs.CaptureFilesNewSpotDialogFragment
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
+import go.goskate.goskate.vo.FileCaptureVO
 import kotlinx.android.synthetic.main.new_spot.*
 
 class NewSpot : Fragment() {
@@ -35,7 +36,7 @@ class NewSpot : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val imageViewNewPost = mutableListOf<Uri>()
+        val imageViewNewPost = mutableListOf<FileCaptureVO>()
         mapsViewModel.imagesNewSpot.observe(requireActivity(), {
             imageViewNewPost.add(it)
             if (it != null) {

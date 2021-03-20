@@ -1,12 +1,16 @@
 package go.goskate.goskate.helper.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.MediaController
+import android.widget.TextView
+import android.widget.VideoView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +23,7 @@ import kotlinx.android.synthetic.main.pop_up_go_skate.*
 class NewsAdapter(val context: Context, val news: List<PostVO>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
-
+    var isChecked = false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val vista = LayoutInflater.from(parent.context)
             .inflate(R.layout.news_item, parent, false)
@@ -36,12 +40,13 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imagePost = view.newsImageView
-        val videoPost = view.newsVideoView
-        val location = view.titleNewsTextView
-        val description = view.moreInfoTextView
-        val imageProfile = view.imageProfileImageView
-        val userName = view.userTextView
+        val imagePost: ImageView = view.newsImageView
+        val videoPost: VideoView = view.newsVideoView
+        val location: TextView = view.titleNewsTextView
+        val description: TextView = view.moreInfoTextView
+        val imageProfile: ImageView = view.imageProfileImageView
+        val userName: TextView = view.userTextView
+        val likedImage: ImageView = view.likedImageView
 
         fun bind(item: PostVO) {
             userName.text = item.nameUser
@@ -69,9 +74,19 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
 
             }
 
+            likedImage.setOnClickListener {
+                if (isChecked) {
+                    likedImage.setImageResource(R.drawable.ic_action_post_selected)
+                } else {
+                    likedImage.setImageResource(R.drawable.ic_action_like_white)
+                }
+            }
+
+
             location.text = item.title
             description.text = item.description
         }
+
 
     }
 

@@ -15,6 +15,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
@@ -25,9 +26,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
+import go.goskate.goskate.vo.FileCaptureVO
 import go.goskate.goskate.vo.PostVO
+import kotlinx.android.synthetic.main.custom_dialog_post.*
+import kotlinx.android.synthetic.main.custom_dialog_post.postImageImageView
+import kotlinx.android.synthetic.main.custom_dialog_post.postVideoView
 import kotlinx.android.synthetic.main.custom_dialog_post.view.*
 import kotlinx.android.synthetic.main.news_capture_dialog.*
+import kotlinx.android.synthetic.main.pop_up_go_skate.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -68,11 +74,17 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
         rootView.openVideoConstraintLayout.setOnClickListener {
             permission().observe(viewLifecycleOwner, Observer {
                 if (it) {
+                    recordVideo()
                 }
             })
         }
         return rootView
 
+    }
+
+    private fun recordVideo() {
+        val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
     }
 
     private fun selectImageProfile() {
@@ -85,13 +97,16 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
-
+            val videoUri = data!!.data
+            mapsViewModel.imagesNewSpot.value = FileCaptureVO(videoUri, "VIDEO")
+            dismiss()
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val uri = Uri.fromFile(File(imageLocation))
-            mapsViewModel.imagesNewSpot.value = uri
+            mapsViewModel.imagesNewSpot.value = FileCaptureVO(uri, "IMAGE")
             dismiss()
         }
     }
+
 
     private fun takePicture() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)

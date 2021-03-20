@@ -35,8 +35,7 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
         tabLayout.addTab(tabLayout.newTab().setText("INFORMACION"))
         tabLayout.addTab(tabLayout.newTab().setText("FOTOS-VIDEOS"))
         tabLayout.addTab(tabLayout.newTab().setText("COMENTARIOS"))
-        viewPager.adapter =
-            ViewPagerAdapter(requireActivity().supportFragmentManager, tabLayout.tabCount)
+     //   viewPager.adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, tabLayout.tabCount)
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
     }
