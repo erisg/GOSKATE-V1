@@ -2,7 +2,10 @@ package go.goskate.goskate.ui.maps
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
@@ -21,22 +24,25 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
 
     }
 
-    @SuppressLint("RestrictedApi")
-    override fun setupDialog(dialog: Dialog, style: Int) {
-        super.setupDialog(dialog, style)
-        val viewSpot = View.inflate(context, R.layout.spot, null)
-        viewPager = viewSpot.InfoPostViewPager
-        tabLayout = viewSpot.titleInfoTabLayout
-        chargeData()
-        dialog.setContentView(viewSpot)
-    }
-
-    private fun chargeData() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val rootView = inflater.inflate(R.layout.spot, container)
+        viewPager = rootView.findViewById(R.id.InfoPostViewPager)
+        tabLayout = rootView.findViewById(R.id.titleInfoTabLayout)
         tabLayout.addTab(tabLayout.newTab().setText("INFORMACION"))
         tabLayout.addTab(tabLayout.newTab().setText("FOTOS-VIDEOS"))
         tabLayout.addTab(tabLayout.newTab().setText("COMENTARIOS"))
-     //   viewPager.adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, tabLayout.tabCount)
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+        //  viewPager.adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, tabLayout.tabCount)
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 
     }
 

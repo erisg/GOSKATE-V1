@@ -40,13 +40,14 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imagePost: ImageView = view.newsImageView
-        val videoPost: VideoView = view.newsVideoView
-        val location: TextView = view.titleNewsTextView
-        val description: TextView = view.moreInfoTextView
-        val imageProfile: ImageView = view.imageProfileImageView
-        val userName: TextView = view.userTextView
-        val likedImage: ImageView = view.likedImageView
+        private val imagePost: ImageView = view.findViewById(R.id.newsImageView)
+        private val videoPost: VideoView = view.findViewById(R.id.newsVideoView)
+        private val location: TextView = view.findViewById(R.id.titleNewsTextView)
+        private val description: TextView = view.findViewById(R.id.moreInfoTextView)
+        private val imageProfile: ImageView = view.findViewById(R.id.imageProfileImageView)
+        private val userName: TextView = view.findViewById(R.id.userTextView)
+        private val likedImage: ImageView = view.findViewById(R.id.likedImageView)
+        private val likedImageRed: ImageView = view.findViewById(R.id.likedImageViewRed)
 
         fun bind(item: PostVO) {
             userName.text = item.nameUser
@@ -75,13 +76,16 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
             }
 
             likedImage.setOnClickListener {
-                if (isChecked) {
-                    likedImage.setImageResource(R.drawable.ic_action_post_selected)
-                } else {
-                    likedImage.setImageResource(R.drawable.ic_action_like_white)
-                }
+                likedImage.visibility = View.GONE
+                likedImageRed.visibility = View.VISIBLE
+
             }
 
+            likedImageRed.setOnClickListener {
+                likedImageRed.visibility = View.GONE
+                likedImage.visibility = View.VISIBLE
+
+            }
 
             location.text = item.title
             description.text = item.description

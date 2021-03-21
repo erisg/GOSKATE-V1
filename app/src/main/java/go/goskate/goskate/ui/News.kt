@@ -36,7 +36,7 @@ class News : Fragment() {
 
         addFilesConstraintLayout.visibility = View.GONE
 
-        getAllPost()
+
 
         newPostFloatingActionButton.setOnClickListener {
             if (addFilesConstraintLayout.visibility == View.VISIBLE) {
@@ -58,12 +58,13 @@ class News : Fragment() {
             val dialog = NewsCaptureDialogFragment()
             dialog.show(requireActivity().supportFragmentManager, "NewsDialog")
         }
+        getAllPost()
     }
 
     private fun getAllPost() {
         newsViewModel.getAllPost().observe(requireActivity(), {
             newsRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 1)
-            val adapter = NewsAdapter(this.context!!, it)
+            val adapter = NewsAdapter(requireContext(), it)
             newsRecyclerView?.adapter = adapter
 
 

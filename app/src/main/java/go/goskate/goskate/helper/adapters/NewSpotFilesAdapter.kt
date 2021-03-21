@@ -1,5 +1,6 @@
 package go.goskate.goskate.helper.adapters
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
@@ -48,7 +49,14 @@ class NewSpotFilesAdapter(val context: Context, val newSpot: List<FileCaptureVO>
             }
 
             itemView.setOnClickListener {
+                val selectedDialog = AlertDialog.Builder(context)
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    selectedDialog.setView(R.layout.spot_file_item)
+//                    val image = selectedDialog.create().findViewById<ImageView>(R.id.fileSpotImageView)
+//                    image.setImageURI(item.fileSpot)
 
+                    selectedDialog.show()
+                }
             }
         }
 
