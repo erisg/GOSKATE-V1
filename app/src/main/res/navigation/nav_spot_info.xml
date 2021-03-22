@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_spot_info"
-    app:startDestination="@id/infoSpot">
+    app:startDestination="@id/viewPagerFragment">
 
     <fragment
         android:id="@+id/infoSpot"
@@ -20,4 +20,9 @@
         android:name="go.goskate.goskate.ui.maps.CommentSpots"
         android:label="CommentSpots"
         tools:layout="@layout/comment_spot" />
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="go.goskate.goskate.ui.maps.ViewPagerFragment"
+        android:label="ViewPagerFragment"
+        tools:layout="@layout/view_pager_fragment" />
 </navigation>
