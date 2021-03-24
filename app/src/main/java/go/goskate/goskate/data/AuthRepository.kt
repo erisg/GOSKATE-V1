@@ -1,5 +1,6 @@
 package go.goskate.goskate.data
 
+import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -58,7 +59,7 @@ class AuthRepository() {
                     }
 
                 } else {
-                    mutableDataResponse.value = "$message"
+                    mutableDataResponse.value = "$message!!"
                 }
 
             }
@@ -106,6 +107,13 @@ class AuthRepository() {
         }
 
         return mutableRecoverAccountWhitEmail
+    }
+
+    fun changePictureProfile(image: Uri): MutableLiveData<String> {
+        val responseChangePicture = MutableLiveData<String>()
+
+        return responseChangePicture
+
     }
 
 }

@@ -19,6 +19,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
+import kotlinx.android.synthetic.main.profile_photo_capture.*
 import kotlinx.android.synthetic.main.profile_photo_capture.view.*
 import java.io.File
 import java.io.IOException
@@ -29,6 +30,7 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
     val REQUEST_PERMISION_CODE = 100
     lateinit var imageLocation: String
     private val authViewModel: AuthViewModel by activityViewModels()
+    lateinit var imageUri: Uri
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,12 +39,16 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.profile_photo_capture, container, false)
 
-        rootView.openGalleryConstraintLayout.setOnClickListener {
+        rootView.galleryImageView.setOnClickListener {
             permissionGallery()
         }
 
-        rootView.openCameraPhotoConstraintLayout.setOnClickListener {
+        rootView.takePictureImageView.setOnClickListener {
             permission()
+        }
+
+        rootView.changePictureButton.setOnClickListener {
+            changePictureProfile()
         }
 
 
@@ -60,9 +66,14 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val uri = Uri.fromFile(File(imageLocation))
             authViewModel.profileImage.value = uri
-            dismiss()
+            showImageCapture(uri)
         }
     }
+
+    private fun changePictureProfile() {
+        authViewModel.changePictureProfile(imageUri)
+    }
+
 
     private fun takePicture() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -84,6 +95,13 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
             }
 
         }
+    }
+
+    fun showImageCapture(image: Uri) {
+        captureProfileFileConstraintLayout.visibility = View.GONE
+        showCaptureNews.visibility = View.VISIBLE
+        profileImageView.setImageURI(image)
+        imageUri = image
     }
 
     private fun createImageFile(): File {

@@ -32,4 +32,8 @@ class AuthViewModel : ViewModel() {
     fun dataRecoverAccount(email: String): MutableLiveData<String> {
         return authRepository.recoverAccountWhitEmail(email)
     }
+
+    fun changePictureProfile(image: Uri): MutableLiveData<String> {
+        return authRepository.changePictureProfile(image)
+    }
 }
