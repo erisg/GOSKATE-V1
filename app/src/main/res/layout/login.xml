@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="317dp"
-        android:layout_height="219dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +29,7 @@
             android:id="@+id/nameOrEmailEditText"
             android:layout_width="250dp"
             android:layout_height="45dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
             android:background="@android:color/background_light"
             android:hint="@string/name_email"
@@ -37,28 +38,31 @@
             android:textColorHint="@color/textHint"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTextInputLayout"
             android:layout_width="250dp"
             android:layout_height="45dp"
             android:layout_marginTop="8dp"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/icon_selector_password"
+            android:layout_marginBottom="32dp"
             android:background="@android:color/background_light"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline3">
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:passwordToggleDrawable="@drawable/icon_selector_password"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordEditTex"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textColor="#201E1E"
-                android:layout_gravity="center"
                 android:textColorHint="@color/textHint" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,7 +98,7 @@
         android:id="@+id/loginButton"
         android:layout_width="171dp"
         android:layout_height="56dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/login"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout"
@@ -104,11 +108,12 @@
         android:id="@+id/haveAccountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
         android:text="@string/have_account"
         android:textColor="#F8F5F5"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/loginButton"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="@+id/loginButton"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -116,7 +121,7 @@
         android:id="@+id/authGoogleImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout"
         app:layout_constraintTop_toBottomOf="@+id/loginButton"
@@ -142,7 +147,7 @@
         android:id="@+id/forgotPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Olvidaste la contrseña?"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
