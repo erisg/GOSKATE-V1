@@ -111,7 +111,20 @@ class AuthRepository() {
 
     fun changePictureProfile(image: Uri): MutableLiveData<String> {
         val responseChangePicture = MutableLiveData<String>()
+        val userRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Users")
+        val userMap = HashMap<String, Any>()
+        userMap["imageProfile"] = image
+        val refStorage = storage.reference.child("userFiles/" + UUID.randomUUID().toString())
 
+
+        userRef.child(auth.currentUser.uid).updateChildren(userMap).addOnCompleteListener {
+            val message = it.exception.toString()
+            if (it.isSuccessful) {
+                responseChangePicture.value = "Successful"
+            } else {
+                responseChangePicture.value = message
+            }
+        }
         return responseChangePicture
 
     }

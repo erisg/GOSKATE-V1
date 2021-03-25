@@ -71,7 +71,12 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
     }
 
     private fun changePictureProfile() {
-        authViewModel.changePictureProfile(imageUri)
+        var respose = authViewModel.changePictureProfile(imageUri)
+        if (respose.value == "Successful") {
+            dismiss()
+        } else {
+            Toast.makeText(requireContext(), respose.value, Toast.LENGTH_LONG).show()
+        }
     }
 
 
