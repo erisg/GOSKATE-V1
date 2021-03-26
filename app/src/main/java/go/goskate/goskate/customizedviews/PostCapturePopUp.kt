@@ -1,7 +1,7 @@
 package go.goskate.goskate.customizedviews
 
+import android.R.attr
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,10 +16,8 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.bumptech.glide.Glide
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
-import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.pop_up_go_skate.*
 import kotlinx.android.synthetic.main.pop_up_go_skate.view.*
@@ -27,11 +25,13 @@ import kotlinx.android.synthetic.main.profile.*
 import java.io.File
 import java.io.IOException
 
+
 class PostCapturePopUp() : DialogFragment() {
 
 
     private val REQUEST_VIDEO_CAPTURE = 101
     val REQUEST_IMAGE_CAPTURE = 1
+    val REQUEST_GALLERY = 110
     private val newsViewModel: NewsViewModel by activityViewModels()
     lateinit var imageLocation: String
     lateinit var image: Uri
@@ -47,9 +47,12 @@ class PostCapturePopUp() : DialogFragment() {
         }
 
         rootView.openGalleryConstraintLayout.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
-            startActivity(intent)
+            val intent = Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+            intent.type = "image/* video/*"
+            startActivityForResult(intent, REQUEST_GALLERY)
         }
 
         rootView.openCameraPhotoConstraintLayout.setOnClickListener {
@@ -119,6 +122,16 @@ class PostCapturePopUp() : DialogFragment() {
             val imageUri = Uri.fromFile(File(imageLocation))
             image = imageUri
             showCapture(imageUri, "IMAGE")
+        }
+
+        if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK) {
+            val selectedMediaUri: Uri = data?.data!!
+            if (selectedMediaUri.toString().contains("mp4")) {
+                showCapture(selectedMediaUri, "VIDEO")
+            } else {
+                image = selectedMediaUri
+                showCapture(selectedMediaUri, "IMAGE")
+            }
         }
     }
 

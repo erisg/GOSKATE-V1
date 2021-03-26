@@ -44,6 +44,7 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
     val REQUEST_IMAGE_CAPTURE = 102
     val REQUEST_PERMISION_CODE = 100
     val REQUEST_VIDEO_CAPTURE = 101
+    val REQUEST_GALLERY = 110
     private val mapsViewModel: MapsViewModel by activityViewModels()
     lateinit var imageLocation: String
     lateinit var image: Bitmap
@@ -55,10 +56,10 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.custom_dialog_post, container, false)
 
-        rootView.openVideoConstraintLayout.setOnClickListener {
+        rootView.openGalleryConstraintLayout.setOnClickListener {
             permission().observe(viewLifecycleOwner, Observer {
                 if (it) {
-                    selectImageProfile()
+                    openGallery()
                 }
             })
         }
@@ -87,10 +88,13 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
         startActivityForResult(intent, REQUEST_VIDEO_CAPTURE)
     }
 
-    private fun selectImageProfile() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+    private fun openGallery() {
+        val intent = Intent(
+            Intent.ACTION_PICK,
+            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
+        intent.type = "image/* video/*"
+        startActivityForResult(intent, REQUEST_GALLERY)
 
     }
 
@@ -104,6 +108,17 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
             val uri = Uri.fromFile(File(imageLocation))
             mapsViewModel.imagesNewSpot.value = FileCaptureVO(uri, "IMAGE")
             dismiss()
+        }
+
+        if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK) {
+            val selectedMediaUri: Uri = data?.data!!
+            if (selectedMediaUri.toString().contains("mp4")) {
+                mapsViewModel.imagesNewSpot.value = FileCaptureVO(selectedMediaUri, "VIDEO")
+                dismiss()
+            } else {
+                mapsViewModel.imagesNewSpot.value = FileCaptureVO(selectedMediaUri, "IMAGE")
+                dismiss()
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.MediaController
 import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import go.goskate.goskate.R
@@ -36,7 +37,7 @@ class NewSpotFilesAdapter(val context: Context, val newSpot: List<FileCaptureVO>
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imagePost: ImageView = view.fileSpotImageView
-        val videoPost: ImageView = view.fileSpotVideo
+        val videoPost: VideoView = view.fileSpotVideo
 
         fun bind(item: FileCaptureVO) {
             if (item.typePost == "IMAGE") {
@@ -44,20 +45,19 @@ class NewSpotFilesAdapter(val context: Context, val newSpot: List<FileCaptureVO>
                 imagePost.visibility = View.VISIBLE
                 imagePost.setImageURI(item.fileSpot)
             } else {
+                val mediaController = MediaController(context)
+                mediaController.setAnchorView(videoPost)
                 imagePost.visibility = View.GONE
                 videoPost.visibility = View.VISIBLE
-            }
-
-            itemView.setOnClickListener {
-                val selectedDialog = AlertDialog.Builder(context)
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    selectedDialog.setView(R.layout.spot_file_item)
-//                    val image = selectedDialog.create().findViewById<ImageView>(R.id.fileSpotImageView)
-//                    image.setImageURI(item.fileSpot)
-
-                    selectedDialog.show()
+                videoPost.setMediaController(mediaController)
+                videoPost.setVideoURI(item.fileSpot)
+                videoPost.requestFocus()
+                videoPost.setOnPreparedListener {
+                    it.start()
                 }
             }
+
+
         }
 
 

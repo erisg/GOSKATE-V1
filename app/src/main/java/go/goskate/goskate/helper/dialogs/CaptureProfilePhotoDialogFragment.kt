@@ -28,6 +28,7 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
 
     val REQUEST_IMAGE_CAPTURE = 1
     val REQUEST_PERMISION_CODE = 100
+    val REQUEST_GALLERY = 110
     lateinit var imageLocation: String
     private val authViewModel: AuthViewModel by activityViewModels()
     lateinit var imageUri: Uri
@@ -55,10 +56,10 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
         return rootView
     }
 
-    private fun selectImageProfile() {
+    private fun openGallery() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+        intent.type = "image/* "
+        startActivityForResult(intent, REQUEST_GALLERY)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -125,7 +126,7 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            selectImageProfile()
+            openGallery()
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
