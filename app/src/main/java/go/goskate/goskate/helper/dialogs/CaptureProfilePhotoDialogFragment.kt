@@ -1,6 +1,7 @@
 package go.goskate.goskate.helper.dialogs
 
 import android.Manifest
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -57,7 +58,7 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
     }
 
     private fun openGallery() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/* "
         startActivityForResult(intent, REQUEST_GALLERY)
     }
@@ -68,6 +69,10 @@ class CaptureProfilePhotoDialogFragment : DialogFragment() {
             val uri = Uri.fromFile(File(imageLocation))
             authViewModel.profileImage.value = uri
             showImageCapture(uri)
+        }
+        if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK) {
+            val selectedMediaUri: Uri = data?.data!!
+
         }
     }
 
