@@ -1,7 +1,5 @@
 package go.goskate.goskate.ui.viewmodel
 
-import android.graphics.Bitmap
-import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import go.goskate.goskate.data.MapRepository
@@ -14,7 +12,7 @@ class MapsViewModel : ViewModel() {
     var imagesNewSpot = MutableLiveData<FileCaptureVO>()
     val mapRepository = MapRepository()
 
-    fun setInfoSpot() {
-        mapRepository.saveInfoSpot(spotVO)
+    fun setInfoSpot(): MutableLiveData<List<SpotVO>> {
+        return mapRepository.saveInfoSpot(spotVO)
     }
 }

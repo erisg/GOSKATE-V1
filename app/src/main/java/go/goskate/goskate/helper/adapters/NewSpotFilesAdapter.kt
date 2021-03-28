@@ -56,8 +56,6 @@ class NewSpotFilesAdapter(val context: Context, val newSpot: List<FileCaptureVO>
                     it.start()
                 }
             }
-
-
         }
 
 

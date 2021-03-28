@@ -1,5 +1,6 @@
 package go.goskate.goskate.vo
 
+import android.net.Uri
 import java.io.File
 
 class SpotVO {
@@ -10,7 +11,7 @@ class SpotVO {
     var locality = ""
     var hourType = ""
     var hour = ""
-    var files: List<File>? = null
+    var files: MutableList<Uri>? = null
     var score = 0
     var latitude = 0.0
     var longitude = 0.0
@@ -25,7 +26,7 @@ class SpotVO {
         locality: String,
         hourType: String,
         hour: String,
-        files: List<File>,
+        files: MutableList<Uri>,
         score: Int,
         latitude: Double,
         longitude: Double,

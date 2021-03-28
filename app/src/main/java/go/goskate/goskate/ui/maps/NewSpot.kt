@@ -25,6 +25,7 @@ class NewSpot : Fragment() {
 
 
     private val mapsViewModel: MapsViewModel by activityViewModels()
+    val imageViewNewPost = mutableListOf<FileCaptureVO>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +37,6 @@ class NewSpot : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val imageViewNewPost = mutableListOf<FileCaptureVO>()
         mapsViewModel.imagesNewSpot.observe(requireActivity(), {
             imageViewNewPost.add(it)
             if (it != null) {
@@ -104,11 +104,15 @@ class NewSpot : Fragment() {
         val commentSpot = commentsEditText.text.toString()
         val spotScore = scoreRatingBar.numStars
 
-        if (spotName.isNotEmpty() && spotHood.isNotEmpty() && commentSpot.isNotEmpty() && spotScore != 0) {
+        if (spotName.isNotEmpty() && spotHood.isNotEmpty() && commentSpot.isNotEmpty() && spotScore != 0 && mapsViewModel.imagesNewSpot.value != null) {
             mapsViewModel.spotVO.nameSpot = spotName
             mapsViewModel.spotVO.nameHood = spotHood
             mapsViewModel.spotVO.comments = commentSpot
             mapsViewModel.spotVO.score = spotScore
+            mapsViewModel.imagesNewSpot
+            imageViewNewPost.forEach { file ->
+                mapsViewModel.spotVO.files?.add(file.fileSpot!!)
+            }
             val dialog = NewSpotMapDialogFragment()
             dialog.show(requireActivity().supportFragmentManager, "PostDialog")
         } else {
