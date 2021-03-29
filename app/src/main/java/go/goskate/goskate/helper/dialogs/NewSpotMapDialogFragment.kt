@@ -53,7 +53,14 @@ class NewSpotMapDialogFragment : DialogFragment(), OnMapReadyCallback,
         mapView!!.getMapAsync(this)
 
         rootView.saveButton.setOnClickListener {
-
+            val response = mapsViewModel.setInfoSpot()
+            response.observe(viewLifecycleOwner, {
+                if (it == "Successful") {
+                    dismiss()
+                } else {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                }
+            })
         }
         return rootView
     }

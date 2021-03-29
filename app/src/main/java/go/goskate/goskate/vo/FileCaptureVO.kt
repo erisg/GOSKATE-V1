@@ -9,6 +9,8 @@ class FileCaptureVO {
 
     constructor()
 
+    constructor(fileSpot: Uri)
+
     constructor(fileSpot: Uri?, typePost: String) {
         this.typePost = typePost
         this.fileSpot = fileSpot

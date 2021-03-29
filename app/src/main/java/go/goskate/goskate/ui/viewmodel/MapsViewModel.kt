@@ -12,7 +12,7 @@ class MapsViewModel : ViewModel() {
     var imagesNewSpot = MutableLiveData<FileCaptureVO>()
     val mapRepository = MapRepository()
 
-    fun setInfoSpot(): MutableLiveData<List<SpotVO>> {
+    fun setInfoSpot(): MutableLiveData<String> {
         return mapRepository.saveInfoSpot(spotVO)
     }
 }

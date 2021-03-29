@@ -11,7 +11,7 @@ class SpotVO {
     var locality = ""
     var hourType = ""
     var hour = ""
-    var files: MutableList<Uri>? = null
+    var files: MutableList<FileCaptureVO>? = null
     var score = 0
     var latitude = 0.0
     var longitude = 0.0
@@ -26,7 +26,7 @@ class SpotVO {
         locality: String,
         hourType: String,
         hour: String,
-        files: MutableList<Uri>,
+        files: MutableList<FileCaptureVO>,
         score: Int,
         latitude: Double,
         longitude: Double,

@@ -40,8 +40,9 @@ class NewSpot : Fragment() {
         mapsViewModel.imagesNewSpot.observe(requireActivity(), {
             imageViewNewPost.add(it)
             if (it != null) {
-                photosRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
-                photosRecyclerView.adapter = NewSpotFilesAdapter(requireContext(), imageViewNewPost)
+                photosRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 3)
+                photosRecyclerView?.adapter =
+                    NewSpotFilesAdapter(requireContext(), imageViewNewPost)
             }
         })
 
@@ -105,16 +106,23 @@ class NewSpot : Fragment() {
         val spotScore = scoreRatingBar.numStars
 
         if (spotName.isNotEmpty() && spotHood.isNotEmpty() && commentSpot.isNotEmpty() && spotScore != 0 && mapsViewModel.imagesNewSpot.value != null) {
-            mapsViewModel.spotVO.nameSpot = spotName
-            mapsViewModel.spotVO.nameHood = spotHood
-            mapsViewModel.spotVO.comments = commentSpot
-            mapsViewModel.spotVO.score = spotScore
-            mapsViewModel.imagesNewSpot
-            imageViewNewPost.forEach { file ->
-                mapsViewModel.spotVO.files?.add(file.fileSpot!!)
+            if (imageViewNewPost.size < 5) {
+                Toast.makeText(
+                    context,
+                    "Minimo se deben ingresar 5 fotos para tener mas visualizacion del spot",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                mapsViewModel.spotVO.nameSpot = spotName
+                mapsViewModel.spotVO.nameHood = spotHood
+                mapsViewModel.spotVO.comments = commentSpot
+                mapsViewModel.spotVO.score = spotScore
+                mapsViewModel.imagesNewSpot
+                mapsViewModel.spotVO.files = imageViewNewPost
+                val dialog = NewSpotMapDialogFragment()
+                dialog.show(requireActivity().supportFragmentManager, "PostDialog")
             }
-            val dialog = NewSpotMapDialogFragment()
-            dialog.show(requireActivity().supportFragmentManager, "PostDialog")
+
         } else {
             Toast.makeText(context, "FALTA INFORMACION POR INGRESAR", Toast.LENGTH_LONG).show()
         }
