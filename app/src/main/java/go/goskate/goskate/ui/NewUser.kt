@@ -14,6 +14,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import go.goskate.goskate.MainActivity
 import go.goskate.goskate.R
 import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoDialogFragment
+import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoNewUserDialogFragment
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
 import kotlinx.android.synthetic.main.register.*
 import java.text.SimpleDateFormat
@@ -111,7 +112,7 @@ class NewUser : AppCompatActivity() {
     }
 
     private fun captureImageProfile() {
-        val dialog = CaptureProfilePhotoDialogFragment()
+        val dialog = CaptureProfilePhotoNewUserDialogFragment()
         dialog.show(this.supportFragmentManager, "PostDialog")
 
     }

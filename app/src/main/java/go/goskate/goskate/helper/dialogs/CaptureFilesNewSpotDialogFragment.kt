@@ -94,9 +94,9 @@ class CaptureFilesNewSpotDialogFragment : DialogFragment() {
             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         )
         intent.type = "image/* video/*"
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        }
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+//        }
         startActivityForResult(intent, REQUEST_GALLERY)
 
     }

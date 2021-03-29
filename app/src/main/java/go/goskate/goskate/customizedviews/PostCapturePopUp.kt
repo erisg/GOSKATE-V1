@@ -18,6 +18,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
+import go.goskate.goskate.vo.FileCaptureVO
 import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.pop_up_go_skate.*
 import kotlinx.android.synthetic.main.pop_up_go_skate.view.*
@@ -132,6 +133,7 @@ class PostCapturePopUp() : DialogFragment() {
                 image = selectedMediaUri
                 showCapture(selectedMediaUri, "IMAGE")
             }
+
         }
     }
 
