@@ -20,4 +20,6 @@
     <dimen name="margin_start_title">20dp</dimen>
     <dimen name="margin_end">16dp</dimen>
     <dimen name="logo_login_w">130dp</dimen>
+    <dimen name="editTextWidth">250dp</dimen>
+    <dimen name="btnRegisterMarginBottom">10dp</dimen>
 </resources>

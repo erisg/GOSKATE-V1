@@ -11,9 +11,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.isNotEmpty
 import go.goskate.goskate.MainActivity
 import go.goskate.goskate.R
-import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoDialogFragment
 import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoNewUserDialogFragment
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
 import kotlinx.android.synthetic.main.register.*

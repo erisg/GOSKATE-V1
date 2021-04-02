@@ -7,4 +7,5 @@
     <color name="color_primary_transparent">#F57C00</color>
     <color name="textHint">#716666</color>
     <color name="transparent">#00ffffff</color>
+    <color name="colorBlack">#000000</color>
 </resources>

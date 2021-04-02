@@ -34,7 +34,7 @@ class Login : AppCompatActivity() {
         }
 
         authGoogleImageView.setOnClickListener {
-            //  singInWhitGoogle()
+              singInWhitGoogle()
         }
 
         loginButton.setOnClickListener {
@@ -108,7 +108,9 @@ class Login : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GOOGLE_SIGN_IN) {
 
+        }
     }
 
     override fun onRequestPermissionsResult(

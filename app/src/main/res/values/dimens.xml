@@ -30,5 +30,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="editTextWidth">250dp</dimen>
+    <dimen name="editTextHeight">46dp</dimen>
+    <dimen name="btnRegisterMarginBottom">10dp</dimen>
 
 </resources>

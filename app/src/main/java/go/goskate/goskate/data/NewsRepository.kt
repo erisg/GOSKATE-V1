@@ -49,7 +49,6 @@ class NewsRepository {
                             }
                     }
                 }
-
             }
         } else {
             refStorage.putFile(postVO.captureFile!!.toUri()).addOnSuccessListener {

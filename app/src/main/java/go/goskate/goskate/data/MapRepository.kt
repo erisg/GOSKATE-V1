@@ -29,6 +29,7 @@ class MapRepository {
                     resultPost.value = it.task.exception?.message
                 }
             }
+
         }
 
         if (uriList.size > 0) {
