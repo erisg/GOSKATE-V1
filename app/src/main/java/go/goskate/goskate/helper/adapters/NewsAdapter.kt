@@ -89,7 +89,10 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
 
             location.text = item.title
             description.text = item.description
+
+
         }
+
     }
 
 }

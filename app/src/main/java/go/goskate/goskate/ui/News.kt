@@ -1,5 +1,6 @@
 package go.goskate.goskate.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -64,10 +65,8 @@ class News : Fragment() {
     private fun getAllPost() {
         newsViewModel.getAllPost().observe(requireActivity(), {
             newsRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 1)
-            val adapter = NewsAdapter(requireContext(), it)
+            val adapter = NewsAdapter(context!!, it)
             newsRecyclerView?.adapter = adapter
-
-
         })
     }
 
