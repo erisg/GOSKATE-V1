@@ -25,7 +25,7 @@ class AuthViewModel : ViewModel() {
         return authRepository.isUserExist(userVO)
     }
 
-    fun dataLoginWithCredentials(account: GoogleSignInAccount?): MutableLiveData<String> {
+    fun dataLoginWithCredentials(account: String): MutableLiveData<String> {
         return authRepository.signInWithCredential(account)
     }
 

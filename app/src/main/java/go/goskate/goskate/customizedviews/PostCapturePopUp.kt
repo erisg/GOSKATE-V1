@@ -2,6 +2,7 @@ package go.goskate.goskate.customizedviews
 
 import android.R.attr
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -89,6 +90,10 @@ class PostCapturePopUp() : DialogFragment() {
     }
 
     fun savePost() {
+        val progressDialog = ProgressDialog(activity)
+        progressDialog.setTitle("Subiendo")
+        progressDialog.setMessage("Porfavor espere...")
+        progressDialog.show()
         val title = locationEditText.text.toString()
         val description = descriptionEditText.text.toString()
         newsViewModel.postVO.title = title
@@ -100,6 +105,7 @@ class PostCapturePopUp() : DialogFragment() {
         })
         newsViewModel.setInfoPost().observe(viewLifecycleOwner, { result ->
             if (result == "Successful") {
+                progressDialog.dismiss()
                 dismiss()
             } else {
                 Toast.makeText(requireContext(), result, Toast.LENGTH_LONG).show()

@@ -82,9 +82,9 @@ class AuthRepository() {
         return mutableDataLoginResponse
     }
 
-    fun signInWithCredential(account: GoogleSignInAccount?): MutableLiveData<String> {
+    fun signInWithCredential(account: String): MutableLiveData<String> {
         val mutableDataLoginWithGoogleResponse = MutableLiveData<String>()
-        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+        val credential = GoogleAuthProvider.getCredential(account, null)
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             val message = task.exception.toString()
             mutableDataLoginWithGoogleResponse.value = if (task.isSuccessful) {

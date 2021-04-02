@@ -1,6 +1,7 @@
 package go.goskate.goskate.helper.dialogs
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -25,6 +26,7 @@ import java.io.IOException
 class NewsCaptureDialogFragment : DialogFragment() {
 
     val REQUEST_IMAGE_CAPTURE = 1
+    val REQUEST_GALLERY = 110
     lateinit var imageLocation: String
     private val newsViewModel: NewsViewModel by activityViewModels()
     lateinit var image: Uri
@@ -39,9 +41,12 @@ class NewsCaptureDialogFragment : DialogFragment() {
         }
 
         rootView.galleryImageView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
-            startActivity(intent)
+            val intent = Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+            intent.type = "image/* video/*"
+            startActivityForResult(intent, REQUEST_GALLERY)
         }
 
         rootView.takePictureImageView.setOnClickListener {
@@ -71,6 +76,11 @@ class NewsCaptureDialogFragment : DialogFragment() {
     }
 
     private fun saveNews() {
+        val progressDialog = ProgressDialog(activity)
+        progressDialog.setTitle("Subiendo")
+        progressDialog.setMessage("Porfavor espere...")
+        progressDialog.show()
+
         val titleNews = titleNewsTextView.text.toString()
         val descriptionNews = descriptionNewsTextView.text.toString()
         if (titleNews.isNotEmpty() && descriptionNews.isNotEmpty()) {
@@ -85,6 +95,7 @@ class NewsCaptureDialogFragment : DialogFragment() {
             })
             newsViewModel.setInfoPost().observe(viewLifecycleOwner, { result ->
                 if (result == "Successful") {
+                    progressDialog.dismiss()
                     dismiss()
                 } else {
                     Toast.makeText(requireContext(), result, Toast.LENGTH_LONG).show()
@@ -105,10 +116,19 @@ class NewsCaptureDialogFragment : DialogFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val uri = Uri.fromFile(File(imageLocation))
             image = uri
             showImageCapture(uri)
+        }
+
+        if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK) {
+            val selectedMediaUri: Uri = data?.data!!
+            if (!selectedMediaUri.toString().contains("mp4")) {
+                image = selectedMediaUri
+                showImageCapture(selectedMediaUri)
+            }
         }
     }
 

@@ -1,15 +1,19 @@
 package go.goskate.goskate.ui
 
 import android.Manifest
+import android.R.attr
+import android.R.attr.data
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import go.goskate.goskate.MainActivity
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
@@ -106,10 +110,30 @@ class Login : AppCompatActivity() {
         }
     }
 
+    fun loginWithGoogle(idToken: String) {
+        val responseAuthGoogle = authViewModel.dataLoginWithCredentials(idToken)
+        responseAuthGoogle.observe(this, {
+            if (it == "Successful") {
+                startActivity(Intent(this, MainActivity::class.java))
+            } else {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == GOOGLE_SIGN_IN) {
-
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)
+                Log.d("auth", "firebaseAuthWithGoogle:" + account.id)
+                loginWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Log.w("", "Google sign in failed", e)
+            }
         }
     }
 
