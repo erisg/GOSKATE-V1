@@ -84,7 +84,7 @@
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/InfoPostViewPager"
+            android:id="@+id/infoPostViewPager"
             android:layout_width="0dp"
             android:layout_height="500dp"
             app:layout_constraintBottom_toBottomOf="parent"
