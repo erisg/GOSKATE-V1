@@ -144,7 +144,6 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {
-
         if (marker?.title == "loveu") {
             val spotDetails = SpotBottomSheetFragment.newInstance()
             spotDetails.show(requireActivity().supportFragmentManager, "NEW SPOT")

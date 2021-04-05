@@ -40,7 +40,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/locationIconImageView"
             app:layout_constraintTop_toTopOf="@+id/locationIconImageView"
-            tools:text="CRA 12G # 27B 09 - GUSTAVO RESTREPO - RAFAEL URIBE URIBE" />
+            android:text="CRA 12G # 27B 09 - GUSTAVO RESTREPO - RAFAEL URIBE URIBE" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            tools:text="ABIERTO"
+            android:text="ABIERTO"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/hourIconImageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -77,7 +77,7 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Cierra a las(s)  6:00 pm"
+            android:text="Cierra a las(s)  6:00 pm"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/actualStateTextView"
             app:layout_constraintTop_toBottomOf="@id/actualStateTextView" />
@@ -111,7 +111,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="270dp"
             android:background="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -124,11 +124,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                tools:text="TITULO"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="TITULO" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -139,12 +139,12 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
-                tools:text="Por restricciones del Covid-19 se debe  ingresar con todos los elementos de proteccion necesarios contra este mascarilla, gel antibacterial , alcohol . "
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView9"
                 app:layout_constraintStart_toStartOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintTop_toBottomOf="@+id/textView9"
+                android:text="Por restricciones del Covid-19 se debe  ingresar con todos los elementos de proteccion necesarios contra este mascarilla, gel antibacterial , alcohol . " />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

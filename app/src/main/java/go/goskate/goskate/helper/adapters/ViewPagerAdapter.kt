@@ -8,11 +8,11 @@ import go.goskate.goskate.ui.maps.FilesSpot
 import go.goskate.goskate.ui.maps.InfoSpot
 
 
-class ViewPagerAdapter(fm: FragmentManager, var totalTabs: Int) : FragmentStatePagerAdapter(fm) {
+class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
 
     override fun getCount(): Int {
-        return totalTabs
+        return 3
     }
 
     override fun getItem(position: Int): Fragment = when (position) {
@@ -28,6 +28,17 @@ class ViewPagerAdapter(fm: FragmentManager, var totalTabs: Int) : FragmentStateP
         else -> {
             InfoSpot.newInstance()
         }
+    }
+
+    override fun getPageTitle(position: Int): CharSequence {
+        return when (position) {
+            0 -> "INFORMACION"
+            1 -> "FOTOS-VIDEOS"
+            else -> {
+                return "COMENTARIOS"
+            }
+        }
+
     }
 
 

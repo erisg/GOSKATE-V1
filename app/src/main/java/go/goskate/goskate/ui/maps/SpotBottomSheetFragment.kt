@@ -32,21 +32,17 @@ class SpotBottomSheetFragment : BottomSheetDialogFragment() {
         val rootView = inflater.inflate(R.layout.spot, container)
         viewPager = rootView.findViewById(R.id.infoPostViewPager)
         tabLayout = rootView.findViewById(R.id.titleInfoTabLayout)
-        tabLayout.addTab(tabLayout.newTab().setText("INFORMACION"))
-        tabLayout.addTab(tabLayout.newTab().setText("FOTOS-VIDEOS"))
-        tabLayout.addTab(tabLayout.newTab().setText("COMENTARIOS"))
+        tabLayout.setupWithViewPager(viewPager)
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
-        val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, tabLayout.tabCount)
-//        viewPager.let {
-//            it.adapter = adapter
-//        }
+
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        val adapter = ViewPagerAdapter(childFragmentManager)
+        viewPager.adapter = adapter
     }
+
 
 }
