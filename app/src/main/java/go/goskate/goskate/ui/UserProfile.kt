@@ -9,6 +9,9 @@ import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
@@ -20,12 +23,15 @@ import go.goskate.goskate.helper.dialogs.CaptureProfilePhotoDialogFragment
 import go.goskate.goskate.ui.viewmodel.UserProfileViewModel
 import go.goskate.goskate.vo.PostVO
 import go.goskate.goskate.vo.UserVO
+import kotlinx.android.synthetic.main.maps_fragment.*
 import kotlinx.android.synthetic.main.profile.*
+import kotlinx.android.synthetic.main.profile.bottomNavigationView
 
 
  class UserProfile : Fragment() {
 
 
+     private lateinit var navController: NavController
      private val userProfileViewModel: UserProfileViewModel by activityViewModels()
 
 
@@ -40,6 +46,8 @@ import kotlinx.android.synthetic.main.profile.*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navController = findNavController()
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
         userProfileViewModel.getInfoUserProfile().observe(viewLifecycleOwner, {
             userNameTextView.text = it?.userName
             Glide.with(requireContext())

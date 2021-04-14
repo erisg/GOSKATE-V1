@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import go.goskate.goskate.R
+import go.goskate.goskate.helper.adapters.fileAdapter
+import kotlinx.android.synthetic.main.files_spot.*
 
 class FilesSpot : Fragment() {
 
@@ -23,6 +27,25 @@ class FilesSpot : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val lista = listOf<String>(
+            "fmyhjhk",
+            "gkfuyi",
+            "ftufuyf",
+            "guitguj ",
+            "fmyhjhk",
+            "gkfuyi",
+            "ftufuyf",
+            "guitguj",
+            "guitguj ",
+            "fmyhjhk",
+            "gkfuyi",
+            "ftufuyf",
+            "guitguj "
+        )
+
+
+        filesSpotRecyclerView.adapter = fileAdapter(this.requireContext(), lista)
 
     }
 }

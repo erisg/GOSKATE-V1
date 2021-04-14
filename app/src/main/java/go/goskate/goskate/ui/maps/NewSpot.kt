@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import go.goskate.goskate.R
@@ -26,6 +28,7 @@ class NewSpot : Fragment() {
 
     private val mapsViewModel: MapsViewModel by activityViewModels()
     val imageViewNewPost = mutableListOf<FileCaptureVO>()
+    private var navController: NavController? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +40,7 @@ class NewSpot : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
         mapsViewModel.imagesNewSpot.observe(requireActivity(), {
             imageViewNewPost.add(it)
             if (it != null) {
@@ -45,6 +49,10 @@ class NewSpot : Fragment() {
                     NewSpotFilesAdapter(requireContext(), imageViewNewPost)
             }
         })
+
+        constraintLayout4.setOnClickListener {
+            navController!!.navigate(R.id.action_newSpot_to_maps)
+        }
 
         filesSpotFloatingActionButton.setOnClickListener {
             val dialog = CaptureFilesNewSpotDialogFragment()

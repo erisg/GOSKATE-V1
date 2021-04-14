@@ -8,20 +8,22 @@ import android.view.ViewGroup
 import android.widget.Adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.Glide
 import go.goskate.goskate.R
 import go.goskate.goskate.helper.dialogs.NewsCaptureDialogFragment
 import go.goskate.goskate.customizedviews.PostCapturePopUp
 import go.goskate.goskate.helper.adapters.NewsAdapter
 import go.goskate.goskate.ui.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.news.*
-import kotlinx.android.synthetic.main.profile.*
 
 class News : Fragment() {
 
 
     private val newsViewModel: NewsViewModel by activityViewModels()
+    private lateinit var navController: NavController
 
 
     override fun onCreateView(
@@ -34,7 +36,8 @@ class News : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        navController = findNavController()
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
         addFilesConstraintLayout.visibility = View.GONE
 
 

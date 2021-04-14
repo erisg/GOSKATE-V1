@@ -23,6 +23,9 @@ import android.location.Geocoder
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.google.android.gms.maps.model.MarkerOptions
 import go.goskate.goskate.R
 import go.goskate.goskate.ui.viewmodel.MapsViewModel
@@ -33,7 +36,7 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mMap: GoogleMap
     private var mapView: MapView? = null
-    private var navController: NavController? = null
+    private lateinit var navController: NavController
     private lateinit var viewModel: MapsViewModel
 
     val tercerMilenio = LatLng(4.648671, -74.120623)
@@ -76,15 +79,15 @@ class Maps : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MapsViewModel::class.java)
-        navController = Navigation.findNavController(view)
-
         mapView = view.findViewById(R.id.mapFrameLayout) as MapView
         mapView!!.onCreate(savedInstanceState)
         mapView!!.onResume()
         mapView!!.getMapAsync(this)
+        navController = findNavController()
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
         floatingActionButton.setOnClickListener {
-            navController!!.navigate(R.id.action_maps_to_newSpot2)
+            navController.navigate(R.id.action_maps_to_newSpot2)
         }
 
         spotSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

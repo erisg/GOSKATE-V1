@@ -10,9 +10,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import go.goskate.goskate.ui.viewmodel.AuthViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.maps_fragment.*
 
 
-class MainActivity : AppCompatActivity(), IMenuGone {
+class MainActivity : AppCompatActivity() {
 
     private val authViewModel: AuthViewModel by viewModels()
     private lateinit var navController: NavController
@@ -31,10 +32,5 @@ class MainActivity : AppCompatActivity(), IMenuGone {
         prefs.apply()
 
     }
-
-    override fun menuGone() {
-        bottomNavigationView.visibility = View.GONE
-    }
-
 
 }
