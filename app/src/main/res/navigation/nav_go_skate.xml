@@ -28,6 +28,9 @@
         android:label="News"
         tools:layout="@layout/news">
 
+        <action
+            android:id="@+id/action_news_to_showPost"
+            app:destination="@id/showPost" />
     </fragment>
     <fragment
         android:id="@+id/newSpot"
@@ -38,6 +41,11 @@
             android:id="@+id/action_newSpot_to_maps"
             app:destination="@id/goSkateMap" />
     </fragment>
+    <fragment
+        android:id="@+id/showPost"
+        android:name="go.goskate.goskate.ui.ShowPost"
+        android:label="ShowPost"
+        tools:layout="@layout/show_post_fragment" />
 
 
 </navigation>
