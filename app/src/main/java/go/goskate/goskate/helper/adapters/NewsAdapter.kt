@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.VideoView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.net.toUri
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import go.goskate.goskate.R
@@ -20,7 +21,7 @@ import go.goskate.goskate.vo.PostVO
 import kotlinx.android.synthetic.main.news_item.view.*
 import kotlinx.android.synthetic.main.pop_up_go_skate.*
 
-class NewsAdapter(val context: Context, val news: List<PostVO>) :
+class NewsAdapter(val context: Context, val news: List<PostVO>, val navigation: NavController) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     var isChecked = false
@@ -85,6 +86,10 @@ class NewsAdapter(val context: Context, val news: List<PostVO>) :
                 likedImageRed.visibility = View.GONE
                 likedImage.visibility = View.VISIBLE
 
+            }
+
+            imagePost.setOnClickListener {
+                navigation.navigate(R.id.action_news_to_showPost)
             }
 
             location.text = item.title
