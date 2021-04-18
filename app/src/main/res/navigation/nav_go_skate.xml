@@ -45,7 +45,11 @@
         android:id="@+id/showPost"
         android:name="go.goskate.goskate.ui.ShowPost"
         android:label="ShowPost"
-        tools:layout="@layout/show_post_fragment" />
+        tools:layout="@layout/show_post_fragment">
+        <action
+            android:id="@+id/action_showPost_to_news"
+            app:destination="@id/news" />
+    </fragment>
 
 
 </navigation>
